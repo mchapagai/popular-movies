@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        applicationId "com.example.mchapagai"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+        buildConfigField "String", "API_KEY", "${API_KEY}"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file('lint.xml')
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':MaterialLibrary')
+
+    implementation "com.android.support:appcompat-v7:$versions.support_library"
+    implementation "com.android.support:design:$versions.support_library"
+    implementation "com.android.support:support-annotations:$versions.support_library"
+    implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+
+    testImplementation "junit:junit:$versions.junit_version"
+    androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
+
+    implementation "org.apache.commons:commons-lang3:$versions.apache_commons"
+}

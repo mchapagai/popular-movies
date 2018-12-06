@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">?attr/darkPrimaryColor</item>
+        <item name="colorPrimaryDark">?attr/darkPrimaryColor</item>
+        <item name="colorAccent">?attr/actionColor</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:statusBarColor">?attr/darkPrimaryColor</item>
+        <item name="android:actionBarDivider">@null</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:textColorPrimary">?attr/darkTextPrimaryColor</item>
+        <item name="android:textColorLink">?attr/darkLinkColor</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="darkPrimaryColor">@color/darkThemePrimary</item>
+        <item name="darkPrimaryDarkColor">@color/darkThemePrimaryDark</item>
+        <item name="darkSecondaryColor">@color/darkThemeSecondary</item>
+        <item name="darkTextPrimaryColor">@color/darkThemePrimaryText</item>
+        <item name="darkTextSecondaryColor">@color/darkThemeSecondaryText</item>
+        <item name="darkLinkColor">@color/darkThemeLink</item>
+        <item name="actionColor">@color/action</item>
+        <item name="redColor">@color/red</item>
+        <item name="greyColor">@color/grey</item>
+    </style>
+</resources>

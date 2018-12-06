@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="darkPrimaryColor" format="reference|color" />
+    <attr name="darkPrimaryDarkColor" format="reference|color" />
+    <attr name="darkSecondaryColor" format="reference|color" />
+    <attr name="darkTextPrimaryColor" format="reference|color" />
+    <attr name="darkTextSecondaryColor" format="reference|color" />
+    <attr name="darkLinkColor" format="reference|color" />
+    <attr name="actionColor" format="reference|color" />
+    <attr name="redColor" format="reference|color" />
+    <attr name="greyColor" format="reference|color" />
+</resources>

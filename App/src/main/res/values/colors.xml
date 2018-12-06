@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark theme colors -->
+    <color name="darkThemePrimary">#303030</color>
+    <color name="darkThemePrimaryDark">#000000</color>
+    <color name="darkThemeSecondary">#2C2C2C</color>
+    <color name="darkThemePrimaryText">#FFFFFF</color>
+    <color name="darkThemeSecondaryText">#CCCCCC</color>
+    <color name="darkThemeLink">#FCC428</color>
+
+    <!-- Common colors -->
+    <color name="action">#1CA8F4</color>
+    <color name="red">#ff0000</color>
+    <color name="grey">#cccccc</color>
+</resources>

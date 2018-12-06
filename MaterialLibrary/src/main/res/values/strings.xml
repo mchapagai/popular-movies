@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MaterialLibrary</string>
+
+    <string name="material_dialog_ok">OK</string>
+    <string name="material_dialog_cancel">CANCEL</string>
+
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_40dp">40dp</dimen>
+    <dimen name="margin_60dp">60dp</dimen>
+    <dimen name="margin_256dp">256dp</dimen>
+
+    <dimen name="text_medium">18sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+
+    <color name="darkThemePrimary">#303030</color>
+</resources>

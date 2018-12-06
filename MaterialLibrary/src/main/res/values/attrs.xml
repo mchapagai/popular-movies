@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialTextView">
+        <attr name="linkColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialCircleImageView">
+        <attr name="borderWidth" format="dimension|reference" />
+        <attr name="borderColor" format="color|reference" />
+        <attr name="borderOverlay" format="boolean" />>
+        <attr name="circleBackgroundColor" format="color|reference" />
+    </declare-styleable>
+
+</resources>
