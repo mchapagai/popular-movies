@@ -41,6 +41,7 @@ dependencies {
 
     implementation project(':MaterialLibrary')
 
+    //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$versions.support_library"
     implementation "com.android.support:design:$versions.support_library"
     implementation "com.android.support:support-annotations:$versions.support_library"
@@ -49,6 +50,40 @@ dependencies {
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
+    testImplementation "org.robolectric:robolectric:$versions.robolectric"
+    testImplementation "org.robolectric:shadows-multidex:$versions.robolectric"
+    testImplementation "org.robolectric:shadows-supportv4:$versions.robolectric"
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
 
+    //Guava
     implementation "org.apache.commons:commons-lang3:$versions.apache_commons"
+
+    // LeakCanary for memory leak detection
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakcanary"
+    // Optional, if you use support library fragments:
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$versions.leakcanary"
+
+    // Retrofit, RxJava, OkHttp3, Picasso
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "com.squareup.picasso:picasso:$versions.picasso"
+    //Dagger2
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$versions.butterknife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
+    // ViweModel & LoveData
+    implementation "android.arch.lifecycle:extensions:$versions.arch_lifecycle"
+    implementation "android.arch.lifecycle:runtime:$versions.arch_lifecycle"
+    annotationProcessor "android.arch.lifecycle:compiler:$versions.arch_lifecycle"
 }

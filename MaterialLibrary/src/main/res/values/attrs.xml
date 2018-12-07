@@ -11,4 +11,11 @@
         <attr name="circleBackgroundColor" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="MaterialView">
+        <attr name="str" format="string" />
+        <attr name="dimension" format="dimension" />
+        <attr name="colorId" format="color" />
+        <attr name="drawableId" format="color|reference" />
+    </declare-styleable>
+
 </resources>
