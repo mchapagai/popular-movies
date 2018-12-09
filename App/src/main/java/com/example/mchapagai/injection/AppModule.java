@@ -14,9 +14,17 @@ import dagger.Provides;
         includes = ViewModelModule.class
 )
 class AppModule {
+
+    @Singleton
+    @Provides
+    BaseApplication provideBaseApplication() {
+        return BaseApplication.getBaseApplication();
+    }
+
     @Provides
     @Singleton
     Context context() {
         return BaseApplication.getApplicationContextInstance();
     }
+
 }

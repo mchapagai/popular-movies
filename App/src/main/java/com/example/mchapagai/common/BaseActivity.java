@@ -1,9 +1,10 @@
 package com.example.mchapagai.common;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class BaseActivity extends DaggerAppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

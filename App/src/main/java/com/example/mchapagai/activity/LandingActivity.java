@@ -11,12 +11,12 @@ import android.view.View;
 import com.example.mchapagai.R;
 import com.example.mchapagai.common.BaseActivity;
 
-public class MainActivity extends BaseActivity {
+public class LandingActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.landing_activity_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

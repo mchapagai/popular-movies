@@ -1,14 +1,14 @@
 package com.example.mchapagai.common;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.example.mchapagai.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 
 import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends DaggerApplication {
 
     private static Context context;
     private static BaseApplication baseApplication;

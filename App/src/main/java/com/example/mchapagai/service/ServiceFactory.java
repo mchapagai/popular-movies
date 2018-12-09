@@ -1,5 +1,7 @@
 package com.example.mchapagai.service;
 
+import android.support.annotation.NonNull;
+
 import com.example.mchapagai.BuildConfig;
 import com.example.mchapagai.common.Constants;
 
@@ -43,7 +45,7 @@ public class ServiceFactory {
 
             httpClient.addInterceptor(new Interceptor() {
                 @Override
-                public Response intercept(Chain chain) throws IOException {
+                public Response intercept(@NonNull Chain chain) throws IOException {
                     Request original = chain.request();
                     HttpUrl originalHttpUrl = original.url();
 
@@ -84,41 +86,5 @@ public class ServiceFactory {
         }
         return retrofit.create(clazz);
     }
-
-/*
-    private static HttpLoggingInterceptor getLoggingInterceptor() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        if (BuildConfig.DEBUG) {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        } else {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
-        return interceptor;
-    }
-
-    private static OkHttpClient getOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
-        return new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .connectTimeout(INTERCEPTOR_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(INTERCEPTOR_TIMEOUT, TimeUnit.SECONDS)
-                .build();
-    }
-
-    public static <T> T createService(final Class<T> clazz) {
-
-        OkHttpClient client = getOkHttpClient(getLoggingInterceptor());
-
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.SERVICE_ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .client(client)
-                    .build();
-        }
-
-        return retrofit.create(clazz);
-    }*/
 
 }
