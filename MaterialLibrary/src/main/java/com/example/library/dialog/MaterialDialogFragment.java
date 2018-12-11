@@ -3,11 +3,7 @@ package com.example.library.dialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.library.R;
 import com.example.library.views.MaterialButton;
@@ -35,25 +29,25 @@ public class MaterialDialogFragment extends DialogFragment {
     public MaterialDialogFragment() {
     }
 
-    private static MaterialDialogFragment buildAlertDialog(DialogBuilder dialogBuilder) {
+    private static MaterialDialogFragment buildAlertDialog(MovieDialogBuilder movieDialogBuilder) {
         MaterialDialogFragment fragment = new MaterialDialogFragment();
         Bundle args = new Bundle();
-        args.putParcelable(DATA_MODEL, dialogBuilder);
+        args.putParcelable(DATA_MODEL, movieDialogBuilder);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static MaterialDialogFragment showDialog(DialogBuilder dialogBuilder, AppCompatActivity activity) {
+    public static MaterialDialogFragment showDialog(MovieDialogBuilder movieDialogBuilder, AppCompatActivity activity) {
         FragmentManager manager = activity.getSupportFragmentManager();
-        String tag = dialogBuilder.getTag();
-        MaterialDialogFragment fragment = MaterialDialogFragment.buildAlertDialog(dialogBuilder);
+        String tag = movieDialogBuilder.getTag();
+        MaterialDialogFragment fragment = MaterialDialogFragment.buildAlertDialog(movieDialogBuilder);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(fragment, tag);
         transaction.commitAllowingStateLoss();
         return fragment;
     }
 
-    public static MaterialDialogFragment showDialog(DialogBuilder builder, Fragment fragment) {
+    public static MaterialDialogFragment showDialog(MovieDialogBuilder builder, Fragment fragment) {
         FragmentManager manager = fragment.getFragmentManager();
         String tag = builder.getTag();
         MaterialDialogFragment dialogFragment = MaterialDialogFragment.buildAlertDialog(builder);
@@ -63,11 +57,10 @@ public class MaterialDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        DialogBuilder builder = getArguments().getParcelable(DATA_MODEL);
-        return apply(builder);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        MovieDialogBuilder dialogBuilder = getArguments().getParcelable(DATA_MODEL);
+        return createDialog(dialogBuilder);
     }
 
     @Override
@@ -83,7 +76,7 @@ public class MaterialDialogFragment extends DialogFragment {
         this.onDialogClickListener = onDialogClickListener;
     }
 
-    private Dialog apply(final DialogBuilder builder) {
+    private Dialog createDialog(final MovieDialogBuilder builder) {
         View view = null;
         Dialog dialog;
 
@@ -92,17 +85,6 @@ public class MaterialDialogFragment extends DialogFragment {
             ((ProgressDialog) dialog).setIndeterminate(true);
             ((ProgressDialog) dialog).setMessage(builder.getMessage());
             setCancelable(builder.isCancelable());
-        } else if (builder.isCustomWindow()) {
-            dialog = new Dialog(getActivity());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            view = LayoutInflater.from(getActivity()).inflate(builder.getLayoutResId(), null);
-            dialog.setContentView(view);
-
-            Window oobPreviewWindow = dialog.getWindow();
-            oobPreviewWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-            oobPreviewWindow.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            oobPreviewWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setCustomDialog(builder, dialog, view, false);
         } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
@@ -144,7 +126,7 @@ public class MaterialDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    private void setButtons(final DialogBuilder builder, final AlertDialog.Builder dialogBuilder) {
+    private void setButtons(final MovieDialogBuilder builder, final AlertDialog.Builder dialogBuilder) {
         if (builder.getPositiveButtonText() != null) {
             dialogBuilder.setPositiveButton(builder.getPositiveButtonText(),
                     ((dialog, which) -> {
@@ -168,8 +150,10 @@ public class MaterialDialogFragment extends DialogFragment {
         }
     }
 
-    private void setCustomDialog(final DialogBuilder builder, final Dialog dialog, View containerView, boolean isUpperCase) {
-        if (containerView == null) return;
+    private void setCustomDialog(final MovieDialogBuilder builder, final Dialog dialog, View containerView, boolean isUpperCase) {
+        if (containerView == null) {
+            return;
+        }
 
         if (builder.getMessage() != null) {
             MaterialTextView message = containerView.findViewById(R.id.dialog_message);
@@ -179,12 +163,12 @@ public class MaterialDialogFragment extends DialogFragment {
 
         if (builder.isCustomButton()) {
             if (builder.getPositiveButtonText() != null) {
-                MaterialButton button = containerView.findViewById(R.id.positive_button);
+                MaterialButton positiveButton = containerView.findViewById(R.id.positive_button);
                 if (isUpperCase) {
-                    button.setText(builder.getPositiveButtonText().toUpperCase());
+                    positiveButton.setText(builder.getPositiveButtonText().toUpperCase());
                 }
-                button.setVisibility(View.VISIBLE);
-                button.setOnClickListener(view -> {
+                positiveButton.setVisibility(View.VISIBLE);
+                positiveButton.setOnClickListener(view -> {
                     if (onDialogClickListener != null) {
                         onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(), builder.getTag());
                     }
@@ -193,12 +177,13 @@ public class MaterialDialogFragment extends DialogFragment {
             }
 
             if (builder.getNegativeButtonText() != null) {
-                MaterialButton button = containerView.findViewById(R.id.negative_button);
-                if (isUpperCase) {
-                    button.setText(builder.getNegativeButtonText().toUpperCase());
+                MaterialButton negativeButton = containerView.findViewById(R.id.negative_button);
+                if (isUpperCase){
+                    negativeButton.setText(builder.getNegativeButtonText());
                 }
-                button.setVisibility(View.VISIBLE);
-                button.setOnClickListener(v -> {
+                negativeButton.setVisibility(View.VISIBLE);
+                negativeButton.setEnabled(false);
+                negativeButton.setOnClickListener(v -> {
                     if (onDialogClickListener != null) {
                         onDialogClickListener.onNegativeButtonClicked(builder.getTag());
                     }
@@ -209,7 +194,7 @@ public class MaterialDialogFragment extends DialogFragment {
             MaterialButton neutralButton = containerView.findViewById(R.id.neutral_button);
             if (builder.getNegativeButtonText() != null && neutralButton != null) {
                 if (isUpperCase) {
-                    neutralButton.setText(builder.getNeutralTextButton().toUpperCase());
+                    neutralButton.setText(builder.getNeutralButtonText());
                 }
                 neutralButton.setVisibility(View.VISIBLE);
                 neutralButton.setOnClickListener(v -> {
@@ -221,6 +206,7 @@ public class MaterialDialogFragment extends DialogFragment {
             }
         }
     }
+
 
     public interface OnDialogClickListener {
         void onPositiveButtonClicked(Serializable data, String tag);

@@ -1,22 +1,17 @@
 package com.example.library.utils;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.library.R;
-import com.example.library.dialog.DialogBuilder;
+import com.example.library.dialog.MovieDialogBuilder;
 import com.example.library.dialog.MaterialDialogFragment;
 
 import javax.annotation.Nonnull;
 
 public class MaterialDialogUtils {
 
-    public static MaterialDialogFragment showDialogWithSingleButton(Context context, int title, int message, int positiveButton) {
-        return showDialog(context, title, message, positiveButton);
-    }
-
-    public static MaterialDialogFragment showDialog(@Nonnull Context context, int title, int message, int positiveButtonMsg) {
-        DialogBuilder builder = new DialogBuilder()
+    public static MaterialDialogFragment showDialog(@Nonnull AppCompatActivity context, int title, int message, int positiveButtonMsg) {
+        MovieDialogBuilder builder = new MovieDialogBuilder()
                 .setTitle(context.getResources().getString(title))
                 .setMessage(context.getResources().getString(message))
                 .setCancelable(true)
@@ -24,11 +19,11 @@ public class MaterialDialogUtils {
                 .setLayoutResId(R.layout.custom_confirmation_dialog)
                 .setCustomButton(true);
 
-        return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
+        return MaterialDialogFragment.showDialog(builder, context);
     }
 
-    public static MaterialDialogFragment showDialog(@Nonnull Context context, String title, String message, String positiveButtonMsg) {
-        DialogBuilder builder = new DialogBuilder()
+    public static MaterialDialogFragment showDialog(@Nonnull AppCompatActivity context, String title, String message, String positiveButtonMsg) {
+        MovieDialogBuilder builder = new MovieDialogBuilder()
                 .setTitle(title)
                 .setMessage(message)
                 .setCancelable(true)
@@ -36,6 +31,6 @@ public class MaterialDialogUtils {
                 .setLayoutResId(R.layout.custom_confirmation_dialog)
                 .setCustomButton(true);
 
-        return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
+        return MaterialDialogFragment.showDialog(builder, context);
     }
 }
