@@ -6,6 +6,7 @@ import com.example.mchapagai.activity.LaunchActivity;
 import com.example.mchapagai.activity.LoginActivity;
 import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.common.BaseFragment;
+import com.example.mchapagai.fragment.LandingFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -19,10 +20,13 @@ public abstract class ViewsModule {
     @ContributesAndroidInjector
     abstract BaseFragment baseFragment();
 
-
     @ActivityScope
     @ContributesAndroidInjector
     abstract LandingActivity landingActivity();
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract LandingFragment landingFragment();
+
     @ActivityScope
     @ContributesAndroidInjector
     abstract LaunchActivity launchActivity();

@@ -1,5 +1,6 @@
 package com.example.library.utils;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.library.R;
@@ -10,7 +11,7 @@ import javax.annotation.Nonnull;
 
 public class MaterialDialogUtils {
 
-    public static MaterialDialogFragment showDialog(@Nonnull AppCompatActivity context, int title, int message, int positiveButtonMsg) {
+    public static MaterialDialogFragment showDialog(@Nonnull Context context, int title, int message, int positiveButtonMsg) {
         MovieDialogBuilder builder = new MovieDialogBuilder()
                 .setTitle(context.getResources().getString(title))
                 .setMessage(context.getResources().getString(message))
@@ -19,10 +20,10 @@ public class MaterialDialogUtils {
                 .setLayoutResId(R.layout.custom_confirmation_dialog)
                 .setCustomButton(true);
 
-        return MaterialDialogFragment.showDialog(builder, context);
+        return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
     }
 
-    public static MaterialDialogFragment showDialog(@Nonnull AppCompatActivity context, String title, String message, String positiveButtonMsg) {
+    public static MaterialDialogFragment showDialog(@Nonnull Context context, String title, String message, String positiveButtonMsg) {
         MovieDialogBuilder builder = new MovieDialogBuilder()
                 .setTitle(title)
                 .setMessage(message)
@@ -31,6 +32,6 @@ public class MaterialDialogUtils {
                 .setLayoutResId(R.layout.custom_confirmation_dialog)
                 .setCustomButton(true);
 
-        return MaterialDialogFragment.showDialog(builder, context);
+        return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
     }
 }

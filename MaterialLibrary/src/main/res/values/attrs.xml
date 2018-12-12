@@ -18,4 +18,10 @@
         <attr name="drawableId" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="PageLoader">
+        <attr name="loaderHeaderText" format="string" />
+        <attr name="loaderPrimaryText" format="string" />
+        <attr name="showShowAnimationView" format="boolean" />
+    </declare-styleable>
+
 </resources>

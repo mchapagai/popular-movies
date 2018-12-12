@@ -3,14 +3,16 @@ package com.example.mchapagai.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.library.utils.MaterialDialogUtils;
+import com.example.library.views.PageLoader;
 import com.example.mchapagai.R;
 import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.utils.SharedPreferencesUtils;
-import com.example.mchapagai.view_model.MovieViewModel;
+import com.example.mchapagai.view_model.LoginViewModel;
 
 import javax.inject.Inject;
 
@@ -21,7 +23,7 @@ public class LoginActivity extends BaseActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
 
     @Inject
-    MovieViewModel movieViewModel;
+    LoginViewModel loginViewModel;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String authenticationToken;
@@ -30,6 +32,7 @@ public class LoginActivity extends BaseActivity {
     private EditText usernameInputFiled, passwordInputField;
     private Button loginButton;
     private String sessionId;
+    private PageLoader pageLoader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void fetchAuthenticationToken() {
-        compositeDisposable.add(movieViewModel.getAuthRequestToken()
+        pageLoader.setVisibility(View.VISIBLE);
+        compositeDisposable.add(loginViewModel.getAuthRequestToken()
+                .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(
                         token -> {
                             if (token.getRequestToken() != null) {
@@ -63,7 +68,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void errorDialog() {
-        MaterialDialogUtils.showDialog(LoginActivity.this,
+        MaterialDialogUtils.showDialog(this,
                 R.string.service_error_title,
                 R.string.service_error_404,
                 R.string.material_dialog_ok);
@@ -73,6 +78,7 @@ public class LoginActivity extends BaseActivity {
         loginButton = findViewById(R.id.login_button);
         usernameInputFiled = findViewById(R.id.username_edit_text);
         passwordInputField = findViewById(R.id.password_edit_text);
+        pageLoader = findViewById(R.id.progress_page_loader);
         preferencesUtils = new SharedPreferencesUtils(this);
     }
 
@@ -80,8 +86,9 @@ public class LoginActivity extends BaseActivity {
         loginButton.setOnClickListener(v -> {
             final String username = usernameInputFiled.getText().toString();
             final String password = passwordInputField.getText().toString();
-
-            compositeDisposable.add(movieViewModel.getRequestAuthenticated(authenticationToken, username, password)
+            pageLoader.setVisibility(View.VISIBLE);
+            compositeDisposable.add(loginViewModel.getRequestAuthenticated(authenticationToken, username, password)
+                    .doFinally(() -> pageLoader.setVisibility(View.GONE))
                     .subscribe(
                             token -> {
                                 verifyToken = true;
@@ -89,7 +96,7 @@ public class LoginActivity extends BaseActivity {
                                 authenticationToken = token.getRequestToken();
                                 Log.d(TAG, token.getRequestToken());
 
-                                compositeDisposable.add(movieViewModel.getSessionID(authenticationToken)
+                                compositeDisposable.add(loginViewModel.getSessionID(authenticationToken)
                                         .subscribe(
                                                 authSession -> {
                                                     sessionId = authSession.getSessionId();
@@ -134,8 +141,10 @@ public class LoginActivity extends BaseActivity {
 
     private void getAccountSignInDetails() {
         String sessionId = preferencesUtils.setSessionKey();
-        compositeDisposable.add(movieViewModel.getAccountDetails(sessionId).subscribe(
-                accountDetails -> {
+        pageLoader.setVisibility(View.VISIBLE);
+        compositeDisposable.add(loginViewModel.getAccountDetails(sessionId)
+                .doFinally(() -> pageLoader.setVisibility(View.GONE))
+                .subscribe(accountDetails -> {
                     if (accountDetails.getUsername() != null) {
                         preferencesUtils.setAccountDetails(String.valueOf(accountDetails.getId()), accountDetails.getUsername());
                     } else {

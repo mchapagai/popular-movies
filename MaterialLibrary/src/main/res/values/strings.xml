@@ -5,12 +5,17 @@
     <string name="material_dialog_cancel">Cancel</string>
     <string name="material_dialog_neutral">Neutral</string>
 
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_40dp">40dp</dimen>
     <dimen name="margin_60dp">60dp</dimen>
+    <dimen name="margin_125dp">125dp</dimen>
     <dimen name="margin_256dp">256dp</dimen>
+
+    <dimen name="margin_negative_6dp">-6dp</dimen>
 
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_small">14sp</dimen>

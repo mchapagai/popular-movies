@@ -122,6 +122,12 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <com.example.library.views.PageLoader
+            android:id="@+id/progress_page_loader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 
