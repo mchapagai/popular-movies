@@ -11,6 +11,7 @@ import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
 import com.example.mchapagai.common.Constants;
 import com.example.mchapagai.model.Movies;
+import com.example.mchapagai.utils.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.List;
 public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> {
 
     private List<Movies> movieItems;
+    private OnItemClickListener onItemClickListener;
 
-    public MoviesGridAdapter(List<Movies> movieItems) {
+    public MoviesGridAdapter(List<Movies> movieItems, OnItemClickListener onItemClickListener) {
         this.movieItems = movieItems;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -38,7 +41,10 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
 
         Picasso.get()
                 .load(Constants.MOVIE_POSTER_URL + posterUrlPath)
+                .transform(new RoundedTransformation(20, 0))
                 .into(holder.poster);
+
+        holder.poster.setOnClickListener(v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition()));
     }
 
     @Override
@@ -53,6 +59,10 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
             super(itemView);
             poster = itemView.findViewById(R.id.movie_poster);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClickItem(Movies movies, int position);
     }
 
 }

@@ -20,7 +20,7 @@ public class MovieViewModelImpl implements MovieViewModel {
     }
 
     @Override
-    public Observable<MovieResponse> discoverMovies() {
-        return movieService.get().discoverMovies().compose(RxUtils.applySchedulers());
+    public Observable<MovieResponse> discoverMovies(String sortBy) {
+        return movieService.get().discoverMovies(sortBy).compose(RxUtils.applySchedulers());
     }
 }

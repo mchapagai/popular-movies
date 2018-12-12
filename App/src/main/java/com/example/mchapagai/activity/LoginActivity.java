@@ -1,6 +1,7 @@
 package com.example.mchapagai.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.library.utils.MaterialDialogUtils;
+import com.example.library.views.MaterialTextView;
 import com.example.library.views.PageLoader;
 import com.example.mchapagai.R;
 import com.example.mchapagai.common.BaseActivity;
@@ -33,6 +35,7 @@ public class LoginActivity extends BaseActivity {
     private Button loginButton;
     private String sessionId;
     private PageLoader pageLoader;
+    private MaterialTextView aboutView, tmdbSite;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,24 @@ public class LoginActivity extends BaseActivity {
         passwordInputField = findViewById(R.id.password_edit_text);
         pageLoader = findViewById(R.id.progress_page_loader);
         preferencesUtils = new SharedPreferencesUtils(this);
+
+        aboutView = findViewById(R.id.navigate_to_about);
+        aboutView.setOnClickListener(navigateToAbout);
+        tmdbSite = findViewById(R.id.navigate_to_tmdb);
+        tmdbSite.setOnClickListener(getNavigateToTMDb);
     }
+
+    private View.OnClickListener navigateToAbout = view -> {
+        Intent intent = new Intent(view.getContext(), AboutActivity.class);
+        startActivity(intent);
+    };
+
+    private View.OnClickListener getNavigateToTMDb = v -> {
+        String url = "https://www.themoviedb.org/";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    };
 
     private void setupUserLogin() {
         loginButton.setOnClickListener(v -> {
@@ -145,13 +165,13 @@ public class LoginActivity extends BaseActivity {
         compositeDisposable.add(loginViewModel.getAccountDetails(sessionId)
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(accountDetails -> {
-                    if (accountDetails.getUsername() != null) {
-                        preferencesUtils.setAccountDetails(String.valueOf(accountDetails.getId()), accountDetails.getUsername());
-                    } else {
-                        preferencesUtils.setAccountIDFalse();
-                    }
-                }
-        ));
+                            if (accountDetails.getUsername() != null) {
+                                preferencesUtils.setAccountDetails(String.valueOf(accountDetails.getId()), accountDetails.getUsername());
+                            } else {
+                                preferencesUtils.setAccountIDFalse();
+                            }
+                        }
+                ));
     }
 }
 

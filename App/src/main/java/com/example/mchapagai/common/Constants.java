@@ -14,4 +14,8 @@ public class Constants {
     public static final String PREF_SIGNED_IN = "signedIn";
     public static final String PREF_GET_ACCOUNT_ID = "accountId";
 
+    // Movie Details
+    public static final String MOVIE_DETAILS = "MOVIE_DETAILS_INTENT";
+    public static final String MOVIE_DETAILS_POSTER_URL = "https://image.tmdb.org/t/p/w342/";
+
 }

@@ -19,4 +19,7 @@
     <dimen name="text_large">22sp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_small">14sp</dimen>
+
+    <item name="movie_details_cover_aspect_ratio" format="float" type="dimen">1.77</item>
+
 </resources>

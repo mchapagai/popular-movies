@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import com.example.library.utils.MaterialDialogUtils;
 import com.example.library.views.PageLoader;
 import com.example.mchapagai.R;
-import com.example.mchapagai.activity.LandingActivity;
 import com.example.mchapagai.adapter.MoviesGridAdapter;
-import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.common.BaseFragment;
 import com.example.mchapagai.model.Movies;
 import com.example.mchapagai.model.binding.MovieResponse;
@@ -27,7 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 public class LandingFragment extends BaseFragment {
 
@@ -64,26 +61,17 @@ public class LandingFragment extends BaseFragment {
 
     private void movieResponseItems(MovieResponse response) {
         movieItems = response.getMovies();
-        recyclerView.setAdapter(new MoviesGridAdapter(movieItems));
+        recyclerView.setAdapter(new MoviesGridAdapter(movieItems, null));
     }
 
     private void loadMovies() {
         pageLoader.setVisibility(View.VISIBLE);
-        compositeDisposable.add(movieViewModel.discoverMovies()
+        compositeDisposable.add(movieViewModel.discoverMovies("popularity.desc")
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(
-                        new Consumer<MovieResponse>() {
-                            @Override
-                            public void accept(MovieResponse response) {
-                                movieResponseItems(response);
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) {
-                                MaterialDialogUtils.showDialog(getActivity(), R.string.service_error_title,
-                                        R.string.service_error_404, R.string.material_dialog_ok);
-                            }
-                        }
+                        this::movieResponseItems,
+                        throwable -> MaterialDialogUtils.showDialog(getActivity(), R.string.service_error_title,
+                                R.string.service_error_404, R.string.material_dialog_ok)
                 ));
     }
 

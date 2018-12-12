@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 public interface MovieViewModel {
 
-    Observable<MovieResponse> discoverMovies();
+    Observable<MovieResponse> discoverMovies(String sortBy);
 }
