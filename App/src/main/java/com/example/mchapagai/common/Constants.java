@@ -3,8 +3,6 @@ package com.example.mchapagai.common;
 public class Constants {
     public static final String SERVICE_ENDPOINT = "https://api.themoviedb.org/3/";
 
-    public static final String MOVIE_POSTER_URL = "https://image.tmdb.org/t/p/w185/";
-
     // Shared Preferences
     public static final String PREF_SESSION_ID = "sessionId";
     public static final String PREF_ACCESS_TOKEN = "accessToken";
@@ -16,6 +14,12 @@ public class Constants {
 
     // Movie Details
     public static final String MOVIE_DETAILS = "MOVIE_DETAILS_INTENT";
-    public static final String MOVIE_DETAILS_POSTER_URL = "https://image.tmdb.org/t/p/w342/";
+    public static final String MOVIE_POSTER_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
+    public static final String VIDEO_THUMBNAIL_BASE_URL = "https://img.youtube.com/vi/";
+    public static final String VIDEO_THUMBNAIL_SIZE = "/0.jpg";
+    public static final String YOUTUBE_APP_BASE_URI = "vnd.youtube:";
+    public static final String YOUTUBE_WEB_BASE_URL = "https://www.youtube.com/";
+    public static final String YOUTUBE_WEB_VIDEO_PATH = "watch";
+    public static final String YOUTUBE_WEB_QUERY_PARAM = "v";
 
 }

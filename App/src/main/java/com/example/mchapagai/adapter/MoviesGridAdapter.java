@@ -1,5 +1,6 @@
 package com.example.mchapagai.adapter;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
 import com.example.mchapagai.common.Constants;
 import com.example.mchapagai.model.Movies;
+import com.example.mchapagai.utils.MovieUtils;
 import com.example.mchapagai.utils.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -37,10 +39,11 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
     @Override
     public void onBindViewHolder(@NonNull final MoviesViewHolder holder, int position) {
         final Movies movies = movieItems.get(position);
-        String posterUrlPath = movies.getPosterPath();
+
+        Uri posterUrl = MovieUtils.getMoviePosterPathUri(movies);
 
         Picasso.get()
-                .load(Constants.MOVIE_POSTER_URL + posterUrlPath)
+                .load(posterUrl)
                 .transform(new RoundedTransformation(20, 0))
                 .into(holder.poster);
 

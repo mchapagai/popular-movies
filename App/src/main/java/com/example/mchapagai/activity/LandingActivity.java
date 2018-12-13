@@ -127,6 +127,12 @@ public class LandingActivity extends BaseActivity implements MoviesGridAdapter.O
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
+    }
+
+    @Override
     public void onClickItem(Movies movies, int position) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         startActivity(intent.putExtra(Constants.MOVIE_DETAILS, movies));

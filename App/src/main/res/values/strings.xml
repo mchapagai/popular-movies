@@ -37,5 +37,11 @@
 
     <string name="movie_details_reviews_placeholder">Reviews</string>
     <string name="movie_details_trailer_placeholder">Trailer</string>
+    <string name="date_placeholder" translatable="false">01-01-2010</string>
+    <string name="rating_placeholder" translatable="false">6,5/10 (5430)</string>
+    <string name="reviews_header" translatable="false">Reviews</string>
+    <string name="details_empty_video_message">Unfortunately, we couldn\'t find any video for the particular movies.</string>
+    <string name="details_rating_votes_count" translatable="false">%s/10 (%s)</string>
+    <string name="details_tmdb_attribution">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
 
 </resources>

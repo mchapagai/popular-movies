@@ -5,7 +5,7 @@
 
     <string-array name="software_list" translatable="false">
         <item>Sample App</item>
-        <item>Montserrat Fonts</item>
+        <item>Source Sans Fonts</item>
     </string-array>
 
     <string-array name="license_list" translatable="false">
@@ -29,7 +29,10 @@
         ]]></item>
 
         <item><![CDATA[
-        Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)
+        Copyright 2010, 2012, 2014 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name ‘Source’.
+        This Font Software is licensed under the SIL Open Font License, Version 1.1.
+        This license is copied below, and is also available with a FAQ at:
+        http://scripts.sil.org/OFL (https://fonts.google.com/specimen/Source+Sans+Pro)
         ]]></item>
 
         <item><![CDATA[

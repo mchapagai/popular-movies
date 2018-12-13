@@ -18,8 +18,16 @@ API, that I will be using in this app [**MovieDB**](https://www.themoviedb.org/)
 #### Configuration
 To set the API key, please refer to gradle.properties file and add the key in MOVIES_API_KEY placeholder which is configured in build.gradle to be used on the project.
 
+#### Configuration
+To set the API key, please refer to `gradle.properties` file and add the key in `API_KEY`
+placeholder which is configured in `build.gradle` to be used on the project.
 
-
+##### Libraries
+- [x] Retrofit 2 (service calls)
+- [x] RxJava 2 (reactive programming)
+- [x] Gson (JSON parsing)
+- [x] ButterKnife (view binding)
+- [x] Dagger (dependency injection)
 
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
