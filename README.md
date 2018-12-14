@@ -29,5 +29,10 @@ placeholder which is configured in `build.gradle` to be used on the project.
 - [x] ButterKnife (view binding)
 - [x] Dagger (dependency injection)
 
+
+
+### Known Issue:
+- YouTube thumbnail not working as expected
+
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1

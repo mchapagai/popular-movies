@@ -10,68 +10,50 @@ import java.util.List;
 
 public class MovieResponse implements Parcelable {
 
-	@SerializedName("page")
-	private int page;
+    @SerializedName("page")
+    private int page;
 
-	@SerializedName("total_pages")
-	private int totalPages;
-
-	@SerializedName("results")
-	private List<Movies> movies;
-
-	@SerializedName("total_results")
-	private int totalResults;
+    @SerializedName("results")
+    private List<Movies> movies;
 
 
-	protected MovieResponse(Parcel in) {
-		page = in.readInt();
-		totalPages = in.readInt();
-		movies = in.createTypedArrayList(Movies.CREATOR);
-		totalResults = in.readInt();
-	}
+    protected MovieResponse(Parcel in) {
+        page = in.readInt();
+        movies = in.createTypedArrayList(Movies.CREATOR);
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(page);
-		dest.writeInt(totalPages);
-		dest.writeTypedList(movies);
-		dest.writeInt(totalResults);
-	}
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(page);
+        dest.writeTypedList(movies);
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	public static final Creator<MovieResponse> CREATOR = new Creator<MovieResponse>() {
-		@Override
-		public MovieResponse createFromParcel(Parcel in) {
-			return new MovieResponse(in);
-		}
+    public static final Creator<MovieResponse> CREATOR = new Creator<MovieResponse>() {
+        @Override
+        public MovieResponse createFromParcel(Parcel in) {
+            return new MovieResponse(in);
+        }
 
-		@Override
-		public MovieResponse[] newArray(int size) {
-			return new MovieResponse[size];
-		}
-	};
+        @Override
+        public MovieResponse[] newArray(int size) {
+            return new MovieResponse[size];
+        }
+    };
 
-	public int getPage() {
-		return page;
-	}
+    public int getPage() {
+        return page;
+    }
 
-	public int getTotalPages() {
-		return totalPages;
-	}
+    public List<Movies> getMovies() {
+        return movies;
+    }
 
-	public List<Movies> getMovies() {
-		return movies;
-	}
-
-	public int getTotalResults() {
-		return totalResults;
-	}
-
-	public static Creator<MovieResponse> getCREATOR() {
-		return CREATOR;
-	}
+    public static Creator<MovieResponse> getCREATOR() {
+        return CREATOR;
+    }
 }

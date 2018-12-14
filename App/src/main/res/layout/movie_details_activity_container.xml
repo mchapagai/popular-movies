@@ -51,7 +51,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginEnd="@dimen/margin_16dp"
             android:descendantFocusability="blocksDescendants">
@@ -112,6 +112,18 @@
                 app:layout_constraintStart_toStartOf="@+id/release_date"
                 app:layout_constraintTop_toBottomOf="@+id/release_date" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movie_genre_recycler_view"
+                android:layout_width="@dimen/margin_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_over_view"
+                tools:listitem="@layout/movie_details_genre_items" />
+
             <View
                 android:id="@+id/video_divider"
                 style="@style/HorizontalDivider"
@@ -119,7 +131,7 @@
                 android:layout_marginTop="@dimen/margin_16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_over_view" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_genre_recycler_view" />
 
             <TextView
                 android:id="@+id/videos_title"
@@ -129,8 +141,8 @@
                 android:text="@string/movie_details_trailer_placeholder"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/details_over_view"
-                app:layout_constraintTop_toBottomOf="@+id/details_over_view" />
+                app:layout_constraintStart_toStartOf="@+id/movie_genre_recycler_view"
+                app:layout_constraintTop_toBottomOf="@+id/movie_genre_recycler_view" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/movie_video_recycler_view"

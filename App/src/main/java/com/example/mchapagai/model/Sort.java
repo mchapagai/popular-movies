@@ -1,5 +1,7 @@
 package com.example.mchapagai.model;
 
+import android.support.annotation.NonNull;
+
 public enum Sort {
 
     MOST_POPULAR("popularity.desc"),
@@ -13,6 +15,7 @@ public enum Sort {
         value = sort;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return value;

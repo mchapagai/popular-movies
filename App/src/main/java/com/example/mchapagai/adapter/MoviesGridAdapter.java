@@ -6,11 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
-import com.example.mchapagai.common.Constants;
 import com.example.mchapagai.model.Movies;
 import com.example.mchapagai.utils.MovieUtils;
 import com.example.mchapagai.utils.RoundedTransformation;

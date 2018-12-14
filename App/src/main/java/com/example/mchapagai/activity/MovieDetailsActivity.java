@@ -1,10 +1,16 @@
 package com.example.mchapagai.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,17 +23,19 @@ import android.widget.TextView;
 import com.example.library.utils.MaterialDialogUtils;
 import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
+import com.example.mchapagai.adapter.GenresAdapter;
 import com.example.mchapagai.adapter.ReviewsAdapter;
 import com.example.mchapagai.adapter.VideosAdapter;
 import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.common.Constants;
+import com.example.mchapagai.model.Genres;
 import com.example.mchapagai.model.Movies;
 import com.example.mchapagai.model.Reviews;
 import com.example.mchapagai.model.VideoItems;
+import com.example.mchapagai.model.binding.MovieDetailsResponse;
 import com.example.mchapagai.model.binding.ReviewsResponse;
 import com.example.mchapagai.utils.DateTImeUtils;
 import com.example.mchapagai.utils.MovieUtils;
-import com.example.mchapagai.utils.RoundedTransformation;
 import com.example.mchapagai.view_model.MovieViewModel;
 import com.example.mchapagai.widget.ItemOffsetDecoration;
 import com.squareup.picasso.Picasso;
@@ -48,13 +56,19 @@ public class MovieDetailsActivity extends BaseActivity {
     private Toolbar toolbar;
     private MaterialImageView posterBackdropImageView;
     private TextView originalTitle, releaseDate, ratings, overview;
-    private RecyclerView reviewsRecyclerView, videosRecyclerView;
+    private RecyclerView reviewsRecyclerView, videosRecyclerView, genreRecycleView;
     private View videoDivider, reviewsDivider;
-    private TextView videoTitle, videoErrorText, reviewHeader, emptyStateText;
-    private MaterialImageView tmdbLogo, videoEmptyStateImage;
+    private TextView videoTitle;
+    private TextView videoErrorText;
+    private TextView reviewHeader;
+    private MaterialImageView videoEmptyStateImage;
     private VideosAdapter videosAdapter;
     private List<VideoItems> videoItems = new ArrayList<>();
+    private List<Genres> genreItems = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private CoordinatorLayout layout;
+    private GenresAdapter genresAdapter;
+
 
     @Inject
     MovieViewModel movieViewModel;
@@ -73,7 +87,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private void initViews() {
         // Fullscreen - hide the status bar
-         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         toolbar = findViewById(R.id.movie_details_toolbar);
         appBarLayout = findViewById(R.id.appbar);
@@ -83,6 +97,7 @@ public class MovieDetailsActivity extends BaseActivity {
         releaseDate = findViewById(R.id.release_date);
         ratings = findViewById(R.id.ratings);
         overview = findViewById(R.id.details_over_view);
+        layout = findViewById(R.id.main_content);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,9 +130,55 @@ public class MovieDetailsActivity extends BaseActivity {
         releaseDate.setText(DateTImeUtils.getNameOfMonth(movies.getReleaseDate()));
         ratings.setText(String.format(Locale.US, "%.2f", movies.getVoteAverage()));
         Uri backdropUri = MovieUtils.getMovieBackdropPathUri(movies);
+
+        genreRecycleView = findViewById(R.id.movie_genre_recycler_view);
+        genreRecycleView.setLayoutManager(new LinearLayoutManager(MovieDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        genresAdapter = new GenresAdapter(genreItems);
+        genreRecycleView.setAdapter(genresAdapter);
+
+
         Picasso.get().load(backdropUri)
-                .transform(new RoundedTransformation(20, 0))
-                .into(posterBackdropImageView);
+                .into(new com.squareup.picasso.Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        posterBackdropImageView.setImageBitmap(bitmap);
+
+                        Palette.from(bitmap).generate(palette -> {
+                            genreRecycleView.setBackground(getGradientDrawable(getTopColor(palette), getCenterLightColor(palette), getBottomDarkColor(palette)));
+
+                            Palette.Swatch vibrant = palette.getVibrantSwatch();
+                            if (vibrant != null) {
+//                                releaseDate.setTextColor(vibrant.getBodyTextColor());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+    }
+
+    private void loadMoreMovies() {
+        compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
+                .subscribe(
+                        response -> movieDetailsResponseItems(response),
+                        throwable -> {}
+                ));
+    }
+
+    private void movieDetailsResponseItems(MovieDetailsResponse response) {
+        genreRecycleView = findViewById(R.id.movie_genre_recycler_view);
+        genreRecycleView.setItemAnimator(new DefaultItemAnimator());
+        genreRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        genreItems = response.getGenres();
+        genreRecycleView.setAdapter(new GenresAdapter(genreItems));
     }
 
     private void populateMovieTrailer() {
@@ -159,16 +220,16 @@ public class MovieDetailsActivity extends BaseActivity {
     private void loadMovieVideos() {
         compositeDisposable.add(movieViewModel.getMovieVideosbyId(movies.getId())
                 .subscribe(response -> {
-                    if (response.getVideos().isEmpty() || response.getVideos().size() == 0) {
-                        showVideoError();
-                    } else {
-                        hideVideoError();
-                        videosAdapter.setMovieVideos(response.getVideos());
-                    }
-                }, throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
-                                   getResources().getString(R.string.service_error_title),
-                                   throwable.getMessage(),
-                                   getResources().getString(R.string.material_dialog_ok))
+                            if (response.getVideos().isEmpty() || response.getVideos().size() == 0) {
+                                showVideoError();
+                            } else {
+                                hideVideoError();
+                                videosAdapter.setMovieVideos(response.getVideos());
+                            }
+                        }, throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
+                        getResources().getString(R.string.service_error_title),
+                        throwable.getMessage(),
+                        getResources().getString(R.string.material_dialog_ok))
 
                 ));
     }
@@ -233,6 +294,7 @@ public class MovieDetailsActivity extends BaseActivity {
         super.onResume();
         loadMovieVideos();
         loadMovieReviews();
+        loadMoreMovies();
     }
 
     @Override
@@ -245,5 +307,49 @@ public class MovieDetailsActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         compositeDisposable.clear();
+    }
+
+
+    /*Creating gradient drawable to be used as a background using three colors - top color ,center light color and bottom dark color */
+    private GradientDrawable getGradientDrawable(int topColor, int centerColor, int bottomColor) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setOrientation(GradientDrawable.Orientation.TL_BR);
+        gradientDrawable.setShape(GradientDrawable.LINEAR_GRADIENT);
+        gradientDrawable.setColors(new int[]{
+                topColor,
+                centerColor,
+                bottomColor
+        });
+        return gradientDrawable;
+    }
+
+    /**
+     * @param palette generated palette from image
+     * @return return top color for gradient either muted or vibrant whatever is available
+     */
+    private int getTopColor(Palette palette) {
+        if (palette.getMutedSwatch() != null || palette.getVibrantSwatch() != null)
+            return palette.getMutedSwatch() != null ? palette.getMutedSwatch().getRgb() : palette.getVibrantSwatch().getRgb();
+        else return Color.RED;
+    }
+
+    /**
+     * @param palette generated palette from image
+     * @return return center light color for gradient either muted or vibrant whatever is available
+     */
+    private int getCenterLightColor(Palette palette) {
+        if (palette.getLightMutedSwatch() != null || palette.getLightVibrantSwatch() != null)
+            return palette.getLightMutedSwatch() != null ? palette.getLightMutedSwatch().getRgb() : palette.getLightVibrantSwatch().getRgb();
+        else return Color.GREEN;
+    }
+
+    /**
+     * @param palette generated palette from image
+     * @return return bottom dark color for gradient either muted or vibrant whatever is available
+     */
+    private int getBottomDarkColor(Palette palette) {
+        if (palette.getDarkMutedSwatch() != null || palette.getDarkVibrantSwatch() != null)
+            return palette.getDarkMutedSwatch() != null ? palette.getDarkMutedSwatch().getRgb() : palette.getDarkVibrantSwatch().getRgb();
+        else return Color.BLUE;
     }
 }

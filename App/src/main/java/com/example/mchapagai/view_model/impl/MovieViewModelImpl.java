@@ -1,5 +1,6 @@
 package com.example.mchapagai.view_model.impl;
 
+import com.example.mchapagai.model.binding.MovieDetailsResponse;
 import com.example.mchapagai.model.binding.MovieResponse;
 import com.example.mchapagai.model.binding.ReviewsResponse;
 import com.example.mchapagai.model.binding.VideoResponse;
@@ -34,5 +35,10 @@ public class MovieViewModelImpl implements MovieViewModel {
     @Override
     public Observable<ReviewsResponse> getMovieReviewsById(int movieId) {
         return movieService.get().getMovieReviewsById(movieId).compose(RxUtils.applySchedulers());
+    }
+
+    @Override
+    public Observable<MovieDetailsResponse> getMovieDetails(int movieId) {
+        return movieService.get().getMovieDetails(movieId).compose(RxUtils.applySchedulers());
     }
 }
