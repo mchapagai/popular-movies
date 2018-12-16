@@ -1,10 +1,9 @@
-package com.example.mchapagai.view_model;
+package com.example.mchapagai.api;
 
 import com.example.mchapagai.model.binding.*;
-
 import io.reactivex.Observable;
 
-public interface MovieViewModel {
+public interface MovieAPI {
 
     Observable<MovieResponse> discoverMovies(String sortBy);
     Observable<VideoResponse> getMovieVideosbyId(int movieId);

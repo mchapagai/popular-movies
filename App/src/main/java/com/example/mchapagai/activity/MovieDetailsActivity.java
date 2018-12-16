@@ -23,15 +23,14 @@ import android.widget.TextView;
 import com.example.library.utils.MaterialDialogUtils;
 import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
+import com.example.mchapagai.adapter.CreditsAdapter;
 import com.example.mchapagai.adapter.GenresAdapter;
 import com.example.mchapagai.adapter.ReviewsAdapter;
 import com.example.mchapagai.adapter.VideosAdapter;
 import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.common.Constants;
-import com.example.mchapagai.model.Genres;
-import com.example.mchapagai.model.Movies;
-import com.example.mchapagai.model.Reviews;
-import com.example.mchapagai.model.VideoItems;
+import com.example.mchapagai.model.*;
+import com.example.mchapagai.model.binding.CreditResponse;
 import com.example.mchapagai.model.binding.MovieDetailsResponse;
 import com.example.mchapagai.model.binding.ReviewsResponse;
 import com.example.mchapagai.utils.DateTImeUtils;
@@ -47,6 +46,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 public class MovieDetailsActivity extends BaseActivity {
 
@@ -56,7 +56,7 @@ public class MovieDetailsActivity extends BaseActivity {
     private Toolbar toolbar;
     private MaterialImageView posterBackdropImageView;
     private TextView originalTitle, releaseDate, ratings, overview;
-    private RecyclerView reviewsRecyclerView, videosRecyclerView, genreRecycleView;
+    private RecyclerView reviewsRecyclerView, videosRecyclerView, genreRecycleView, creditsRecyclerView;
     private View videoDivider, reviewsDivider;
     private TextView videoTitle;
     private TextView videoErrorText;
@@ -68,7 +68,9 @@ public class MovieDetailsActivity extends BaseActivity {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private CoordinatorLayout layout;
     private GenresAdapter genresAdapter;
-
+    private CreditsAdapter creditsAdapter;
+    private List<CastCredit> castCredits = new ArrayList<>();
+    private List<CrewCredits> crewCredits = new ArrayList<>();
 
     @Inject
     MovieViewModel movieViewModel;
@@ -167,8 +169,12 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private void loadMoreMovies() {
         compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
-                .subscribe(
-                        response -> movieDetailsResponseItems(response),
+                .subscribe(new Consumer<MovieDetailsResponse>() {
+                            @Override
+                            public void accept(MovieDetailsResponse response) throws Exception {
+                                MovieDetailsActivity.this.movieDetailsResponseItems(response);
+                            }
+                        },
                         throwable -> {}
                 ));
     }
@@ -206,6 +212,15 @@ public class MovieDetailsActivity extends BaseActivity {
         videosRecyclerView.setAdapter(videosAdapter);
     }
 
+    private void creditResponseItems(CreditResponse response) {
+        creditsRecyclerView = findViewById(R.id.movie_creditsrecycler_view);
+        creditsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        creditsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        castCredits = response.getCast();
+        crewCredits = response.getCrew();
+        creditsRecyclerView.setAdapter(new CreditsAdapter(castCredits, crewCredits, "Crew"));
+    }
+
     private void populateMovieReviews() {
         reviewHeader = findViewById(R.id.detail_review_header);
         reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
@@ -215,6 +230,24 @@ public class MovieDetailsActivity extends BaseActivity {
         reviewsRecyclerView.setHasFixedSize(true);
         reviewsRecyclerView.setLayoutManager(layoutManager);
         reviewsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+
+    private void loadMovieCredits() {
+        compositeDisposable.add(movieViewModel.getMovieCreditDetails(movies.getId())
+                .subscribe(
+                        new Consumer<CreditResponse>() {
+                            @Override
+                            public void accept(CreditResponse response) throws Exception {
+                                creditResponseItems(response);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+
+                            }
+                        }
+                ));
     }
 
     private void loadMovieVideos() {
@@ -295,6 +328,7 @@ public class MovieDetailsActivity extends BaseActivity {
         loadMovieVideos();
         loadMovieReviews();
         loadMoreMovies();
+        loadMovieCredits();
     }
 
     @Override

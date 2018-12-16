@@ -1,42 +1,28 @@
 package com.example.mchapagai.view_model;
 
-import com.example.mchapagai.service.LoginService;
-import com.example.mchapagai.service.MovieService;
-import com.example.mchapagai.service.ServiceFactory;
-import com.example.mchapagai.view_model.impl.MovieViewModelImpl;
+import com.example.mchapagai.api.LoginAPI;
+import com.example.mchapagai.api.MovieAPI;
+import com.example.mchapagai.api.impl.APIModule;
 import com.example.mchapagai.view_model.impl.LoginViewModelImpl;
-
-import javax.inject.Provider;
-import javax.inject.Singleton;
+import com.example.mchapagai.view_model.impl.MovieViewModelImpl;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module (
+        includes = APIModule.class
+)
 public class ViewModelModule {
 
     @Provides
-    @Singleton
-    MovieService providesMovieService() {
-        return ServiceFactory.createService(MovieService.class);
+    MovieViewModel providesMovieViewModel(MovieAPI movieAPI) {
+        return new MovieViewModelImpl(movieAPI);
     }
 
     @Provides
-    @Singleton
-    MovieViewModel providesMovieViewModel(Provider<MovieService> movieService) {
-        return new MovieViewModelImpl(movieService);
+    LoginViewModel providesLoginViewModel(LoginAPI loginAPI) {
+        return new LoginViewModelImpl(loginAPI);
     }
 
-    @Provides
-    @Singleton
-    LoginService providesLoginViewModelService() {
-        return ServiceFactory.createService(LoginService.class);
-    }
-
-    @Provides
-    @Singleton
-    LoginViewModel providesViewModel(Provider<LoginService> loginService) {
-        return new LoginViewModelImpl(loginService);
-    }
 
 }

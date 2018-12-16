@@ -1,43 +1,41 @@
 package com.example.mchapagai.view_model.impl;
 
+import com.example.mchapagai.api.LoginAPI;
 import com.example.mchapagai.model.AccountDetails;
 import com.example.mchapagai.model.AuthSession;
 import com.example.mchapagai.model.AuthToken;
-import com.example.mchapagai.service.LoginService;
 import com.example.mchapagai.utils.RxUtils;
 import com.example.mchapagai.view_model.LoginViewModel;
+import io.reactivex.Single;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-
-import io.reactivex.Single;
 
 public class LoginViewModelImpl implements LoginViewModel {
 
-    private Provider<LoginService> movieService;
+    private LoginAPI loginAPI;
 
     @Inject
-    public LoginViewModelImpl(Provider<LoginService> movieService) {
-        this.movieService = movieService;
+    public LoginViewModelImpl(LoginAPI loginAPI) {
+        this.loginAPI = loginAPI;
     }
 
     @Override
     public Single<AuthToken> getAuthRequestToken() {
-        return movieService.get().getRequestToken().compose(RxUtils.applySingleSchedulers());
+        return loginAPI.getAuthRequestToken().compose(RxUtils.applySingleSchedulers());
     }
 
     @Override
     public Single<AuthToken> getRequestAuthenticated(String requestToken, String username, String password) {
-        return movieService.get().getRequestAuthenticated(requestToken, username, password).compose(RxUtils.applySingleSchedulers());
+        return loginAPI.getRequestAuthenticated(requestToken, username, password).compose(RxUtils.applySingleSchedulers());
     }
 
     @Override
     public Single<AuthSession> getSessionID(String requestToken) {
-        return movieService.get().getSessionID(requestToken).compose(RxUtils.applySingleSchedulers());
+        return loginAPI.getSessionID(requestToken).compose(RxUtils.applySingleSchedulers());
     }
 
     @Override
     public Single<AccountDetails> getAccountDetails(String sessionId) {
-        return movieService.get().getAccountDetails(sessionId).compose(RxUtils.applySingleSchedulers());
+        return loginAPI.getAccountDetails(sessionId).compose(RxUtils.applySingleSchedulers());
     }
 }

@@ -124,6 +124,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/details_over_view"
                 tools:listitem="@layout/movie_details_genre_items" />
 
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/movie_creditsrecycler_view"
+                    android:layout_width="@dimen/margin_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_genre_recycler_view"
+                    tools:listitem="@layout/movie_details_credit_items" />
+
             <View
                 android:id="@+id/video_divider"
                 style="@style/HorizontalDivider"
@@ -131,7 +143,7 @@
                 android:layout_marginTop="@dimen/margin_16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_genre_recycler_view" />
+                app:layout_constraintTop_toBottomOf="@+id/movie_creditsrecycler_view" />
 
             <TextView
                 android:id="@+id/videos_title"
@@ -141,8 +153,8 @@
                 android:text="@string/movie_details_trailer_placeholder"
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/movie_genre_recycler_view"
-                app:layout_constraintTop_toBottomOf="@+id/movie_genre_recycler_view" />
+                app:layout_constraintStart_toStartOf="@+id/movie_creditsrecycler_view"
+                app:layout_constraintTop_toBottomOf="@+id/movie_creditsrecycler_view" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/movie_video_recycler_view"

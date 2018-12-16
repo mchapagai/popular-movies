@@ -1,44 +1,44 @@
 package com.example.mchapagai.view_model.impl;
 
-import com.example.mchapagai.model.binding.MovieDetailsResponse;
-import com.example.mchapagai.model.binding.MovieResponse;
-import com.example.mchapagai.model.binding.ReviewsResponse;
-import com.example.mchapagai.model.binding.VideoResponse;
-import com.example.mchapagai.service.MovieService;
+import com.example.mchapagai.api.MovieAPI;
+import com.example.mchapagai.model.binding.*;
 import com.example.mchapagai.utils.RxUtils;
 import com.example.mchapagai.view_model.MovieViewModel;
+import io.reactivex.Observable;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-
-import io.reactivex.Observable;
 
 public class MovieViewModelImpl implements MovieViewModel {
 
-    private Provider<MovieService> movieService;
+    private MovieAPI movieAPI;
 
     @Inject
-    public MovieViewModelImpl(Provider<MovieService> movieService) {
-        this.movieService = movieService;
+    public MovieViewModelImpl(MovieAPI movieAPI) {
+        this.movieAPI = movieAPI;
     }
 
     @Override
     public Observable<MovieResponse> discoverMovies(String sortBy) {
-        return movieService.get().discoverMovies(sortBy).compose(RxUtils.applySchedulers());
+        return movieAPI.discoverMovies(sortBy).compose(RxUtils.applySchedulers());
     }
 
     @Override
     public Observable<VideoResponse> getMovieVideosbyId(int movieId) {
-        return movieService.get().getMovieVideosbyId(movieId).compose(RxUtils.applySchedulers());
+        return movieAPI.getMovieVideosbyId(movieId).compose(RxUtils.applySchedulers());
     }
 
     @Override
     public Observable<ReviewsResponse> getMovieReviewsById(int movieId) {
-        return movieService.get().getMovieReviewsById(movieId).compose(RxUtils.applySchedulers());
+        return movieAPI.getMovieReviewsById(movieId).compose(RxUtils.applySchedulers());
     }
 
     @Override
     public Observable<MovieDetailsResponse> getMovieDetails(int movieId) {
-        return movieService.get().getMovieDetails(movieId).compose(RxUtils.applySchedulers());
+        return movieAPI.getMovieDetails(movieId).compose(RxUtils.applySchedulers());
+    }
+
+    @Override
+    public Observable<CreditResponse> getMovieCreditDetails(int movieId) {
+        return movieAPI.getMovieCreditDetails(movieId).compose(RxUtils.applySchedulers());
     }
 }

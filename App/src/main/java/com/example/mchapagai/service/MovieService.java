@@ -1,9 +1,6 @@
 package com.example.mchapagai.service;
 
-import com.example.mchapagai.model.binding.MovieDetailsResponse;
-import com.example.mchapagai.model.binding.MovieResponse;
-import com.example.mchapagai.model.binding.ReviewsResponse;
-import com.example.mchapagai.model.binding.VideoResponse;
+import com.example.mchapagai.model.binding.*;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -23,5 +20,8 @@ public interface MovieService {
 
     @GET("movie/{id}")
     Observable<MovieDetailsResponse> getMovieDetails(@Path("id") int movieId);
+
+    @GET("movie/{id}/credits")
+    Observable<CreditResponse> getMovieCreditDetails(@Path("id") int movieId);
 
 }

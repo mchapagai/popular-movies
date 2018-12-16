@@ -2,9 +2,10 @@ package com.example.mchapagai.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
-public class BaseFragment extends Fragment {
+import dagger.android.support.DaggerFragment;
+
+public class BaseFragment extends DaggerFragment {
 
     public BaseFragment() {
     }
