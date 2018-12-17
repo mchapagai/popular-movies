@@ -2,10 +2,10 @@ package com.example.mchapagai.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import dagger.android.AndroidInjection;
 
-import dagger.android.support.DaggerFragment;
-
-public class BaseFragment extends DaggerFragment {
+public class BaseFragment extends Fragment {
 
     public BaseFragment() {
     }
@@ -13,6 +13,8 @@ public class BaseFragment extends DaggerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AndroidInjection.inject(getActivity());
     }
 
 }

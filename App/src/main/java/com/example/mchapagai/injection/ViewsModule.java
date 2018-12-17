@@ -1,10 +1,6 @@
 package com.example.mchapagai.injection;
 
-import com.example.mchapagai.activity.AboutActivity;
-import com.example.mchapagai.activity.LandingActivity;
-import com.example.mchapagai.activity.LaunchActivity;
-import com.example.mchapagai.activity.LoginActivity;
-import com.example.mchapagai.activity.MovieDetailsActivity;
+import com.example.mchapagai.activity.*;
 import com.example.mchapagai.common.BaseActivity;
 import com.example.mchapagai.common.BaseFragment;
 import com.example.mchapagai.fragment.LandingFragment;
@@ -41,4 +37,7 @@ public abstract class ViewsModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract AboutActivity aboutActivity();
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract CreditDetailsActivity creditDetailsActivity();
 }

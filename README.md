@@ -30,9 +30,14 @@ placeholder which is configured in `build.gradle` to be used on the project.
 - [x] Dagger (dependency injection)
 
 
-
-### Known Issue:
-- YouTube thumbnail not working as expected
+### Future Enhancement
+ - Cast & crew, Expandable RecyclerView
+ - Collection picker for movie genres
+ - Search
+ - Favorite
 
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
+
+https://api.themoviedb.org/3/person/2524?api_key=key&language=en-US&append_to_response=credits%2Cimages%2C%20movie_credits
+

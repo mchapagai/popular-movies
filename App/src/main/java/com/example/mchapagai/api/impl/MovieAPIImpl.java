@@ -7,6 +7,9 @@ import com.example.mchapagai.service.MovieService;
 import javax.inject.Provider;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+
+import java.util.List;
 
 public class MovieAPIImpl implements MovieAPI {
 
@@ -39,5 +42,10 @@ public class MovieAPIImpl implements MovieAPI {
     @Override
     public Observable<CreditResponse> getMovieCreditDetails(int movieId) {
         return movieService.get().getMovieCreditDetails(movieId);
+    }
+
+    @Override
+    public Single<PersonResponse> getPersonDetailsById(String movieId) {
+        return movieService.get().getPersonDetailsById(movieId);
     }
 }

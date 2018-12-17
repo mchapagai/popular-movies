@@ -12,7 +12,7 @@ public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
     private int itemOffset;
 
     public ItemOffsetDecoration(int itemOffset) {
-        itemOffset = itemOffset;
+        this.itemOffset = itemOffset;
     }
 
     public ItemOffsetDecoration(@NonNull Context context, @DimenRes int itemOffsetId) {

@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.mchapagai.R;
+import com.example.mchapagai.common.Constants;
 import com.example.mchapagai.model.VideoItems;
 import com.example.mchapagai.utils.MovieUtils;
-import com.example.mchapagai.utils.OnItemClickListener;
-import com.example.mchapagai.utils.RoundedTransformation;
+import com.example.mchapagai.widget.OnItemClickListener;
+import com.example.mchapagai.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,11 +41,9 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
     public void onBindViewHolder(@NonNull final VideoViewHolder holder, int position) {
         final VideoItems videos = videoItems.get(position);
 
-        Uri thumbnailUri = MovieUtils.getThumbnailUriForVideo(videos);
-
         if (videos.isYoutubeVideo()) {
             Picasso.get()
-                    .load(thumbnailUri)
+                    .load(String.format(Constants.YOUTUBE_THUMBNAIL, videos.getKey()))
                     .transform(new RoundedTransformation(14, 0))
                     .into(holder.videoThumbnail);
         }

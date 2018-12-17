@@ -1,16 +1,11 @@
 package com.example.mchapagai.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
 import com.example.library.utils.MaterialDialogUtils;
 import com.example.library.views.MaterialImageView;
+import com.example.library.views.MaterialTextView;
 import com.example.mchapagai.R;
 import com.example.mchapagai.adapter.CreditsAdapter;
 import com.example.mchapagai.adapter.GenresAdapter;
@@ -33,20 +28,19 @@ import com.example.mchapagai.model.*;
 import com.example.mchapagai.model.binding.CreditResponse;
 import com.example.mchapagai.model.binding.MovieDetailsResponse;
 import com.example.mchapagai.model.binding.ReviewsResponse;
+import com.example.mchapagai.model.binding.VideoResponse;
 import com.example.mchapagai.utils.DateTImeUtils;
 import com.example.mchapagai.utils.MovieUtils;
 import com.example.mchapagai.view_model.MovieViewModel;
 import com.example.mchapagai.widget.ItemOffsetDecoration;
 import com.squareup.picasso.Picasso;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import javax.inject.Inject;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 
 public class MovieDetailsActivity extends BaseActivity {
 
@@ -68,9 +62,10 @@ public class MovieDetailsActivity extends BaseActivity {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private CoordinatorLayout layout;
     private GenresAdapter genresAdapter;
-    private CreditsAdapter creditsAdapter;
     private List<CastCredit> castCredits = new ArrayList<>();
     private List<CrewCredits> crewCredits = new ArrayList<>();
+    private MaterialTextView readmore;
+    private CreditsAdapter adapter;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -108,7 +103,6 @@ public class MovieDetailsActivity extends BaseActivity {
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
-
             int scrollRange = -1;
 
             @Override
@@ -138,44 +132,15 @@ public class MovieDetailsActivity extends BaseActivity {
         genresAdapter = new GenresAdapter(genreItems);
         genreRecycleView.setAdapter(genresAdapter);
 
-
         Picasso.get().load(backdropUri)
-                .into(new com.squareup.picasso.Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        posterBackdropImageView.setImageBitmap(bitmap);
-
-                        Palette.from(bitmap).generate(palette -> {
-                            genreRecycleView.setBackground(getGradientDrawable(getTopColor(palette), getCenterLightColor(palette), getBottomDarkColor(palette)));
-
-                            Palette.Swatch vibrant = palette.getVibrantSwatch();
-                            if (vibrant != null) {
-//                                releaseDate.setTextColor(vibrant.getBodyTextColor());
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
-                });
+                .into(posterBackdropImageView);
     }
 
     private void loadMoreMovies() {
         compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
-                .subscribe(new Consumer<MovieDetailsResponse>() {
-                            @Override
-                            public void accept(MovieDetailsResponse response) throws Exception {
-                                MovieDetailsActivity.this.movieDetailsResponseItems(response);
-                            }
-                        },
-                        throwable -> {}
+                .subscribe(response -> movieDetailsResponseItems(response),
+                        throwable -> {
+                        }
                 ));
     }
 
@@ -218,34 +183,52 @@ public class MovieDetailsActivity extends BaseActivity {
         creditsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         castCredits = response.getCast();
         crewCredits = response.getCrew();
-        creditsRecyclerView.setAdapter(new CreditsAdapter(castCredits, crewCredits, "Crew"));
+        adapter = new CreditsAdapter(castCredits, crewCredits);
+        creditsRecyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(crewCredits1 -> {
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), CreditDetailsActivity.class);
+            intent.putExtra(Constants.PERSON_ID_INTENT, crewCredits1.getId());
+            startActivity(intent);
+        });
     }
 
     private void populateMovieReviews() {
         reviewHeader = findViewById(R.id.detail_review_header);
         reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
         reviewsDivider = findViewById(R.id.reviews_divider);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         reviewsRecyclerView.setHasFixedSize(true);
         reviewsRecyclerView.setLayoutManager(layoutManager);
         reviewsRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    private void loadMovieCreditMerge() {
+
+        Observable<CreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(movies.getId());
+        Observable<VideoResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(movies.getId());
+
+        compositeDisposable.add(Observable.merge(movieCreditObservable, movieVideoObservable).subscribe(response -> {
+
+            if (response instanceof CreditResponse) {
+                creditResponseItems((CreditResponse) response);
+            } else {
+                VideoResponse videoResponse = (VideoResponse) response;
+                if (videoResponse.getVideos().isEmpty() || videoResponse.getVideos().size() == 0) {
+                    showVideoError();
+                } else {
+                    hideVideoError();
+                    videosAdapter.setMovieVideos(videoResponse.getVideos());
+                }
+            }
+        }));
+    }
 
     private void loadMovieCredits() {
         compositeDisposable.add(movieViewModel.getMovieCreditDetails(movies.getId())
                 .subscribe(
-                        new Consumer<CreditResponse>() {
-                            @Override
-                            public void accept(CreditResponse response) throws Exception {
-                                creditResponseItems(response);
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-
-                            }
+                        response -> creditResponseItems(response), throwable -> {
                         }
                 ));
     }
@@ -267,6 +250,12 @@ public class MovieDetailsActivity extends BaseActivity {
                 ));
     }
 
+    public void flatmatEx() {
+        Observable<CreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(movies.getId());
+        Observable<VideoResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(movies.getId());
+
+    }
+
     private void loadMovieReviews() {
         compositeDisposable.add(movieViewModel.getMovieReviewsById(movies.getId())
                 .subscribe(
@@ -279,7 +268,6 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void reviewsResponseItems(ReviewsResponse response) {
-
         List<Reviews> reviewItems = response.getReviews();
         if (reviewItems.isEmpty()) {
             reviewsRecyclerView.setVisibility(View.GONE);
@@ -325,10 +313,11 @@ public class MovieDetailsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadMovieVideos();
+//        loadMovieVideos();
+        loadMovieCreditMerge();
         loadMovieReviews();
         loadMoreMovies();
-        loadMovieCredits();
+//        loadMovieCredits();
     }
 
     @Override
@@ -343,47 +332,4 @@ public class MovieDetailsActivity extends BaseActivity {
         compositeDisposable.clear();
     }
 
-
-    /*Creating gradient drawable to be used as a background using three colors - top color ,center light color and bottom dark color */
-    private GradientDrawable getGradientDrawable(int topColor, int centerColor, int bottomColor) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setOrientation(GradientDrawable.Orientation.TL_BR);
-        gradientDrawable.setShape(GradientDrawable.LINEAR_GRADIENT);
-        gradientDrawable.setColors(new int[]{
-                topColor,
-                centerColor,
-                bottomColor
-        });
-        return gradientDrawable;
-    }
-
-    /**
-     * @param palette generated palette from image
-     * @return return top color for gradient either muted or vibrant whatever is available
-     */
-    private int getTopColor(Palette palette) {
-        if (palette.getMutedSwatch() != null || palette.getVibrantSwatch() != null)
-            return palette.getMutedSwatch() != null ? palette.getMutedSwatch().getRgb() : palette.getVibrantSwatch().getRgb();
-        else return Color.RED;
-    }
-
-    /**
-     * @param palette generated palette from image
-     * @return return center light color for gradient either muted or vibrant whatever is available
-     */
-    private int getCenterLightColor(Palette palette) {
-        if (palette.getLightMutedSwatch() != null || palette.getLightVibrantSwatch() != null)
-            return palette.getLightMutedSwatch() != null ? palette.getLightMutedSwatch().getRgb() : palette.getLightVibrantSwatch().getRgb();
-        else return Color.GREEN;
-    }
-
-    /**
-     * @param palette generated palette from image
-     * @return return bottom dark color for gradient either muted or vibrant whatever is available
-     */
-    private int getBottomDarkColor(Palette palette) {
-        if (palette.getDarkMutedSwatch() != null || palette.getDarkVibrantSwatch() != null)
-            return palette.getDarkMutedSwatch() != null ? palette.getDarkMutedSwatch().getRgb() : palette.getDarkVibrantSwatch().getRgb();
-        else return Color.BLUE;
-    }
 }

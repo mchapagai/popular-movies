@@ -60,7 +60,6 @@ public class AboutActivity extends BaseActivity {
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
-
             int scrollRange = -1;
 
             @Override
@@ -163,4 +162,10 @@ public class AboutActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
+
+    /*@Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }*/
 }

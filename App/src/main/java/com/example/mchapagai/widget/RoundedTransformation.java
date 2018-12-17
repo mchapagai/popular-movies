@@ -1,4 +1,4 @@
-package com.example.mchapagai.utils;
+package com.example.mchapagai.widget;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

@@ -11,7 +11,7 @@ import com.example.library.views.MaterialImageView;
 import com.example.mchapagai.R;
 import com.example.mchapagai.model.Movies;
 import com.example.mchapagai.utils.MovieUtils;
-import com.example.mchapagai.utils.RoundedTransformation;
+import com.example.mchapagai.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

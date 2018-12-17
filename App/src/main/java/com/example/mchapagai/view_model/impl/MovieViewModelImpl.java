@@ -5,6 +5,7 @@ import com.example.mchapagai.model.binding.*;
 import com.example.mchapagai.utils.RxUtils;
 import com.example.mchapagai.view_model.MovieViewModel;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 import javax.inject.Inject;
 
@@ -40,5 +41,10 @@ public class MovieViewModelImpl implements MovieViewModel {
     @Override
     public Observable<CreditResponse> getMovieCreditDetails(int movieId) {
         return movieAPI.getMovieCreditDetails(movieId).compose(RxUtils.applySchedulers());
+    }
+
+    @Override
+    public Single<PersonResponse> getPersonDetailsById(String movieId) {
+        return movieAPI.getPersonDetailsById(movieId).compose(RxUtils.applySingleSchedulers());
     }
 }

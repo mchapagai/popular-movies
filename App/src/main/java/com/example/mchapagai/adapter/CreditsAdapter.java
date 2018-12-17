@@ -17,21 +17,17 @@ import java.util.List;
 
 public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHolder> {
 
-    private String creditType;
     private List<CastCredit> castCreditItems;
     private List<CrewCredits> crewCreditItems;
+    private OnPersonClickListener onItemClickListener;
 
-    private Boolean isCreditTypeCast() {
-        if (creditType.equalsIgnoreCase("cast")) {
-            return true;
-        }
-        return false;
-    }
-
-    public CreditsAdapter(List<CastCredit> castCreditItems, List<CrewCredits> crewCreditItems, String creditType) {
+    public CreditsAdapter(List<CastCredit> castCreditItems, List<CrewCredits> crewCreditItems) {
         this.castCreditItems = castCreditItems;
         this.crewCreditItems = crewCreditItems;
-        this.creditType = creditType;
+    }
+
+    public void setOnItemClickListener(OnPersonClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -42,30 +38,31 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if (isCreditTypeCast()) {
-            final CastCredit cast = castCreditItems.get(position);
-            holder.textName.setText(cast.getName());
-            holder.textInfo.setText(cast.getCharacter());
-            Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + cast.getProfilePath())
-                    .into(holder.profileImage);
-        } else {
-            final CrewCredits cast = crewCreditItems.get(position);
-            holder.textName.setText(cast.getName());
-            holder.textInfo.setText(cast.getJob());
-            Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + cast.getProfilePath())
-                    .into(holder.profileImage);
-        }
+        holder.itemView.setTag(castCreditItems);
+        holder.itemView.setTag(crewCreditItems);
+
+        final CastCredit cast = castCreditItems.get(position);
+        holder.textName.setText(cast.getName());
+        holder.textInfo.setText(cast.getCharacter());
+        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + cast.getProfilePath())
+                .into(holder.profileImage);
+        final CrewCredits crew = crewCreditItems.get(position);
+        holder.textName.setText(crew.getName());
+        holder.textInfo.setText(crew.getJob());
+
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(cast));
     }
 
     @Override
     public int getItemCount() {
-        if (castCreditItems != null && isCreditTypeCast()) {
+        if (castCreditItems != null) {
             return castCreditItems.size();
         }
-        return crewCreditItems.size();
+        return crewCreditItems == null ? 0 : crewCreditItems.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textName, textInfo;
@@ -73,9 +70,15 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textName = itemView.findViewById(R.id.txt_name);
-            textInfo = itemView.findViewById(R.id.txt_info);
-            profileImage = itemView.findViewById(R.id.profile_image);
+            textName = itemView.findViewById(R.id.credit_name);
+            textInfo = itemView.findViewById(R.id.credit_info);
+            profileImage = itemView.findViewById(R.id.credit_profile_image);
         }
+
     }
+
+    public interface OnPersonClickListener {
+        void onItemClick(CastCredit crewCredits);
+    }
+
 }

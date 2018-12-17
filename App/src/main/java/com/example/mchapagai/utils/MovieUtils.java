@@ -8,7 +8,7 @@ import com.example.mchapagai.model.VideoItems;
 
 public class MovieUtils {
 
-    public static final Uri VIDEO_THUMBNAIL_BASE_URI = Uri.parse(Constants.VIDEO_THUMBNAIL_BASE_URL);
+    private static final Uri VIDEO_THUMBNAIL_BASE_URI = Uri.parse(Constants.YOUTUBE_THUMBNAIL);
 
     /**
      * Helper methods to build Movie poster path using Poster Endpoint
@@ -36,7 +36,6 @@ public class MovieUtils {
     public static Uri getThumbnailUriForVideo(VideoItems video) {
         return VIDEO_THUMBNAIL_BASE_URI.buildUpon()
                 .appendEncodedPath(video.getKey())
-                .appendEncodedPath(Constants.VIDEO_THUMBNAIL_SIZE)
                 .build();
     }
 

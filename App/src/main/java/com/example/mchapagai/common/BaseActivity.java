@@ -1,14 +1,15 @@
 package com.example.mchapagai.common;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import dagger.android.AndroidInjection;
 
-import dagger.android.support.DaggerAppCompatActivity;
-
-public class BaseActivity extends DaggerAppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidInjection.inject(this);
     }
 
     @Override
