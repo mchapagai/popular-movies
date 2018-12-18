@@ -19,7 +19,7 @@
             android:fitsSystemWindows="true"
             android:padding="@dimen/margin_16dp">
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_copyright"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_fork_me_on_github"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/about_copyright" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_github_url"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/about_fork_me_on_github" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_library_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/about_github_url" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_android_trademark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 app:layout_constraintBottom_toTopOf="@id/about_license_header"
                 app:layout_constraintTop_toBottomOf="@id/about_android_trademark" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_license_header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/about_divider" />
 
-            <com.example.library.views.MaterialTextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/about_license"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

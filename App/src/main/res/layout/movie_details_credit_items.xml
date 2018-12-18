@@ -7,7 +7,7 @@
         android:layout_marginEnd="@dimen/margin_8dp"
         android:id="@+id/credit_layout">
 
-    <com.example.library.views.MaterialCircleImageView
+    <com.mchapagai.library.views.MaterialCircleImageView
             android:id="@+id/credit_profile_image"
             android:layout_width="@dimen/margin_80dp"
             android:layout_height="@dimen/margin_80dp"

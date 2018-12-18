@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".activity.LandingActivity" />
 
-    <com.example.library.views.PageLoader
+    <com.mchapagai.library.views.PageLoader
         android:id="@+id/movies_page_loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

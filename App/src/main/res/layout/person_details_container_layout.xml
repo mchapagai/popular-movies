@@ -32,7 +32,7 @@
                     android:gravity="center"
                     app:layout_collapseMode="parallax">
 
-                <com.example.library.views.MaterialImageView
+                <com.mchapagai.library.views.MaterialImageView
                         android:id="@+id/credit_hero_template"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                         android:importantForAccessibility="no"
                         app:layout_collapseMode="parallax"/>
 
-                <com.example.library.views.MaterialCircleImageView
+                <com.mchapagai.library.views.MaterialCircleImageView
                         android:id="@+id/credit_circle_image_view"
                         android:layout_width="@dimen/margin_96dp"
                         android:layout_height="@dimen/margin_96dp"

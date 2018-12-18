@@ -8,7 +8,7 @@
     android:focusableInTouchMode="true"
     android:importantForAccessibility="yes">
 
-    <com.example.library.views.MaterialTextView
+    <com.mchapagai.library.views.MaterialTextView
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <com.example.library.views.MaterialTextView
+    <com.mchapagai.library.views.MaterialTextView
         android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:gravity="end"
         android:orientation="horizontal">
 
-        <com.example.library.views.MaterialButton
+        <com.mchapagai.library.views.MaterialButton
             android:id="@+id/negative_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -55,7 +55,7 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <com.example.library.views.MaterialButton
+        <com.mchapagai.library.views.MaterialButton
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -68,7 +68,7 @@
             tools:text="@string/material_dialog_ok"
             tools:visibility="visible" />
 
-        <com.example.library.views.MaterialButton
+        <com.mchapagai.library.views.MaterialButton
             android:id="@+id/neutral_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

@@ -132,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@+id/details_empty_video"
             app:layout_constraintStart_toStartOf="@+id/details_empty_video"/>
 
-    <com.example.library.views.MaterialImageView
+    <com.mchapagai.library.views.MaterialImageView
             android:id="@+id/details_empty_video"
             android:layout_width="@dimen/margin_96dp"
             android:layout_height="@dimen/margin_96dp"
@@ -189,7 +189,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reviews_recycler_view"/>
 
-    <com.example.library.views.MaterialImageView
+    <com.mchapagai.library.views.MaterialImageView
             android:id="@+id/tmdb_logo"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_32dp"
