@@ -2,139 +2,68 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
+import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.utils.MaterialDialogUtils;
-import com.mchapagai.library.views.PageLoader;
+import com.mchapagai.library.views.MaterialCircleImageView;
+import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.adapter.MoviesGridAdapter;
-import com.mchapagai.movies.common.BaseActivity;
-import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.Movies;
-import com.mchapagai.movies.model.Sort;
-import com.mchapagai.movies.model.binding.MovieResponse;
-import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.utils.PreferencesHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-import javax.inject.Inject;
+public class LandingActivity extends AppCompatActivity {
 
-import io.reactivex.disposables.CompositeDisposable;
-
-public class LandingActivity extends BaseActivity implements MoviesGridAdapter.OnItemClickListener {
-
-    private static final String TAG = LandingActivity.class.getSimpleName();
-
-    private static final int COLUMN_COUNT = 2;
-    private List<Movies> movieItems = new ArrayList<>();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private RecyclerView recyclerView;
-    private PageLoader pageLoader;
-    private Sort sort = Sort.MOST_POPULAR;
-
-    @Inject
-    MovieViewModel movieViewModel;
+    private MaterialImageView launchPopularMovies;
+    private MaterialImageView launchInfoScreen;
+    private MaterialCircleImageView launchProfileScreen;
+    private MaterialImageView launchSettingsScreen;
+    private PreferencesHelper preferencesHelper;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.landing_activity_layout);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.landing_activity_layout_container);
 
-        recyclerView = findViewById(R.id.movies_recycler_view);
-        pageLoader = findViewById(R.id.movies_page_loader);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, COLUMN_COUNT);
+        preferencesHelper = new PreferencesHelper(this);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        launchPopularMovies = findViewById(R.id.landing_popular_movies_point);
+        launchInfoScreen = findViewById(R.id.landing_about_page);
+        launchSettingsScreen = findViewById(R.id.landing_settings);
+        launchProfileScreen = findViewById(R.id.landing_user_profile);
 
-        /*getSupportFragmentManager().beginTransaction()
-                .replace(R.id.landing_fragment_container, new LandingFragment()).commit();*/
-    }
+        launchPopularMovies.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));
+        launchInfoScreen.setOnClickListener(view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
+        launchSettingsScreen.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
+        launchProfileScreen.setOnClickListener(view -> {
+            // Check to see if user is logged in, if not show a dialog to prompt user to login
+            if (preferencesHelper.isSignedIn()) {
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            } else {
+                MaterialDialogUtils.showDialog(view.getContext(), R.string.prompt_to_login_title,
+                        R.string.prompt_to_login_message, R.string.material_dialog_ok)
+                        .setOnDialogClickListener(new MaterialDialogFragment.OnDialogClickListener() {
+                    @Override
+                    public void onPositiveButtonClicked(Serializable data, String tag) {
+                        Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.landing_menu, menu);
-        return true;
-    }
+                    @Override
+                    public void onNegativeButtonClicked(String tag) {
+                        // TODO fix the click event to dismiss
+                    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_sort_popularity:
-                item.setChecked(!item.isChecked());
-                onSortChanged(Sort.MOST_POPULAR);
-                loadMovies();
-                break;
-                case R.id.menu_sort_vote_count:
-                    item.setChecked(!item.isChecked());
-                    onSortChanged(Sort.MOST_RATED);
-                    loadMovies();
-                    break;
-                case R.id.menu_sort_vote_average:
-                    item.setChecked(!item.isChecked());
-                    onSortChanged(Sort.TOP_RATED);
-                    loadMovies();
-                    break;
+                    @Override
+                    public void onCancelEvent(String tag) {
+                    }
+                });
             }
-        return super.onOptionsItemSelected(item);
+        });
     }
 
-    private void onSortChanged(Sort sort) {
-        this.sort = sort;
-    }
-
-    private void movieResponseItems(MovieResponse response) {
-        movieItems = response.getMovies();
-        recyclerView.setAdapter(new MoviesGridAdapter(movieItems, this));
-    }
-
-    private void loadMovies() {
-        pageLoader.setVisibility(View.VISIBLE);
-        compositeDisposable.add(movieViewModel.discoverMovies(sort.toString())
-                .doFinally(() -> pageLoader.setVisibility(View.GONE))
-                .subscribe(
-                        response -> {
-                            movieResponseItems(response);
-                            Log.d(TAG, response.toString());
-                        }, throwable -> MaterialDialogUtils.showDialog(LandingActivity.this,
-                                getResources().getString(R.string.service_error_title),
-                                throwable.getMessage(),
-                                getResources().getString(R.string.material_dialog_ok))
-                ));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadMovies();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        compositeDisposable.clear();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        compositeDisposable.clear();
-    }
-
-    @Override
-    public void onClickItem(Movies movies, int position) {
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
-        startActivity(intent.putExtra(Constants.MOVIE_DETAILS, movies));
-    }
 }

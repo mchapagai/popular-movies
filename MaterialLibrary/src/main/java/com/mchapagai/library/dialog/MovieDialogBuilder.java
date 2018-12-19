@@ -16,12 +16,10 @@ public class MovieDialogBuilder implements Parcelable {
     private String tag;
     private String positiveButtonText;
     private String negativeButtonText;
-    private String neutralButtonText;
     private boolean isCancelable;
     private boolean isCustomButton;
     private boolean isProgressDialog;
     private Serializable negativeButtonData;
-    private Serializable neutralButtonData;
     private Serializable positiveButtonData;
     private Intent positiveButtonIntent;
     private Intent negativeButtonIntent;
@@ -42,7 +40,6 @@ public class MovieDialogBuilder implements Parcelable {
         tag = in.readString();
         positiveButtonText = in.readString();
         negativeButtonText = in.readString();
-        neutralButtonText = in.readString();
         isCancelable = in.readByte() != 0;
         isCustomButton = in.readByte() != 0;
         isProgressDialog = in.readByte() != 0;
@@ -59,7 +56,6 @@ public class MovieDialogBuilder implements Parcelable {
         dest.writeString(tag);
         dest.writeString(positiveButtonText);
         dest.writeString(negativeButtonText);
-        dest.writeString(neutralButtonText);
         dest.writeByte((byte) (isCancelable ? 1 : 0));
         dest.writeByte((byte) (isCustomButton ? 1 : 0));
         dest.writeByte((byte) (isProgressDialog ? 1 : 0));
@@ -131,15 +127,6 @@ public class MovieDialogBuilder implements Parcelable {
         return this;
     }
 
-    public String getNeutralButtonText() {
-        return neutralButtonText;
-    }
-
-    public MovieDialogBuilder setNeutralButtonText(String neutralButtonText) {
-        this.neutralButtonText = neutralButtonText;
-        return this;
-    }
-
     public boolean isCancelable() {
         return isCancelable;
     }
@@ -173,15 +160,6 @@ public class MovieDialogBuilder implements Parcelable {
 
     public MovieDialogBuilder setNegativeButtonData(Serializable negativeButtonData) {
         this.negativeButtonData = negativeButtonData;
-        return this;
-    }
-
-    public Serializable getNeutralButtonData() {
-        return neutralButtonData;
-    }
-
-    public MovieDialogBuilder setNeutralButtonData(Serializable neutralButtonData) {
-        this.neutralButtonData = neutralButtonData;
         return this;
     }
 

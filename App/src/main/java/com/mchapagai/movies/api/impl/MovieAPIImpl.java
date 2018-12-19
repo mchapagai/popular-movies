@@ -14,8 +14,6 @@ import javax.inject.Provider;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-import java.util.List;
-
 public class MovieAPIImpl implements MovieAPI {
 
     private Provider<MovieService> movieService;

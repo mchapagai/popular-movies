@@ -13,7 +13,7 @@ import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
-import com.mchapagai.movies.utils.SharedPreferencesUtils;
+import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private String authenticationToken;
     boolean requestTokenAccess, verifyToken, stopped;
-    private SharedPreferencesUtils preferencesUtils;
+    private PreferencesHelper preferencesUtils;
     private EditText usernameInputFiled, passwordInputField;
     private Button loginButton;
     private String sessionId;
@@ -82,7 +82,7 @@ public class LoginActivity extends BaseActivity {
         usernameInputFiled = findViewById(R.id.username_edit_text);
         passwordInputField = findViewById(R.id.password_edit_text);
         pageLoader = findViewById(R.id.progress_page_loader);
-        preferencesUtils = new SharedPreferencesUtils(this);
+        preferencesUtils = new PreferencesHelper(this);
 
         aboutView = findViewById(R.id.navigate_to_about);
         aboutView.setOnClickListener(navigateToAbout);
@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity {
                                                     preferencesUtils.setUserSessionId(sessionId);
                                                     getAccountSignInDetails();
                                                     Intent intent = new Intent();
-                                                    intent.setClass(LoginActivity.this, LandingActivity.class);
+                                                    intent.setClass(LoginActivity.this, DiscoverMoviesActivity.class);
                                                     if (!stopped) {
                                                         startActivity(intent);
                                                     }

@@ -28,11 +28,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class LandingFragment extends BaseFragment {
 
-    private static final String TAG = LandingFragment.class.getSimpleName();
-
     private static final int COLUMN_COUNT = 2;
     private List<Movies> movieItems = new ArrayList<>();
-    private MoviesGridAdapter moviesGridAdapter;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private RecyclerView recyclerView;
     private PageLoader pageLoader;

@@ -10,7 +10,7 @@ public class AuthSession implements Parcelable {
     @SerializedName("session_id")
     private String sessionId;
 
-    protected AuthSession(Parcel in) {
+    private AuthSession(Parcel in) {
         sessionId = in.readString();
     }
 

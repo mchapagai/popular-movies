@@ -50,9 +50,8 @@
             android:minWidth="@dimen/margin_60dp"
             android:text="@string/material_dialog_cancel"
             android:textAlignment="gravity"
-            android:textAllCaps="false"
-            android:textColor="@color/linkColor"
             android:visibility="gone"
+            android:textColor="@color/linkColor"
             tools:visibility="visible" />
 
         <com.mchapagai.library.views.MaterialButton
@@ -62,22 +61,10 @@
             android:gravity="center"
             android:minWidth="@dimen/margin_60dp"
             android:textAlignment="gravity"
-            android:textAllCaps="false"
             android:textColor="@color/linkColor"
             android:visibility="gone"
             tools:text="@string/material_dialog_ok"
             tools:visibility="visible" />
-
-        <com.mchapagai.library.views.MaterialButton
-            android:id="@+id/neutral_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/darkThemePrimary"
-            android:gravity="center_vertical"
-            android:textAlignment="gravity"
-            android:textColor="@color/linkColor"
-            android:visibility="gone"
-            tools:text="@string/material_dialog_neutral" />
 
     </LinearLayout>
 

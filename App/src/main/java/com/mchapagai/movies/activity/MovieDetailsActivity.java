@@ -279,7 +279,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, LandingActivity.class);
+        Intent intent = new Intent(this, DiscoverMoviesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

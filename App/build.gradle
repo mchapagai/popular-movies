@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildtool_version
     defaultConfig {
         applicationId "com.example.mchapagai"
         minSdkVersion versions.minSdk
@@ -13,7 +14,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "API_KEY", "${API_KEY}"
     }
-
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -24,12 +24,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     lintOptions {
         abortOnError false
         lintConfig file('lint.xml')
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -37,8 +35,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':MaterialLibrary')
 
     //noinspection GradleCompatible
@@ -47,7 +44,6 @@ dependencies {
     implementation "com.android.support:support-annotations:$versions.support_library"
     implementation "com.android.support:palette-v7:$versions.support_library"
     implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
-
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
@@ -62,6 +58,7 @@ dependencies {
     // LeakCanary for memory leak detection
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakcanary"
+
     // Optional, if you use support library fragments:
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$versions.leakcanary"
 
@@ -74,15 +71,18 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
     implementation "com.squareup.picasso:picasso:$versions.picasso"
+
     //Dagger2
     implementation "com.google.dagger:dagger:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation "com.google.dagger:dagger-android:$versions.dagger"
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
+
     // ButterKnife
     implementation "com.jakewharton:butterknife:$versions.butterknife"
     annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
+
     // ViweModel & LoveData
     implementation "android.arch.lifecycle:extensions:$versions.arch_lifecycle"
     implementation "android.arch.lifecycle:runtime:$versions.arch_lifecycle"

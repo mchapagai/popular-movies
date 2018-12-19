@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.mchapagai.movies.common.Constants;
 
 
-public class SharedPreferencesUtils {
+public class PreferencesHelper {
 
     private final String POPULAR_MOVIES_SHARED_PREF = "popularMoviesSharedPreferences";
     private final String PREF_USER_NAME = "userName";
@@ -14,7 +14,7 @@ public class SharedPreferencesUtils {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    public SharedPreferencesUtils(Context context) {
+    public PreferencesHelper(Context context) {
         sharedPreferences = context.getSharedPreferences(POPULAR_MOVIES_SHARED_PREF, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
@@ -70,5 +70,14 @@ public class SharedPreferencesUtils {
 
     public boolean isSignedIn() {
         return sharedPreferences.getBoolean(Constants.PREF_SIGNED_IN, false);
+    }
+
+    public void setSignedOut(){
+        editor.putBoolean(Constants.PREF_SIGNED_IN, false);
+        editor.commit();
+        editor.putBoolean(Constants.PREF_ACCESS_TOKEN_TAKEN, false);
+        editor.commit();
+        editor.putBoolean(Constants.PREF_SESSION_ID_GRANTED,false);
+        editor.commit();
     }
 }

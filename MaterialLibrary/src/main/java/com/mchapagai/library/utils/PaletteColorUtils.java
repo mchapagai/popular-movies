@@ -12,7 +12,7 @@ public class PaletteColorUtils {
      * @param topColor    top gradient color (normal color)
      * @param centerColor center gradient color (light color)
      * @param bottomColor bottom gradient color (dark color)
-     * @return
+     * @return gradientDrawable
      */
     public static GradientDrawable getGradientDrawable(int topColor, int centerColor, int bottomColor) {
         GradientDrawable gradientDrawable = new GradientDrawable();

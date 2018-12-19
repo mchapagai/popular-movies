@@ -141,13 +141,6 @@ public class MaterialDialogFragment extends DialogFragment {
                             onDialogClickListener.onNegativeButtonClicked(builder.getTag());
                         }
                     }));
-
-            dialogBuilder.setNeutralButton(builder.getNegativeButtonText(),
-                    ((dialog, which) -> {
-                        if (onDialogClickListener != null) {
-                            onDialogClickListener.onNeutralButtonClicked(builder.getTag());
-                        }
-                    }));
         }
     }
 
@@ -191,31 +184,13 @@ public class MaterialDialogFragment extends DialogFragment {
                     dialog.dismiss();
                 });
             }
-
-            MaterialButton neutralButton = containerView.findViewById(R.id.neutral_button);
-            if (builder.getNegativeButtonText() != null && neutralButton != null) {
-                if (isUpperCase) {
-                    neutralButton.setText(builder.getNeutralButtonText());
-                }
-                neutralButton.setVisibility(View.VISIBLE);
-                neutralButton.setOnClickListener(v -> {
-                    if (onDialogClickListener != null) {
-                        onDialogClickListener.onNeutralButtonClicked(builder.getTag());
-                    }
-                    dialog.dismiss();
-                });
-            }
         }
     }
 
 
     public interface OnDialogClickListener {
         void onPositiveButtonClicked(Serializable data, String tag);
-
         void onNegativeButtonClicked(String tag);
-
-        void onNeutralButtonClicked(String tag);
-
         void onCancelEvent(String tag);
     }
 }

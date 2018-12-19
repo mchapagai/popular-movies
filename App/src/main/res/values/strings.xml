@@ -7,6 +7,7 @@
     <string name="tmdb_link">TMDb</string>
     <string name="load_more">Load more</string>
     <string name="load_less">Load less</string>
+    <string name="popular_movies">Popular movies</string>
 
     <string name="lorem_placeholder" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="about_description">Base Android Application is a sample application that can be uses as a starting project.
@@ -30,7 +31,6 @@
     <string name="service_error_title">Oops, something went bad!</string>
     <string name="service_error_404">The resource you requested could not be found.</string>
 
-
     <!-- Action menu -->
     <string name="menu_sort">Sorting</string>
     <string name="menu_sort_popularity">Most popular</string>
@@ -46,5 +46,13 @@
     <string name="details_empty_video_message">Unfortunately, we couldn\'t find any video for the particular movies.</string>
     <string name="details_rating_votes_count" translatable="false">%s/10 (%s)</string>
     <string name="details_tmdb_attribution">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
+
+    <!-- ADA Strings-->
+    <string name="user_profile_ada">User profile</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Login Screen -->
+    <string name="prompt_to_login_title">Oh, snap!</string>
+    <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
 
 </resources>

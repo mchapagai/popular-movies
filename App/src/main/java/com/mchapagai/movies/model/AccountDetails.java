@@ -28,7 +28,7 @@ public class AccountDetails implements Parcelable {
 	@SerializedName("username")
 	private String username;
 
-    protected AccountDetails(Parcel in) {
+    private AccountDetails(Parcel in) {
         includeAdult = in.readByte() != 0;
         iso31661 = in.readString();
         name = in.readString();

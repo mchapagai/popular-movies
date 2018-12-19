@@ -10,7 +10,7 @@ public class Avatar implements Parcelable {
     @SerializedName("gravatar")
     private Gravatar gravatar;
 
-    protected Avatar(Parcel in) {
+    private Avatar(Parcel in) {
     }
 
     @Override

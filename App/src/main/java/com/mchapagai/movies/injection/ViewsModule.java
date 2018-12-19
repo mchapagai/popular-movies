@@ -2,13 +2,13 @@ package com.mchapagai.movies.injection;
 
 import com.mchapagai.movies.activity.AboutActivity;
 import com.mchapagai.movies.activity.CreditDetailsActivity;
+import com.mchapagai.movies.activity.DiscoverMoviesActivity;
 import com.mchapagai.movies.activity.LandingActivity;
 import com.mchapagai.movies.activity.LaunchActivity;
 import com.mchapagai.movies.activity.LoginActivity;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.BaseFragment;
-import com.mchapagai.movies.fragment.LandingFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -25,9 +25,10 @@ public abstract class ViewsModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract LandingActivity landingActivity();
+
     @ActivityScope
     @ContributesAndroidInjector
-    abstract LandingFragment landingFragment();
+    abstract DiscoverMoviesActivity discoverMoviesActivity();
 
     @ActivityScope
     @ContributesAndroidInjector
