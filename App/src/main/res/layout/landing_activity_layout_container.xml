@@ -63,14 +63,14 @@
             android:id="@+id/landing_popular_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/popular_movies"
+            android:text="@string/movies"
             android:textSize="@dimen/text_medium"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/landing_popular_movies_point"
             app:layout_constraintEnd_toEndOf="@+id/landing_popular_movies_point"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/landing_popular_movies_point"
             app:layout_constraintTop_toTopOf="@+id/landing_popular_movies_point"
-            app:layout_constraintVertical_bias="0.38" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"

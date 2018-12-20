@@ -1,6 +1,9 @@
 package com.mchapagai.movies.common;
 
 public class Constants {
+
+    public static final int SPLASH_TIME_OUT = 3000;
+
     public static final String SERVICE_ENDPOINT = "https://api.themoviedb.org/3/";
 
     // Shared Preferences

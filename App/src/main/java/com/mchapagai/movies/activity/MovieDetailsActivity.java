@@ -27,6 +27,7 @@ import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.CastCredit;
+import com.mchapagai.movies.model.CombinedCredits;
 import com.mchapagai.movies.model.CrewCredits;
 import com.mchapagai.movies.model.Genres;
 import com.mchapagai.movies.model.Movies;
@@ -40,10 +41,12 @@ import com.mchapagai.movies.utils.DateTImeUtils;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
+
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 import javax.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -59,7 +62,7 @@ public class MovieDetailsActivity extends BaseActivity {
     private RecyclerView reviewsRecyclerView, videosRecyclerView, genreRecycleView, creditsRecyclerView;
     private View videoDivider, reviewsDivider;
     private TextView videoTitle;
-    private TextView videoErrorText;
+    private MaterialTextView videoErrorText;
     private TextView reviewHeader;
     private MaterialImageView videoEmptyStateImage;
     private VideosAdapter videosAdapter;
@@ -164,9 +167,10 @@ public class MovieDetailsActivity extends BaseActivity {
         videoErrorText = findViewById(R.id.videos_error_text);
         videosRecyclerView = findViewById(R.id.movie_video_recycler_view);
         videoEmptyStateImage = findViewById(R.id.details_empty_video);
+        videoTitle = findViewById(R.id.videos_title);
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        videosRecyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.movie_item_offset));
+        videosRecyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.margin_4dp));
         videosRecyclerView.setLayoutManager(manager);
         videosRecyclerView.setHasFixedSize(true);
         videosRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -189,15 +193,39 @@ public class MovieDetailsActivity extends BaseActivity {
         creditsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         castCredits = response.getCast();
         crewCredits = response.getCrew();
-        adapter = new CreditsAdapter(castCredits, crewCredits);
+
+        adapter = new CreditsAdapter(combineCreditsForUI());
         creditsRecyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(crewCredits1 -> {
+        adapter.setOnItemClickListener(combinedCredits -> {
             Intent intent = new Intent();
             intent.setClass(getApplicationContext(), CreditDetailsActivity.class);
-            intent.putExtra(Constants.PERSON_ID_INTENT, crewCredits1.getId());
+            intent.putExtra(Constants.PERSON_ID_INTENT, combinedCredits.getId());
             startActivity(intent);
         });
+    }
+
+    private ArrayList<CombinedCredits> combineCreditsForUI() {
+        ArrayList<CombinedCredits> combinedCreditsList = new ArrayList<>();
+        for (CastCredit castCredit: castCredits) {
+            CombinedCredits combinedCredits = new CombinedCredits();
+            combinedCredits.setName(castCredit.getName());
+            combinedCredits.setDescription(castCredit.getCharacter());
+            combinedCredits.setProfileImagePath(castCredit.getProfilePath());
+            combinedCredits.setId(castCredit.getId());
+            combinedCreditsList.add(combinedCredits);
+        }
+
+        for (CrewCredits crewCredit: crewCredits) {
+            CombinedCredits combinedCredits = new CombinedCredits();
+            combinedCredits.setName(crewCredit.getName());
+            combinedCredits.setDescription(crewCredit.getJob());
+            combinedCredits.setProfileImagePath(crewCredit.getProfilePath());
+            combinedCredits.setId(crewCredit.getId());
+            combinedCreditsList.add(combinedCredits);
+        }
+
+        return combinedCreditsList;
     }
 
     private void populateMovieReviews() {
@@ -260,6 +288,7 @@ public class MovieDetailsActivity extends BaseActivity {
         videoEmptyStateImage.setVisibility(View.VISIBLE);
         videoErrorText.setVisibility(View.VISIBLE);
         videosRecyclerView.setVisibility(View.GONE);
+        videoTitle.setVisibility(View.GONE);
     }
 
     private void hideVideoError() {

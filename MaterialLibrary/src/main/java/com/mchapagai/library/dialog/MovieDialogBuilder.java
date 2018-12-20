@@ -18,7 +18,6 @@ public class MovieDialogBuilder implements Parcelable {
     private String negativeButtonText;
     private boolean isCancelable;
     private boolean isCustomButton;
-    private boolean isProgressDialog;
     private Serializable negativeButtonData;
     private Serializable positiveButtonData;
     private Intent positiveButtonIntent;
@@ -34,7 +33,7 @@ public class MovieDialogBuilder implements Parcelable {
     public MovieDialogBuilder() {}
 
 
-    protected MovieDialogBuilder(Parcel in) {
+    public MovieDialogBuilder(Parcel in) {
         title = in.readString();
         message = in.readString();
         tag = in.readString();
@@ -42,7 +41,6 @@ public class MovieDialogBuilder implements Parcelable {
         negativeButtonText = in.readString();
         isCancelable = in.readByte() != 0;
         isCustomButton = in.readByte() != 0;
-        isProgressDialog = in.readByte() != 0;
         positiveButtonIntent = in.readParcelable(Intent.class.getClassLoader());
         negativeButtonIntent = in.readParcelable(Intent.class.getClassLoader());
         layoutResId = in.readInt();
@@ -58,7 +56,6 @@ public class MovieDialogBuilder implements Parcelable {
         dest.writeString(negativeButtonText);
         dest.writeByte((byte) (isCancelable ? 1 : 0));
         dest.writeByte((byte) (isCustomButton ? 1 : 0));
-        dest.writeByte((byte) (isProgressDialog ? 1 : 0));
         dest.writeParcelable(positiveButtonIntent, flags);
         dest.writeParcelable(negativeButtonIntent, flags);
         dest.writeInt(layoutResId);
@@ -145,15 +142,6 @@ public class MovieDialogBuilder implements Parcelable {
         return this;
     }
 
-    public boolean isProgressDialog() {
-        return isProgressDialog;
-    }
-
-    public MovieDialogBuilder setProgressDialog(boolean progressDialog) {
-        isProgressDialog = progressDialog;
-        return this;
-    }
-
     public Serializable getNegativeButtonData() {
         return negativeButtonData;
     }
@@ -206,9 +194,5 @@ public class MovieDialogBuilder implements Parcelable {
     public MovieDialogBuilder setDrawableResId(int drawableResId) {
         this.drawableResId = drawableResId;
         return this;
-    }
-
-    public static Creator<MovieDialogBuilder> getCREATOR() {
-        return CREATOR;
     }
 }

@@ -4,9 +4,10 @@ import com.mchapagai.movies.activity.AboutActivity;
 import com.mchapagai.movies.activity.CreditDetailsActivity;
 import com.mchapagai.movies.activity.DiscoverMoviesActivity;
 import com.mchapagai.movies.activity.LandingActivity;
-import com.mchapagai.movies.activity.LaunchActivity;
 import com.mchapagai.movies.activity.LoginActivity;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
+import com.mchapagai.movies.activity.SplashActivity;
+import com.mchapagai.movies.activity.WelcomeActivity;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.BaseFragment;
 
@@ -36,7 +37,10 @@ public abstract class ViewsModule {
 
     @ActivityScope
     @ContributesAndroidInjector
-    abstract LaunchActivity launchActivity();
+    abstract WelcomeActivity welcomeActivity();
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract SplashActivity launchActivity();
     @ActivityScope
     @ContributesAndroidInjector
     abstract LoginActivity loginActivity();

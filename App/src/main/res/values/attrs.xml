@@ -9,4 +9,6 @@
     <attr name="actionColor" format="reference|color" />
     <attr name="redColor" format="reference|color" />
     <attr name="greyColor" format="reference|color" />
+    <attr name="welcomeScreenTvBackground" format="reference|color" />
+    <attr name="welcomeScreenTicketBackground" format="reference|color" />
 </resources>

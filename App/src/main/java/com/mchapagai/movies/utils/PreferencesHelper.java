@@ -11,8 +11,10 @@ public class PreferencesHelper {
     private final String POPULAR_MOVIES_SHARED_PREF = "popularMoviesSharedPreferences";
     private final String PREF_USER_NAME = "userName";
     private final String PREF_USER_ID = "userId";
+    private final String PREF_INSTALLED_FIRST_TIME = "firstTime";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private Boolean firstTime = null;
 
     public PreferencesHelper(Context context) {
         sharedPreferences = context.getSharedPreferences(POPULAR_MOVIES_SHARED_PREF, Context.MODE_PRIVATE);
@@ -72,12 +74,29 @@ public class PreferencesHelper {
         return sharedPreferences.getBoolean(Constants.PREF_SIGNED_IN, false);
     }
 
-    public void setSignedOut(){
+    public void setSignedOut() {
         editor.putBoolean(Constants.PREF_SIGNED_IN, false);
         editor.commit();
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_TAKEN, false);
         editor.commit();
-        editor.putBoolean(Constants.PREF_SESSION_ID_GRANTED,false);
+        editor.putBoolean(Constants.PREF_SESSION_ID_GRANTED, false);
         editor.commit();
+    }
+
+    /**
+     * Checks if the user is opening the app for the first time.
+     * Note that this method should be placed inside an activity and it can be called multiple times.
+     *
+     * @return boolean
+     */
+    public boolean isAppInstalledForTheFirstTime() {
+        if (firstTime == null) {
+            firstTime = sharedPreferences.getBoolean(PREF_INSTALLED_FIRST_TIME, true);
+            if (firstTime) {
+                editor.putBoolean(PREF_INSTALLED_FIRST_TIME, false);
+                editor.apply();
+            }
+        }
+        return firstTime;
     }
 }

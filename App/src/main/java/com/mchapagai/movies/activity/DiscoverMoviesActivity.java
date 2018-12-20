@@ -55,6 +55,7 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.movies_recycler_view);
         pageLoader = findViewById(R.id.movies_page_loader);
@@ -68,11 +69,24 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.landing_menu, menu);
+        MenuItem item = menu.findItem(R.id.menu_logout);
+        if (!preferencesHelper.isSignedIn()) {
+            item.setVisible(false);
+        } else {
+            item.setVisible(true);
+        }
+        invalidateOptionsMenu();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.menu_sort_popularity:
                 item.setChecked(!item.isChecked());
@@ -147,5 +161,13 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
     public void onClickItem(Movies movies, int position) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         startActivity(intent.putExtra(Constants.MOVIE_DETAILS, movies));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, LandingActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

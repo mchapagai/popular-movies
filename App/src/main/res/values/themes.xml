@@ -32,5 +32,7 @@
         <item name="actionColor">@color/action</item>
         <item name="redColor">@color/red</item>
         <item name="greyColor">@color/grey</item>
+        <item name="welcomeScreenTvBackground">@color/welcome_screen_tv_bg</item>
+        <item name="welcomeScreenTicketBackground">@color/welcome_screen_tickets_bg</item>
     </style>
 </resources>

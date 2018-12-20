@@ -21,7 +21,7 @@
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
+    <com.mchapagai.library.views.MaterialTextView
             android:id="@+id/credit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/credit_profile_image"/>
 
-    <TextView
+    <com.mchapagai.library.views.MaterialTextView
             android:id="@+id/credit_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

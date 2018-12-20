@@ -1,7 +1,6 @@
 package com.mchapagai.library.dialog;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,14 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.mchapagai.library.R;
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.library.views.MaterialTextView;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-
-import com.mchapagai.library.R;
 
 public class MaterialDialogFragment extends DialogFragment {
 
@@ -67,10 +65,7 @@ public class MaterialDialogFragment extends DialogFragment {
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        String tag = getTag();
-        if (onDialogClickListener != null) {
-            onDialogClickListener.onCancelEvent(tag);
-        }
+        dialog.dismiss();
     }
 
     public void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
@@ -80,50 +75,43 @@ public class MaterialDialogFragment extends DialogFragment {
     private Dialog createDialog(final MovieDialogBuilder builder) {
         View view = null;
         Dialog dialog;
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
-        if (builder.isProgressDialog()) {
-            dialog = new ProgressDialog(getActivity());
-            ((ProgressDialog) dialog).setIndeterminate(true);
-            ((ProgressDialog) dialog).setMessage(builder.getMessage());
-            setCancelable(builder.isCancelable());
-        } else {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-
-            if (builder.getLayoutResId() != 0) {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                view = inflater.inflate(builder.getLayoutResId(), null);
-                alertDialog.setView(view);
-                if (!builder.isCustomButton()) {
-                    setButtons(builder, alertDialog);
-                }
-                if (view.findViewById(R.id.dialog_title) != null) {
-                    MaterialTextView dialogTitle = view.findViewById(R.id.dialog_title);
-
-                    if (StringUtils.isNotEmpty(builder.getTitle())) {
-                        dialogTitle.setText(builder.getTitle());
-                        dialogTitle.setVisibility(View.VISIBLE);
-                    } else {
-                        dialogTitle.setVisibility(View.GONE);
-                    }
-                }
-            } else {
-                if (builder.getMessage() != null) {
-                    alertDialog.setMessage(builder.getMessage());
-                }
+        if (builder.getLayoutResId() != 0) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            view = inflater.inflate(builder.getLayoutResId(), null);
+            alertDialog.setView(view);
+            if (!builder.isCustomButton()) {
                 setButtons(builder, alertDialog);
-                if (builder.getTitle() != null) {
-                    alertDialog.setTitle(builder.getTitle());
+            }
+            if (view.findViewById(R.id.dialog_title) != null) {
+                MaterialTextView dialogTitle = view.findViewById(R.id.dialog_title);
+
+                if (StringUtils.isNotEmpty(builder.getTitle())) {
+                    dialogTitle.setText(builder.getTitle());
+                    dialogTitle.setVisibility(View.VISIBLE);
+                } else {
+                    dialogTitle.setVisibility(View.GONE);
                 }
             }
-
-            if (builder.getDrawableResId() != 0) {
-                alertDialog.setIcon(builder.getDrawableResId());
+        } else {
+            if (builder.getMessage() != null) {
+                alertDialog.setMessage(builder.getMessage());
             }
-
-            setCancelable(builder.isCancelable());
-            dialog = alertDialog.create();
-            setCustomDialog(builder, dialog, view, true);
+            setButtons(builder, alertDialog);
+            if (builder.getTitle() != null) {
+                alertDialog.setTitle(builder.getTitle());
+            }
         }
+
+        if (builder.getDrawableResId() != 0) {
+            alertDialog.setIcon(builder.getDrawableResId());
+        }
+
+        setCancelable(builder.isCancelable());
+        dialog = alertDialog.create();
+        setCustomDialog(builder, dialog, view);
+
         return dialog;
     }
 
@@ -140,11 +128,12 @@ public class MaterialDialogFragment extends DialogFragment {
                         if (onDialogClickListener != null) {
                             onDialogClickListener.onNegativeButtonClicked(builder.getTag());
                         }
+                        dialog.dismiss();
                     }));
         }
     }
 
-    private void setCustomDialog(final MovieDialogBuilder builder, final Dialog dialog, View containerView, boolean isUpperCase) {
+    private void setCustomDialog(final MovieDialogBuilder builder, final Dialog dialog, View containerView) {
         if (containerView == null) {
             return;
         }
@@ -155,42 +144,36 @@ public class MaterialDialogFragment extends DialogFragment {
             message.setText(builder.getMessage());
         }
 
-        if (builder.isCustomButton()) {
-            if (builder.getPositiveButtonText() != null) {
-                MaterialButton positiveButton = containerView.findViewById(R.id.positive_button);
-                if (isUpperCase) {
-                    positiveButton.setText(builder.getPositiveButtonText().toUpperCase());
+        if (builder.getPositiveButtonText() != null) {
+            MaterialButton positiveButton = containerView.findViewById(R.id.positive_button);
+            positiveButton.setText(builder.getPositiveButtonText().toUpperCase());
+            positiveButton.setVisibility(View.VISIBLE);
+            positiveButton.setOnClickListener(view -> {
+                if (onDialogClickListener != null) {
+                    onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(), builder.getTag());
                 }
-                positiveButton.setVisibility(View.VISIBLE);
-                positiveButton.setOnClickListener(view -> {
-                    if (onDialogClickListener != null) {
-                        onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(), builder.getTag());
-                    }
-                    dialog.dismiss();
-                });
-            }
-
-            if (builder.getNegativeButtonText() != null) {
-                MaterialButton negativeButton = containerView.findViewById(R.id.negative_button);
-                if (isUpperCase) {
-                    negativeButton.setText(builder.getNegativeButtonText());
-                }
-                negativeButton.setVisibility(View.VISIBLE);
-                negativeButton.setEnabled(false);
-                negativeButton.setOnClickListener(v -> {
-                    if (onDialogClickListener != null) {
-                        onDialogClickListener.onNegativeButtonClicked(builder.getTag());
-                    }
-                    dialog.dismiss();
-                });
-            }
+                dialog.dismiss();
+            });
         }
+
+        if (builder.getNegativeButtonText() != null) {
+            MaterialButton negativeButton = containerView.findViewById(R.id.negative_button);
+            negativeButton.setText(builder.getNegativeButtonText());
+            negativeButton.setVisibility(View.VISIBLE);
+            negativeButton.setOnClickListener(v -> {
+                if (onDialogClickListener != null) {
+                    onDialogClickListener.onNegativeButtonClicked(builder.getTag());
+                }
+                dialog.dismiss();
+            });
+        }
+
     }
 
 
     public interface OnDialogClickListener {
         void onPositiveButtonClicked(Serializable data, String tag);
+
         void onNegativeButtonClicked(String tag);
-        void onCancelEvent(String tag);
     }
 }

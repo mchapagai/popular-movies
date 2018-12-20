@@ -7,17 +7,24 @@
     <string name="tmdb_link">TMDb</string>
     <string name="load_more">Load more</string>
     <string name="load_less">Load less</string>
-    <string name="popular_movies">Popular movies</string>
+    <string name="movies">Movies</string>
+    <string name="activity_login">Login</string>
+    <string name="app_discover_shows">Discover TV shows</string>
+    <string name="app_show_tickets">Buy show tickets</string>
+    <string name="coming_soon">Coming soon</string>
+
+    <!-- Buttons -->
+    <string name="button_skip">Skip</string>
+    <string name="button_next">Next</string>
+    <string name="button_got_it">Got it</string>
 
     <string name="lorem_placeholder" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="about_description">Base Android Application is a sample application that can be uses as a starting project.
-    This base application is made for Model-View-ViewModel architecture. This application defines a various dependencies or
-    libraries for head start.</string>
+    This base application is made for Model-View-ViewModel architecture. This application defines a various dependencies or libraries for head start.</string>
 
     <string name="msg_app_version">App Version: %1$s (Build: %2$s)</string>
     <string name="about_app_copyright">&#169; Manorath Chapagai | All rights reserved.</string>
     <string name="msg_android_trademark">Android is a trademark of Google Inc.</string>
-    <string name="msg_about_description">Student project for implementing original idea using Android Architecture Components.</string>
     <string name="msg_about_fork_me_on_github">Fork me on GitHub!</string>
     <string name="msg_about_github_url">https://github.com/mchapagai/android-movies</string>
 
@@ -54,5 +61,20 @@
     <!-- Login Screen -->
     <string name="prompt_to_login_title">Oh, snap!</string>
     <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
+
+    <string name="welcome_screen_movie_details">An app to allow users to discover the most popular movies playing. This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello Food!</string>
+    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
 
 </resources>

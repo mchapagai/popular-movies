@@ -6,24 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CastCredit;
-import com.mchapagai.movies.model.CrewCredits;
+import com.mchapagai.movies.model.CombinedCredits;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHolder> {
 
-    private List<CastCredit> castCreditItems;
-    private List<CrewCredits> crewCreditItems;
+    private List<CombinedCredits> combinedCreditsList;
     private OnPersonClickListener onItemClickListener;
 
-    public CreditsAdapter(List<CastCredit> castCreditItems, List<CrewCredits> crewCreditItems) {
-        this.castCreditItems = castCreditItems;
-        this.crewCreditItems = crewCreditItems;
+    public CreditsAdapter(List<CombinedCredits> combinedCreditsList) {
+        this.combinedCreditsList = combinedCreditsList;
     }
 
     public void setOnItemClickListener(OnPersonClickListener onItemClickListener) {
@@ -39,28 +37,19 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final CombinedCredits combinedCredits = combinedCreditsList.get(position);
 
-        holder.itemView.setTag(castCreditItems);
-        holder.itemView.setTag(crewCreditItems);
+        holder.textName.setText(combinedCredits.getName());
+        holder.textInfo.setText(combinedCredits.getDescription());
+        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + combinedCredits.getProfileImagePath()).into(holder.profileImage);
 
-        final CastCredit cast = castCreditItems.get(position);
-        holder.textName.setText(cast.getName());
-        holder.textInfo.setText(cast.getCharacter());
-        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + cast.getProfilePath())
-                .into(holder.profileImage);
-        final CrewCredits crew = crewCreditItems.get(position);
-        holder.textName.setText(crew.getName());
-        holder.textInfo.setText(crew.getJob());
-
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(cast));
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(combinedCredits));
     }
 
     @Override
     public int getItemCount() {
-        if (castCreditItems != null) {
-            return castCreditItems.size();
-        }
-        return crewCreditItems == null ? 0 : crewCreditItems.size();
+        return combinedCreditsList == null ? 0 : combinedCreditsList.size();
+
     }
 
 
@@ -78,7 +67,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
     }
 
     public interface OnPersonClickListener {
-        void onItemClick(CastCredit crewCredits);
+        void onItemClick(CombinedCredits combinedCredits);
     }
 
 }

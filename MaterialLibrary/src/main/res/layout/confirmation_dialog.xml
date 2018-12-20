@@ -47,10 +47,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_40dp"
             android:gravity="center"
+            android:visibility="gone"
             android:minWidth="@dimen/margin_60dp"
             android:text="@string/material_dialog_cancel"
             android:textAlignment="gravity"
-            android:visibility="gone"
             android:textColor="@color/linkColor"
             tools:visibility="visible" />
 

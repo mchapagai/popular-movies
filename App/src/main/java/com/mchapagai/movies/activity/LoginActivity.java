@@ -1,10 +1,14 @@
 package com.mchapagai.movies.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,6 +40,7 @@ public class LoginActivity extends BaseActivity {
     private String sessionId;
     private PageLoader pageLoader;
     private MaterialTextView aboutView, tmdbSite;
+    private Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,10 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.login_activity_layout_container);
 
         stopped = false;
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initViews();
         fetchAuthenticationToken();
@@ -81,6 +90,13 @@ public class LoginActivity extends BaseActivity {
         loginButton = findViewById(R.id.login_button);
         usernameInputFiled = findViewById(R.id.username_edit_text);
         passwordInputField = findViewById(R.id.password_edit_text);
+
+        usernameInputFiled.requestFocus();
+        passwordInputField.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(usernameInputFiled, InputMethodManager.SHOW_IMPLICIT);
+        imm.showSoftInput(passwordInputField, InputMethodManager.SHOW_IMPLICIT);
+
         pageLoader = findViewById(R.id.progress_page_loader);
         preferencesUtils = new PreferencesHelper(this);
 
@@ -172,6 +188,23 @@ public class LoginActivity extends BaseActivity {
                             }
                         }
                 ));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }
 

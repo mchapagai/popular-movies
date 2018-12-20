@@ -17,7 +17,7 @@ public class MaterialDialogUtils {
                 .setMessage(context.getResources().getString(message))
                 .setCancelable(true)
                 .setPositiveButtonText(context.getResources().getString(positiveButtonMsg))
-                .setLayoutResId(R.layout.custom_confirmation_dialog)
+                .setLayoutResId(R.layout.confirmation_dialog)
                 .setCustomButton(true);
 
         return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
@@ -29,7 +29,7 @@ public class MaterialDialogUtils {
                 .setMessage(message)
                 .setCancelable(true)
                 .setPositiveButtonText(positiveButtonMsg)
-                .setLayoutResId(R.layout.custom_confirmation_dialog)
+                .setLayoutResId(R.layout.confirmation_dialog)
                 .setCustomButton(true);
 
         return MaterialDialogFragment.showDialog(builder, (AppCompatActivity) context);
