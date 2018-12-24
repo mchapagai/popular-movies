@@ -17,9 +17,6 @@ public class VideoItems implements Parcelable {
 	@SerializedName("size")
 	private int size;
 
-	@SerializedName("iso_3166_1")
-	private String iso31661;
-
 	@SerializedName("name")
 	private String name;
 
@@ -29,20 +26,15 @@ public class VideoItems implements Parcelable {
 	@SerializedName("type")
 	private String type;
 
-	@SerializedName("iso_639_1")
-	private String iso6391;
-
 	@SerializedName("key")
 	private String key;
 
     protected VideoItems(Parcel in) {
         site = in.readString();
         size = in.readInt();
-        iso31661 = in.readString();
         name = in.readString();
         id = in.readString();
         type = in.readString();
-        iso6391 = in.readString();
         key = in.readString();
     }
 
@@ -50,11 +42,9 @@ public class VideoItems implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(site);
         dest.writeInt(size);
-        dest.writeString(iso31661);
         dest.writeString(name);
         dest.writeString(id);
         dest.writeString(type);
-        dest.writeString(iso6391);
         dest.writeString(key);
     }
 
@@ -91,10 +81,6 @@ public class VideoItems implements Parcelable {
 		return size;
 	}
 
-	public String getIso31661() {
-		return iso31661;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -105,10 +91,6 @@ public class VideoItems implements Parcelable {
 
 	public String getType() {
 		return type;
-	}
-
-	public String getIso6391() {
-		return iso6391;
 	}
 
 	public String getKey() {

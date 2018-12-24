@@ -1,6 +1,5 @@
 package com.mchapagai.movies.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,25 +7,38 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.mchapagai.library.utils.MaterialDialogUtils;
+import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
+import com.mchapagai.movies.model.AuthSession;
+import com.mchapagai.movies.model.AuthToken;
+import com.mchapagai.movies.model.binding.CombinedAuthResponse;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class LoginActivity extends BaseActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
+
+    @BindView(R.id.toolbar)                     Toolbar toolbar;
+    @BindView(R.id.login_button)                MaterialButton loginButton;
+    @BindView(R.id.username_edit_text)          EditText usernameInputFiled;
+    @BindView(R.id.password_edit_text)          EditText passwordInputField;
+    @BindView(R.id.progress_page_loader)        PageLoader pageLoader;
+    @BindView(R.id.navigate_to_about)           MaterialTextView aboutView;
+    @BindView(R.id.navigate_to_tmdb)            MaterialTextView tmdbSite;
 
     @Inject
     LoginViewModel loginViewModel;
@@ -35,24 +47,17 @@ public class LoginActivity extends BaseActivity {
     private String authenticationToken;
     boolean requestTokenAccess, verifyToken, stopped;
     private PreferencesHelper preferencesUtils;
-    private EditText usernameInputFiled, passwordInputField;
-    private Button loginButton;
     private String sessionId;
-    private PageLoader pageLoader;
-    private MaterialTextView aboutView, tmdbSite;
-    private Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_layout_container);
-
+        ButterKnife.bind(this);
         stopped = false;
-
-        toolbar = findViewById(R.id.toolbar);
+        preferencesUtils = new PreferencesHelper(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         initViews();
         fetchAuthenticationToken();
     }
@@ -61,8 +66,7 @@ public class LoginActivity extends BaseActivity {
         pageLoader.setVisibility(View.VISIBLE);
         compositeDisposable.add(loginViewModel.getAuthRequestToken()
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
-                .subscribe(
-                        token -> {
+                .subscribe(token -> {
                             if (token.getRequestToken() != null) {
                                 authenticationToken = token.getRequestToken();
                                 preferencesUtils.setAccessToken(authenticationToken);
@@ -72,7 +76,6 @@ public class LoginActivity extends BaseActivity {
                                 errorDialog();
                             }
                         }, throwable -> {
-                            preferencesUtils.setAccessTokenFalse();
                             requestTokenAccess = false;
                             errorDialog();
                         }
@@ -87,28 +90,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initViews() {
-        loginButton = findViewById(R.id.login_button);
-        usernameInputFiled = findViewById(R.id.username_edit_text);
-        passwordInputField = findViewById(R.id.password_edit_text);
-
-        usernameInputFiled.requestFocus();
-        passwordInputField.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(usernameInputFiled, InputMethodManager.SHOW_IMPLICIT);
-        imm.showSoftInput(passwordInputField, InputMethodManager.SHOW_IMPLICIT);
-
-        pageLoader = findViewById(R.id.progress_page_loader);
-        preferencesUtils = new PreferencesHelper(this);
-
-        aboutView = findViewById(R.id.navigate_to_about);
         aboutView.setOnClickListener(navigateToAbout);
-        tmdbSite = findViewById(R.id.navigate_to_tmdb);
         tmdbSite.setOnClickListener(getNavigateToTMDb);
     }
 
     private View.OnClickListener navigateToAbout = view -> {
-        Intent intent = new Intent(view.getContext(), AboutActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(view.getContext(), AboutActivity.class));
     };
 
     private View.OnClickListener getNavigateToTMDb = v -> {
@@ -122,29 +109,23 @@ public class LoginActivity extends BaseActivity {
         loginButton.setOnClickListener(v -> {
             final String username = usernameInputFiled.getText().toString();
             final String password = passwordInputField.getText().toString();
-            pageLoader.setVisibility(View.VISIBLE);
-            compositeDisposable.add(loginViewModel.getRequestAuthenticated(authenticationToken, username, password)
-                    .doFinally(() -> pageLoader.setVisibility(View.GONE))
-                    .subscribe(
-                            token -> {
+
+            Single<AuthToken> authenticatedSingle = loginViewModel.getRequestAuthenticated(authenticationToken, username, password);
+            Single<AuthSession> sessionIdSingle = loginViewModel.getSessionID(authenticationToken);
+
+            compositeDisposable.add(Single.zip(authenticatedSingle, sessionIdSingle, CombinedAuthResponse::new)
+                    .subscribe(combinedAuthResponse -> {
                                 verifyToken = true;
                                 preferencesUtils.setAccessTokenVerified();
-                                authenticationToken = token.getRequestToken();
-                                Log.d(TAG, token.getRequestToken());
+                                authenticationToken = combinedAuthResponse.getAuthToken().getRequestToken();
+                                Log.d(TAG, combinedAuthResponse.getAuthToken().getRequestToken());
 
-                                compositeDisposable.add(loginViewModel.getSessionID(authenticationToken)
-                                        .subscribe(
-                                                authSession -> {
-                                                    sessionId = authSession.getSessionId();
-                                                    preferencesUtils.setUserSessionId(sessionId);
-                                                    getAccountSignInDetails();
-                                                    Intent intent = new Intent();
-                                                    intent.setClass(LoginActivity.this, DiscoverMoviesActivity.class);
-                                                    if (!stopped) {
-                                                        startActivity(intent);
-                                                    }
-                                                }
-                                        ));
+                                sessionId = combinedAuthResponse.getAuthSession().getSessionId();
+                                preferencesUtils.setUserSessionId(sessionId);
+                                getAccountSignInDetails();
+                                if (!stopped) {
+                                    startActivity(new Intent(LoginActivity.this, DiscoverMoviesActivity.class));
+                                }
                             }, throwable -> {
                                 preferencesUtils.setAccessTokenVerifiedFalse();
                                 verifyToken = false;
@@ -153,7 +134,6 @@ public class LoginActivity extends BaseActivity {
                     ));
         });
     }
-
 
     @Override
     protected void onResume() {

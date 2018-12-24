@@ -27,9 +27,4 @@ ext.versions = [
         guava                       : '24.1-android',
         butterknife                 : '8.8.1',
         arch_lifecycle              : '1.1.1',
-
-        // AndroidX
-        androidx_appcompat          : '1.0.2',
-        androidx_core               : '1.0.0',
-        androidx_design             : '1.1.0-alpha01',
 ]

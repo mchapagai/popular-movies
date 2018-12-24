@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/person_details_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mchapagai.library.views.MaterialTextView
+        android:id="@+id/cast_credit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:text="@string/crew_credits"
+        android:textColor="?attr/darkTextSecondaryColor"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintBottom_toTopOf="@+id/movies_person_crew_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/movies_person_crew_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cast_credit_title"
+        tools:listitem="@layout/person_details_item" />
+
+</android.support.constraint.ConstraintLayout>

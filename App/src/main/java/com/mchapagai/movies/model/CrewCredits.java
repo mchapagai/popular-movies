@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class CrewCredits implements Parcelable {
 
-    @SerializedName("gender")
-    private int gender;
-
     @SerializedName("credit_id")
     private String creditId;
 
@@ -28,7 +25,6 @@ public class CrewCredits implements Parcelable {
     private String job;
 
     protected CrewCredits(Parcel in) {
-        gender = in.readInt();
         creditId = in.readString();
         name = in.readString();
         profilePath = in.readString();
@@ -39,7 +35,6 @@ public class CrewCredits implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(gender);
         dest.writeString(creditId);
         dest.writeString(name);
         dest.writeString(profilePath);
@@ -64,10 +59,6 @@ public class CrewCredits implements Parcelable {
             return new CrewCredits[size];
         }
     };
-
-    public int getGender() {
-        return gender;
-    }
 
     public String getCreditId() {
         return creditId;

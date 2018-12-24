@@ -50,7 +50,7 @@
                     android:scaleType="centerCrop"
                     app:borderColor="?attr/greyColor"
                     app:borderWidth="@dimen/margin_1dp"
-                    app:srcCompat="@drawable/icon_robot" />
+                    android:src="@drawable/ic_launcher_foreground" />
 
             </RelativeLayout>
 
@@ -87,7 +87,15 @@
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.mchapagai.library.views.MaterialTextView
+                android:id="@+id/birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:gravity="center"
+                android:text="@string/date_placeholder" />
+
+            <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/credits_biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,11 +103,20 @@
                 android:text="@string/title_credit_details_activity"
                 android:textSize="@dimen/text_small" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/movies_person_recycler_view"
+            <ViewStub
+                android:id="@+id/credits_cast_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize" />
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_height="wrap_content"
+                android:layout="@layout/movie_cast_credits_layout" />
+
+            <ViewStub
+                android:id="@+id/credits_crew_view"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/movie_crew_credits_layout" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -1,11 +1,19 @@
-package com.mchapagai.movies.model;
+package com.mchapagai.movies.model.binding;
 
-public class CombinedCredits {
+public class CombinedCreditsResponse {
 
     private String name;
     private String description;
     private String profileImagePath;
     private int id;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
@@ -23,19 +31,11 @@ public class CombinedCredits {
         this.profileImagePath = profileImagePath;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 }

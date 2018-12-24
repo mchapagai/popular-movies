@@ -1,12 +1,13 @@
 package com.mchapagai.movies.model.binding;
 
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mchapagai.movies.model.CastCredit;
 import com.mchapagai.movies.model.CrewCredits;
+
+import java.util.List;
 
 public class CreditResponse implements Parcelable {
 
@@ -53,10 +54,6 @@ public class CreditResponse implements Parcelable {
         return cast;
     }
 
-    public void setCast(List<CastCredit> cast) {
-        this.cast = cast;
-    }
-
     public int getId() {
         return id;
     }
@@ -69,7 +66,4 @@ public class CreditResponse implements Parcelable {
         return crew;
     }
 
-    public void setCrew(List<CrewCredits> crew) {
-        this.crew = crew;
-    }
 }

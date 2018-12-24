@@ -1,0 +1,51 @@
+{
+  "birthday": null,
+  "known_for_department": "Acting",
+  "deathday": null,
+  "id": 1292329,
+  "name": "Kimberley Sustad",
+  "images": {
+    "profiles": [
+      {
+        "iso_639_1": null,
+        "aspect_ratio": 0.66708385481852,
+        "vote_count": 1,
+        "height": 799,
+        "vote_average": 5.172,
+        "file_path": "/V7ximwSDzFXLNqzZZe1YnjJYGR.jpg",
+        "width": 533
+      },
+      {
+        "iso_639_1": null,
+        "aspect_ratio": 0.66708385481852,
+        "vote_count": 1,
+        "height": 799,
+        "vote_average": 5.172,
+        "file_path": "/nr9AJBftt1bzaBENhEEjQDkoyF4.jpg",
+        "width": 533
+      },
+      {
+        "iso_639_1": null,
+        "aspect_ratio": 0.66713091922006,
+        "vote_count": 2,
+        "height": 718,
+        "vote_average": 5.246,
+        "file_path": "/syBA7Scz1LsY9zymB1wvR4a4RMO.jpg",
+        "width": 479
+      }
+    ]
+  },
+  "also_known_as": [
+    "Кімберлі Сустад",
+    "Кимберли Састад",
+    "Kimberly Sustad"
+  ],
+  "gender": 1,
+  "biography": "Kimberley Sustad is an actress.",
+  "popularity": 35.396,
+  "place_of_birth": "Ottawa, Ontario, Canada",
+  "profile_path": "/syBA7Scz1LsY9zymB1wvR4a4RMO.jpg",
+  "adult": false,
+  "imdb_id": "nm3666289",
+  "homepage": null
+}

@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">Discover Movies</string>
-    <string name="action_settings">Settings</string>
     <string name="title_about_activity">About</string>
     <string name="title_details_activity">Movie Details</string>
     <string name="title_credit_details_activity">Person Details</string>
     <string name="tmdb_link">TMDb</string>
-    <string name="load_more">Load more</string>
-    <string name="load_less">Load less</string>
     <string name="movies">Movies</string>
     <string name="activity_login">Login</string>
     <string name="app_discover_shows">Discover TV shows</string>
     <string name="app_show_tickets">Buy show tickets</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="cast_credits">Cast credits</string>
+    <string name="crew_credits">Crew credits</string>
+
+    <!--Resource string with placeholder-->
+    <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
 
     <!-- Buttons -->
     <string name="button_skip">Skip</string>
@@ -45,7 +47,6 @@
     <string name="menu_sort_vote_count">Most rated</string>
     <string name="menu_sort_favorites">Favored</string>
 
-    <string name="movie_details_reviews_placeholder">Reviews</string>
     <string name="movie_details_trailer_placeholder">Trailer</string>
     <string name="date_placeholder" translatable="false">01-01-2010</string>
     <string name="rating_placeholder" translatable="false">6,5/10 (5430)</string>
@@ -63,18 +64,5 @@
     <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
 
     <string name="welcome_screen_movie_details">An app to allow users to discover the most popular movies playing. This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.</string>
-
-    <string name="next">NEXT</string>
-    <string name="skip">SKIP</string>
-    <string name="start">GOT IT</string>
-
-    <string name="slide_1_title">Hello Food!</string>
-    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
-
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
-
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
 
 </resources>

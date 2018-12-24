@@ -98,7 +98,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(WelcomeActivity.this, DiscoverMoviesActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, LandingActivity.class));
         finish();
     }
 
@@ -112,11 +112,11 @@ public class WelcomeActivity extends BaseActivity {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.start));
+                btnNext.setText(getString(R.string.button_got_it).toUpperCase());
                 btnSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left
-                btnNext.setText(getString(R.string.next));
+                btnNext.setText(getString(R.string.button_next).toUpperCase());
                 btnSkip.setVisibility(View.VISIBLE);
             }
         }

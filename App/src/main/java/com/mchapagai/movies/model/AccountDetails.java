@@ -10,9 +10,6 @@ public class AccountDetails implements Parcelable {
 	@SerializedName("include_adult")
 	private boolean includeAdult;
 
-	@SerializedName("iso_3166_1")
-	private String iso31661;
-
 	@SerializedName("name")
 	private String name;
 
@@ -22,18 +19,13 @@ public class AccountDetails implements Parcelable {
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("iso_639_1")
-	private String iso6391;
-
 	@SerializedName("username")
 	private String username;
 
     private AccountDetails(Parcel in) {
         includeAdult = in.readByte() != 0;
-        iso31661 = in.readString();
         name = in.readString();
         id = in.readInt();
-        iso6391 = in.readString();
         username = in.readString();
     }
 
@@ -53,9 +45,6 @@ public class AccountDetails implements Parcelable {
         return includeAdult;
     }
 
-    public String getIso31661() {
-        return iso31661;
-    }
 
     public String getName() {
         return name;
@@ -67,10 +56,6 @@ public class AccountDetails implements Parcelable {
 
     public int getId() {
         return id;
-    }
-
-    public String getIso6391() {
-        return iso6391;
     }
 
     public String getUsername() {
@@ -85,10 +70,8 @@ public class AccountDetails implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte((byte) (includeAdult ? 1 : 0));
-        dest.writeString(iso31661);
         dest.writeString(name);
         dest.writeInt(id);
-        dest.writeString(iso6391);
         dest.writeString(username);
     }
 }

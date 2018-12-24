@@ -10,18 +10,18 @@ import android.widget.TextView;
 import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CombinedCredits;
+import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHolder> {
 
-    private List<CombinedCredits> combinedCreditsList;
+    private List<CombinedCreditsResponse> combinedCreditsResponseList;
     private OnPersonClickListener onItemClickListener;
 
-    public CreditsAdapter(List<CombinedCredits> combinedCreditsList) {
-        this.combinedCreditsList = combinedCreditsList;
+    public CreditsAdapter(List<CombinedCreditsResponse> combinedCreditsResponseList) {
+        this.combinedCreditsResponseList = combinedCreditsResponseList;
     }
 
     public void setOnItemClickListener(OnPersonClickListener onItemClickListener) {
@@ -37,18 +37,18 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final CombinedCredits combinedCredits = combinedCreditsList.get(position);
+        final CombinedCreditsResponse combinedCreditsResponse = combinedCreditsResponseList.get(position);
 
-        holder.textName.setText(combinedCredits.getName());
-        holder.textInfo.setText(combinedCredits.getDescription());
-        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + combinedCredits.getProfileImagePath()).into(holder.profileImage);
+        holder.textName.setText(combinedCreditsResponse.getName());
+        holder.textInfo.setText(combinedCreditsResponse.getDescription());
+        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + combinedCreditsResponse.getProfileImagePath()).into(holder.profileImage);
 
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(combinedCredits));
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(combinedCreditsResponse));
     }
 
     @Override
     public int getItemCount() {
-        return combinedCreditsList == null ? 0 : combinedCreditsList.size();
+        return combinedCreditsResponseList == null ? 0 : combinedCreditsResponseList.size();
 
     }
 
@@ -67,7 +67,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
     }
 
     public interface OnPersonClickListener {
-        void onItemClick(CombinedCredits combinedCredits);
+        void onItemClick(CombinedCreditsResponse combinedCreditsResponse);
     }
 
 }

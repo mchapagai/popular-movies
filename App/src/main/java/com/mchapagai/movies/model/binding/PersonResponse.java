@@ -1,156 +1,132 @@
 package com.mchapagai.movies.model.binding;
 
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class PersonResponse implements Parcelable {
 
-	@SerializedName("birthday")
-	private String birthday;
+    @SerializedName("adult")
+    private boolean adult;
 
-	@SerializedName("also_known_as")
-	private List<String> alsoKnownAs;
+    @SerializedName("birthday")
+    private String birthday;
 
-	@SerializedName("gender")
-	private int gender;
+    @SerializedName("also_known_as")
+    private List<String> alsoKnownAs;
 
-	@SerializedName("imdb_id")
-	private String imdbId;
+    @SerializedName("imdb_id")
+    private String imdbId;
 
-	@SerializedName("known_for_department")
-	private String knownForDepartment;
+    @SerializedName("known_for_department")
+    private String knownForDepartment;
 
-	@SerializedName("profile_path")
-	private String profilePath;
+    @SerializedName("profile_path")
+    private String profilePath;
 
-	@SerializedName("biography")
-	private String biography;
+    @SerializedName("biography")
+    private String biography;
 
-	@SerializedName("deathday")
-	private Object deathday;
+    @SerializedName("place_of_birth")
+    private Object placeOfBirth;
 
-	@SerializedName("place_of_birth")
-	private Object placeOfBirth;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("popularity")
-	private double popularity;
+    @SerializedName("id")
+    private int personId;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("homepage")
+    private String homepage;
 
-	@SerializedName("id")
-	private int id;
+    protected PersonResponse(Parcel in) {
+        adult = in.readByte() != 0;
+        birthday = in.readString();
+        alsoKnownAs = in.createStringArrayList();
+        imdbId = in.readString();
+        knownForDepartment = in.readString();
+        profilePath = in.readString();
+        biography = in.readString();
+        name = in.readString();
+        personId = in.readInt();
+        homepage = in.readString();
+    }
 
-	@SerializedName("adult")
-	private boolean adult;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (adult ? 1 : 0));
+        dest.writeString(birthday);
+        dest.writeStringList(alsoKnownAs);
+        dest.writeString(imdbId);
+        dest.writeString(knownForDepartment);
+        dest.writeString(profilePath);
+        dest.writeString(biography);
+        dest.writeString(name);
+        dest.writeInt(personId);
+        dest.writeString(homepage);
+    }
 
-	@SerializedName("homepage")
-	private String homepage;
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	public PersonResponse(Parcel in) {
-		birthday = in.readString();
-		alsoKnownAs = in.createStringArrayList();
-		gender = in.readInt();
-		imdbId = in.readString();
-		knownForDepartment = in.readString();
-		profilePath = in.readString();
-		biography = in.readString();
-		popularity = in.readDouble();
-		name = in.readString();
-		id = in.readInt();
-		adult = in.readByte() != 0;
-		homepage = in.readString();
-	}
+    public static final Creator<PersonResponse> CREATOR = new Creator<PersonResponse>() {
+        @Override
+        public PersonResponse createFromParcel(Parcel in) {
+            return new PersonResponse(in);
+        }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(birthday);
-		dest.writeStringList(alsoKnownAs);
-		dest.writeInt(gender);
-		dest.writeString(imdbId);
-		dest.writeString(knownForDepartment);
-		dest.writeString(profilePath);
-		dest.writeString(biography);
-		dest.writeDouble(popularity);
-		dest.writeString(name);
-		dest.writeInt(id);
-		dest.writeByte((byte) (adult ? 1 : 0));
-		dest.writeString(homepage);
-	}
+        @Override
+        public PersonResponse[] newArray(int size) {
+            return new PersonResponse[size];
+        }
+    };
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    public boolean isAdult() {
+        return adult;
+    }
 
-	public static final Creator<PersonResponse> CREATOR = new Creator<PersonResponse>() {
-		@Override
-		public PersonResponse createFromParcel(Parcel in) {
-			return new PersonResponse(in);
-		}
+    public String getBirthday() {
+        return birthday;
+    }
 
-		@Override
-		public PersonResponse[] newArray(int size) {
-			return new PersonResponse[size];
-		}
-	};
+    public List<String> getAlsoKnownAs() {
+        return alsoKnownAs;
+    }
 
-	public String getBirthday() {
-		return birthday;
-	}
+    public String getImdbId() {
+        return imdbId;
+    }
 
-	public List<String> getAlsoKnownAs() {
-		return alsoKnownAs;
-	}
+    public String getKnownForDepartment() {
+        return knownForDepartment;
+    }
 
-	public int getGender() {
-		return gender;
-	}
+    public String getProfilePath() {
+        return profilePath;
+    }
 
-	public String getImdbId() {
-		return imdbId;
-	}
+    public String getBiography() {
+        return biography;
+    }
 
-	public String getKnownForDepartment() {
-		return knownForDepartment;
-	}
+    public Object getPlaceOfBirth() {
+        return placeOfBirth;
+    }
 
-	public String getProfilePath() {
-		return profilePath;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getBiography() {
-		return biography;
-	}
+    public int getPersonId() {
+        return personId;
+    }
 
-	public Object getDeathday() {
-		return deathday;
-	}
-
-	public Object getPlaceOfBirth() {
-		return placeOfBirth;
-	}
-
-	public double getPopularity() {
-		return popularity;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public boolean isAdult() {
-		return adult;
-	}
-
-	public String getHomepage() {
-		return homepage;
-	}
+    public String getHomepage() {
+        return homepage;
+    }
 }

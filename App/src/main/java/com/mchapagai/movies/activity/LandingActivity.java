@@ -38,11 +38,7 @@ public class LandingActivity extends AppCompatActivity {
         launchSettingsScreen.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
         launchProfileScreen.setOnClickListener(view -> {
             // Check to see if user is logged in, if not show a dialog to prompt user to login
-            if (preferencesHelper.isSignedIn()) {
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            } else {
+            if (!preferencesHelper.isSignedIn()) {
                 MovieDialogBuilder builder = new MovieDialogBuilder()
                         .setMessage(getResources().getString(R.string.prompt_to_login_message))
                         .setTitle(getResources().getString(R.string.prompt_to_login_title))
@@ -64,7 +60,9 @@ public class LandingActivity extends AppCompatActivity {
                     public void onNegativeButtonClicked(String tag) {
                     }
                 });
-
+            } else if (preferencesHelper.isSignedIn()) {
+                Intent intent = new Intent(view.getContext(), DiscoverMoviesActivity.class);
+                startActivity(intent);
             }
         });
     }

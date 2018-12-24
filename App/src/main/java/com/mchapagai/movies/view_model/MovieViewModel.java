@@ -1,6 +1,7 @@
 package com.mchapagai.movies.view_model;
 
 import com.mchapagai.movies.model.binding.CreditResponse;
+import com.mchapagai.movies.model.binding.CreditResponseCombined;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
@@ -17,6 +18,7 @@ public interface MovieViewModel {
     Observable<ReviewsResponse> getMovieReviewsById(int movieId);
     Observable<MovieDetailsResponse> getMovieDetails(int movieId);
     Observable<CreditResponse> getMovieCreditDetails(int movieId);
-    Single<PersonResponse> getPersonDetailsById(String movieId);
+    Single<PersonResponse> getPersonDetailsById(int personId);
+    Observable<CreditResponseCombined> getPersonCombinedDetailsById(int personId);
 
 }

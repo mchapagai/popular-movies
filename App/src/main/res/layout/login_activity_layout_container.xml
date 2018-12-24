@@ -84,7 +84,7 @@
                 android:layout_below="@id/password_edit_text"
                 android:layout_marginTop="@dimen/margin_24dp" />
 
-            <Button
+            <com.mchapagai.library.views.MaterialButton
                 android:id="@+id/login_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
@@ -137,7 +137,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <com.mchapagai.library.views.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_account_placeholder"

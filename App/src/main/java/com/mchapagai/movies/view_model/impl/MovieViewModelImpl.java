@@ -2,6 +2,7 @@ package com.mchapagai.movies.view_model.impl;
 
 import com.mchapagai.movies.api.MovieAPI;
 import com.mchapagai.movies.model.binding.CreditResponse;
+import com.mchapagai.movies.model.binding.CreditResponseCombined;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
@@ -50,7 +51,12 @@ public class MovieViewModelImpl implements MovieViewModel {
     }
 
     @Override
-    public Single<PersonResponse> getPersonDetailsById(String movieId) {
-        return movieAPI.getPersonDetailsById(movieId).compose(RxUtils.applySingleSchedulers());
+    public Single<PersonResponse> getPersonDetailsById(int personId) {
+        return movieAPI.getPersonDetailsById(personId).compose(RxUtils.applySingleSchedulers());
+    }
+
+    @Override
+    public Observable<CreditResponseCombined> getPersonCombinedDetailsById(int personId) {
+        return movieAPI.getPersonCombinedDetailsById(personId).compose(RxUtils.applySchedulers());
     }
 }

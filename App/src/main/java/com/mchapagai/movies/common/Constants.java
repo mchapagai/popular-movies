@@ -21,4 +21,8 @@ public class Constants {
     public static final String MOVIE_POSTER_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
     public static final String YOUTUBE_THUMBNAIL = "https://img.youtube.com/vi/%s/mqdefault.jpg";
 
+    public static final float SCRIM_ADJUSTMENT = 0.075f;
+    public static final String SECURE_BASE_URL = "https://image.tmdb.org/t/p/w342";
+    public static final int DELAY = 0;
+
 }

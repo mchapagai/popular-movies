@@ -12,18 +12,12 @@ public class ReviewsResponse implements Parcelable {
 
     @SerializedName("results")
     private List<Reviews> reviews;
-    @SerializedName("total_pages")
-    private int totalPages;
     @SerializedName("id")
     private int movieId;
-    @SerializedName("page")
-    private int page;
 
     protected ReviewsResponse(Parcel in) {
         reviews = in.createTypedArrayList(Reviews.CREATOR);
-        totalPages = in.readInt();
         movieId = in.readInt();
-        page = in.readInt();
     }
 
     public static final Creator<ReviewsResponse> CREATOR = new Creator<ReviewsResponse>() {
@@ -46,25 +40,15 @@ public class ReviewsResponse implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(reviews);
-        dest.writeInt(totalPages);
         dest.writeInt(movieId);
-        dest.writeInt(page);
     }
 
     public List<Reviews> getReviews() {
         return reviews;
     }
 
-    public int getTotalPages() {
-        return totalPages;
-    }
-
     public int getMovieId() {
         return movieId;
-    }
-
-    public int getPage() {
-        return page;
     }
 
     public static Creator<ReviewsResponse> getCREATOR() {

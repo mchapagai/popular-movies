@@ -2,6 +2,7 @@ package com.mchapagai.movies.api.impl;
 
 import com.mchapagai.movies.api.MovieAPI;
 import com.mchapagai.movies.model.binding.CreditResponse;
+import com.mchapagai.movies.model.binding.CreditResponseCombined;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
@@ -48,7 +49,12 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Single<PersonResponse> getPersonDetailsById(String movieId) {
-        return movieService.get().getPersonDetailsById(movieId);
+    public Single<PersonResponse> getPersonDetailsById(int personId) {
+        return movieService.get().getPersonDetailsById(personId);
+    }
+
+    @Override
+    public Observable<CreditResponseCombined> getPersonCombinedDetailsById(int personId) {
+        return movieService.get().getPersonCombinedDetailsById(personId);
     }
 }

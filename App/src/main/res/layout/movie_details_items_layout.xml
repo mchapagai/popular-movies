@@ -20,7 +20,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/movie_tagline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/coming_soon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/original_title"
+        app:layout_constraintTop_toBottomOf="@+id/original_title" />
 
     <TextView
         android:id="@+id/release_date"
@@ -37,7 +50,7 @@
         android:textStyle="italic"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/original_title" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
 
     <com.mchapagai.library.views.MaterialTextView
         android:id="@+id/ratings"
@@ -156,7 +169,8 @@
             app:layout_constraintBottom_toTopOf="@+id/videos_error_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/videos_error_text" />
+            app:layout_constraintTop_toTopOf="@+id/videos_error_text"
+            app:layout_goneMarginTop="@dimen/margin_16dp" />
 
     </android.support.constraint.ConstraintLayout>
 
