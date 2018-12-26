@@ -1,13 +1,14 @@
 package com.mchapagai.library.utils;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 
 import com.mchapagai.library.R;
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
 
 import javax.annotation.Nonnull;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MaterialDialogUtils {
 

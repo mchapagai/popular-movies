@@ -2,14 +2,18 @@ package com.mchapagai.library.utils;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.Interpolator;
+import android.view.animation.Transformation;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mchapagai.library.R;
 import com.mchapagai.library.common.LibraryConstants;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 public class AnimationUtils {
 
@@ -47,5 +51,30 @@ public class AnimationUtils {
         infoBackgroundColorAnim.setDuration(LibraryConstants.DURATION);
         infoBackgroundColorAnim.setInterpolator(getFastOutSlowInInterpolator(view.getContext()));
         infoBackgroundColorAnim.start();
+    }
+
+    public static int getTargetHeight(View v){
+        final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        v.measure(widthSpec, heightSpec);
+
+        return v.getMeasuredHeight();
+    }
+
+    public static Animation getExpandHeightAnimation(final View v, final int targetHeight){
+        return new Animation(){
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? LinearLayout.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
     }
 }

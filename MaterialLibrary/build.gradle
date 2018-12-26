@@ -25,15 +25,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions{
+        abortOnError false
+        ignore 'VectorPath'
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:$versions.support_library"
-    implementation "com.android.support:support-annotations:$versions.support_library"
-    implementation "com.android.support:palette-v7:$versions.support_library"
-    implementation "com.android.support:recyclerview-v7:$versions.support_library"
+    implementation "androidx.appcompat:appcompat:$versions.androidx_appcompat"
+    implementation "androidx.annotation:annotation:$versions.androidx_annotation"
+    implementation "androidx.palette:palette:$versions.androidx_palette"
+    implementation "androidx.recyclerview:recyclerview:$versions.androidx_recyclerview"
 
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"

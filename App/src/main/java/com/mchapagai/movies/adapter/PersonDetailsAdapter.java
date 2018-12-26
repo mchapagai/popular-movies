@@ -3,11 +3,6 @@ package com.mchapagai.movies.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +21,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PersonDetailsAdapter extends RecyclerView.Adapter<PersonDetailsAdapter.ViewHolder> {
 
     private List<CombinedPersonResponse> combinedPersonItems;
-    private Context context;
     private static int thumbnailWidth;
 
     public PersonDetailsAdapter(List<CombinedPersonResponse> combinedPersonItems, Context context) {
         this.combinedPersonItems = combinedPersonItems;
-        this.context = context;
-
         int screenWidth = MovieUtils.calculateScreenWidth(context);
-        int peekWidth = MovieUtils.convertDpToPixel(context, 32);
-        thumbnailWidth = (screenWidth - peekWidth) / 3;
+        int width = MovieUtils.convertDpToPixel(context, 32);
+        thumbnailWidth = (screenWidth - width) / 3;
     }
 
     @NonNull
@@ -102,7 +102,6 @@ public class PersonDetailsAdapter extends RecyclerView.Adapter<PersonDetailsAdap
         if (swatch != null) {
             int startColor = ContextCompat.getColor(ll.getContext(), R.color.grey_800);
             int endColor = swatch.getRgb();
-
             AnimationUtils.animateBackgroundColorChange(ll, startColor, endColor);
         }
     }
@@ -114,18 +113,15 @@ public class PersonDetailsAdapter extends RecyclerView.Adapter<PersonDetailsAdap
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        MaterialImageView profileImage;
-        TextView originalTitle;
-        MaterialTextView caption, subtitle;
-        ConstraintLayout infoLayout;
+        @BindView(R.id.credit_profile_image)         MaterialImageView profileImage;
+        @BindView(R.id.credit_profile_title)        TextView originalTitle;
+        @BindView(R.id.credit_profile_subtitle)     MaterialTextView subtitle;
+        @BindView(R.id.credit_profile_caption)      MaterialTextView caption;
+        @BindView(R.id.credit_details_layout)       ConstraintLayout infoLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            infoLayout = itemView.findViewById(R.id.credit_profile_info);
-            originalTitle = itemView.findViewById(R.id.credit_profile_title);
-            subtitle = itemView.findViewById(R.id.credit_profile_subtitle);
-            caption = itemView.findViewById(R.id.credit_profile_caption);
-            profileImage = itemView.findViewById(R.id.credit_profile_image);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

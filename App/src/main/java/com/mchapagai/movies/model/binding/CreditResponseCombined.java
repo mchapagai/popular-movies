@@ -8,6 +8,7 @@ import com.mchapagai.movies.model.CombinedCastCredit;
 import com.mchapagai.movies.model.CombinedCrewCredits;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CreditResponseCombined implements Parcelable {
 
@@ -58,5 +59,21 @@ public class CreditResponseCombined implements Parcelable {
 
     public List<CombinedCrewCredits> getCrew() {
         return crew;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreditResponseCombined combined = (CreditResponseCombined) o;
+        return id == combined.id &&
+                Objects.equals(cast, combined.cast) &&
+                Objects.equals(crew, combined.crew);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(cast, id, crew);
     }
 }

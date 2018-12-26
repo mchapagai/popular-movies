@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CombinedCastCredit implements Parcelable {
 
@@ -20,9 +21,6 @@ public class CombinedCastCredit implements Parcelable {
 
 	@SerializedName("episode_count")
 	private int episodeCount;
-
-	@SerializedName("genre_ids")
-	private List<Integer> genreIds;
 
 	@SerializedName("poster_path")
 	private String posterPath;
@@ -157,10 +155,6 @@ public class CombinedCastCredit implements Parcelable {
 		return episodeCount;
 	}
 
-	public List<Integer> getGenreIds() {
-		return genreIds;
-	}
-
 	public String getPosterPath() {
 		return posterPath;
 	}
@@ -228,4 +222,38 @@ public class CombinedCastCredit implements Parcelable {
 	public boolean isAdult() {
 		return adult;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CombinedCastCredit that = (CombinedCastCredit) o;
+        return episodeCount == that.episodeCount &&
+                Double.compare(that.popularity, popularity) == 0 &&
+                Double.compare(that.voteAverage, voteAverage) == 0 &&
+                id == that.id &&
+                voteCount == that.voteCount &&
+                video == that.video &&
+                adult == that.adult &&
+                Objects.equals(firstAirDate, that.firstAirDate) &&
+                Objects.equals(overview, that.overview) &&
+                Objects.equals(originalLanguage, that.originalLanguage) &&
+                Objects.equals(posterPath, that.posterPath) &&
+                Objects.equals(originCountry, that.originCountry) &&
+                Objects.equals(backdropPath, that.backdropPath) &&
+                Objects.equals(character, that.character) &&
+                Objects.equals(mediaType, that.mediaType) &&
+                Objects.equals(creditId, that.creditId) &&
+                Objects.equals(originalName, that.originalName) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(originalTitle, that.originalTitle) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(releaseDate, that.releaseDate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(firstAirDate, overview, originalLanguage, episodeCount, posterPath, originCountry, backdropPath, character, mediaType, creditId, originalName, popularity, voteAverage, name, id, voteCount, originalTitle, video, title, releaseDate, adult);
+    }
 }

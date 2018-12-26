@@ -3,11 +3,12 @@ package com.mchapagai.library.dialog;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
 import android.text.Html;
 
 import java.io.Serializable;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
 
 public class MovieDialogBuilder implements Parcelable {
 

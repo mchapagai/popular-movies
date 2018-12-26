@@ -6,8 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -18,6 +16,9 @@ import com.mchapagai.library.R;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 public class MaterialTagView extends RelativeLayout {
 

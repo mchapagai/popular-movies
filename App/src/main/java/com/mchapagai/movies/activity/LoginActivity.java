@@ -3,7 +3,6 @@ package com.mchapagai.movies.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.mchapagai.movies.view_model.LoginViewModel;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Single;
@@ -32,7 +32,8 @@ public class LoginActivity extends BaseActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @BindView(R.id.toolbar)                     Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.login_button)                MaterialButton loginButton;
     @BindView(R.id.username_edit_text)          EditText usernameInputFiled;
     @BindView(R.id.password_edit_text)          EditText passwordInputField;

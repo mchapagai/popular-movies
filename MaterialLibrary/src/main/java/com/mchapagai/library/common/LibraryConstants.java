@@ -6,4 +6,5 @@ public class LibraryConstants {
     public static final int DARK_COLOR = 1;
     public static final int UNKNOWN = 2;
     public static final long DURATION = 1000L;
+    public static final int START_OFFSET = 500;
 }

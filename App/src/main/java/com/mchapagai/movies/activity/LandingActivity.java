@@ -2,7 +2,6 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
@@ -12,6 +11,8 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.utils.PreferencesHelper;
 
 import java.io.Serializable;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LandingActivity extends AppCompatActivity {
 

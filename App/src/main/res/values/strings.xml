@@ -62,7 +62,9 @@
     <!-- Login Screen -->
     <string name="prompt_to_login_title">Oh, snap!</string>
     <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
-
     <string name="welcome_screen_movie_details">An app to allow users to discover the most popular movies playing. This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.</string>
+
+    <!-- ADA Global -->
+    <string name="login_image_ada">Login screen</string>
 
 </resources>

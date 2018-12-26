@@ -1,7 +1,8 @@
 package com.mchapagai.movies.common;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import dagger.android.AndroidInjection;
 
 public class BaseActivity extends AppCompatActivity {

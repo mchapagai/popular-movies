@@ -39,11 +39,12 @@ dependencies {
     implementation project(':MaterialLibrary')
 
     //noinspection GradleCompatible
-    implementation "com.android.support:appcompat-v7:$versions.support_library"
-    implementation "com.android.support:design:$versions.support_library"
-    implementation "com.android.support:support-annotations:$versions.support_library"
-    implementation "com.android.support:palette-v7:$versions.support_library"
-    implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+    implementation "androidx.appcompat:appcompat:$versions.androidx_core"
+    implementation "com.google.android.material:material:$versions.androidx_design"
+    implementation "androidx.annotation:annotation:$versions.androidx_annotation"
+    implementation "androidx.palette:palette:$versions.androidx_palette"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
@@ -84,7 +85,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
 
     // ViweModel & LoveData
-    implementation "android.arch.lifecycle:extensions:$versions.arch_lifecycle"
-    implementation "android.arch.lifecycle:runtime:$versions.arch_lifecycle"
-    annotationProcessor "android.arch.lifecycle:compiler:$versions.arch_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.arch_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime:$versions.arch_lifecycle"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$versions.arch_lifecycle"
 }

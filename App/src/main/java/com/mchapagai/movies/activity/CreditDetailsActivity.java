@@ -8,22 +8,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mchapagai.library.common.LibraryConstants;
 import com.mchapagai.library.utils.AnimationUtils;
 import com.mchapagai.library.utils.MaterialDialogUtils;
@@ -44,51 +41,64 @@ import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class CreditDetailsActivity extends BaseActivity {
 
     private static final String TAG = CreditDetailsActivity.class.getSimpleName();
 
-    @Inject
-    MovieViewModel movieViewModel;
-
-    @BindView(R.id.credit_app_bar_layout)
-    AppBarLayout appBarLayout;
-    @BindView(R.id.credit_collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.credit_toolbar)
-    Toolbar toolbar;
     @BindView(R.id.credit_circle_image_view)
     MaterialCircleImageView profileImageView;
-    @BindView((R.id.credits_person_name))
-    TextView nameView;
-    @BindView(R.id.credits_biography)
-    MaterialTextView biographyView;
+    @BindView(R.id.credit_toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.credit_collapsing_toolbar_layout)
+    CollapsingToolbarLayout creditCollapsingToolbarLayout;
+    @BindView(R.id.credit_app_bar_layout)
+    AppBarLayout creditAppBarLayout;
+    @BindView(R.id.credits_person_name)
+    TextView creditsPersonName;
     @BindView(R.id.birth_date)
-    MaterialTextView birthday;
+    MaterialTextView birthDate;
+    @BindView(R.id.credits_biography)
+    MaterialTextView creditsBiography;
+    @BindView(R.id.credits_cast_view)
+    ViewStub creditsCastView;
+    @BindView(R.id.credits_crew_view)
+    ViewStub creditsCrewView;
+    @BindView(R.id.credit_details_child_layout)
+    LinearLayout linearLayout;
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private PersonResponse personResponse;
     private List<CombinedCastCredit> castCredits = new ArrayList<>();
     private List<CombinedCrewCredits> crewCredits = new ArrayList<>();
     private RecyclerView personRecyclerView, crewRecyclerView;
     private PersonDetailsAdapter personDetailsAdapter;
-    private ViewStub creditViewStub, crewViewStub;
     private int statusBarColor;
-    private final Handler handler = new Handler();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    @Inject
+    MovieViewModel movieViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.person_details_container_layout);
-        
+        ButterKnife.bind(this);
+
         // Fullscreen - hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -96,7 +106,7 @@ public class CreditDetailsActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("");
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        creditAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
             int scrollRange = -1;
 
@@ -107,12 +117,12 @@ public class CreditDetailsActivity extends BaseActivity {
                 }
                 if (scrollRange + verticalOffset == 0) {
                     if (personResponse != null) {
-                        collapsingToolbarLayout.setTitle(personResponse.getName());
+                        creditCollapsingToolbarLayout.setTitle(personResponse.getName());
                     }
                     isShown = true;
                 } else if (isShown) {
                     // There should be a space between double quote otherwise it won't work
-                    collapsingToolbarLayout.setTitle(" ");
+                    creditCollapsingToolbarLayout.setTitle(" ");
                     isShown = false;
                 }
             }
@@ -130,11 +140,11 @@ public class CreditDetailsActivity extends BaseActivity {
                                 personResponse = response;
 
                                 displayImage(personResponse.getProfilePath());
-                                nameView.setText(String.format("%s \"%s\"", response.getName(), response.getKnownForDepartment()));
-                                biographyView.setText(response.getBiography());
+                                creditsPersonName.setText(String.format("%s \"%s\"", response.getName(), response.getKnownForDepartment()));
+                                creditsBiography.setText(response.getBiography());
                                 String birthDayAndPlace = getString(R.string.concat_strings_placeholder,
                                         DateTimeUtils.getNameOfMonth(response.getBirthday()), response.getPlaceOfBirth());
-                                birthday.setText(birthDayAndPlace);
+                                birthDate.setText(birthDayAndPlace);
                             }
                         }, throwable -> MaterialDialogUtils.showDialog(CreditDetailsActivity.this,
                                 R.string.service_error_title, R.string.service_error_title, R.string.material_dialog_ok)
@@ -142,11 +152,12 @@ public class CreditDetailsActivity extends BaseActivity {
 
         compositeDisposable.add(movieViewModel.getPersonCombinedDetailsById(personId)
                 .subscribe(
-                        creditResponseCombined -> creditResponseItems(creditResponseCombined),
-                        throwable -> {
-                        }
+                        this::creditResponseItems,
+                        throwable -> MaterialDialogUtils.showDialog(CreditDetailsActivity.this,
+                                getString(R.string.service_error_title), throwable.getMessage(), getString(R.string.material_dialog_ok))
                 ));
 
+        showDetailsAnimation();
     }
 
     private void displayImage(String profileImagePath) {
@@ -169,16 +180,15 @@ public class CreditDetailsActivity extends BaseActivity {
                 backButton.setColorFilter(ContextCompat.getColor(CreditDetailsActivity.this, R.color.darkThemePrimary));
 
                 // Make toolbar title text color dark
-                collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(CreditDetailsActivity.this, R.color.darkThemeSecondary));
+                creditCollapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(CreditDetailsActivity.this, R.color.darkThemeSecondary));
             }
 
-            // color the status bar. Set a complementary dark color on L,
-            // light or dark color on M (with matching status bar icons)
+            // color the status bar.
             statusBarColor = getWindow().getStatusBarColor();
             final Palette.Swatch topColor = PaletteColorUtils.getMostPopulousSwatch(palette);
             if (topColor != null && isDark) {
                 statusBarColor = PaletteColorUtils.scrimify(topColor.getRgb(), isDark, Constants.SCRIM_ADJUSTMENT);
-                // set a light status bar on M+
+                // set a light status bar
                 if (!isDark) {
                     AnimationUtils.setLightStatusBar(getWindow().getDecorView());
                 }
@@ -199,8 +209,8 @@ public class CreditDetailsActivity extends BaseActivity {
                                 ContextCompat.getColor(CreditDetailsActivity.this, android.R.color.transparent),
                                 statusBarColor});
 
-                appBarLayout.setBackground(gradientDrawable);
-                collapsingToolbarLayout.setContentScrim(new ColorDrawable(PaletteColorUtils.modifyAlpha(statusBarColor, 0.9f)));
+                creditAppBarLayout.setBackground(gradientDrawable);
+                creditCollapsingToolbarLayout.setContentScrim(new ColorDrawable(PaletteColorUtils.modifyAlpha(statusBarColor, 0.9f)));
             } else {
                 GradientDrawable gradientDrawable = new GradientDrawable(
                         GradientDrawable.Orientation.BOTTOM_TOP,
@@ -208,20 +218,20 @@ public class CreditDetailsActivity extends BaseActivity {
                                 ContextCompat.getColor(CreditDetailsActivity.this, android.R.color.transparent),
                                 ContextCompat.getColor(CreditDetailsActivity.this, R.color.grey)});
 
-                appBarLayout.setBackground(gradientDrawable);
-                collapsingToolbarLayout.setContentScrim(new ColorDrawable(PaletteColorUtils.modifyAlpha(ContextCompat.getColor(CreditDetailsActivity.this, R.color.grey), 0.9f)));
+                creditAppBarLayout.setBackground(gradientDrawable);
+                creditCollapsingToolbarLayout.setContentScrim(new ColorDrawable(PaletteColorUtils.modifyAlpha(ContextCompat.getColor(CreditDetailsActivity.this, R.color.grey), 0.9f)));
             }
 
         });
     }
 
     private void creditResponseItems(CreditResponseCombined response) {
-        creditViewStub = findViewById(R.id.credits_cast_view);
-        View creditDetailsView = creditViewStub.inflate();
+        creditsCastView = findViewById(R.id.credits_cast_view);
+        View creditDetailsView = creditsCastView.inflate();
         personRecyclerView = creditDetailsView.findViewById(R.id.movies_person_recycler_view);
 
-        crewViewStub = findViewById(R.id.credits_crew_view);
-        View creditCrewDetailsView = crewViewStub.inflate();
+        creditsCrewView = findViewById(R.id.credits_crew_view);
+        View creditCrewDetailsView = creditsCrewView.inflate();
         crewRecyclerView = creditCrewDetailsView.findViewById(R.id.movies_person_crew_recycler_view);
 
         personRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -262,7 +272,7 @@ public class CreditDetailsActivity extends BaseActivity {
             combinedCreditsResponseList.add(combinedCreditsResponse);
         }
 
-        return combinedCreditsResponseList;
+        return new ArrayList<>(new HashSet<>(combinedCreditsResponseList));
     }
 
     @Override
@@ -272,5 +282,35 @@ public class CreditDetailsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private Animation.AnimationListener detailsAnimation = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            new Handler().postDelayed(() -> {
+                combineCreditsForUI();
+            }, Constants.DELAY);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private void showDetailsAnimation() {
+
+        final int targetHeight = AnimationUtils.getTargetHeight(linearLayout);
+        Animation animation = AnimationUtils.getExpandHeightAnimation(linearLayout, targetHeight);
+        animation.setDuration((int) (targetHeight / linearLayout.getContext().getResources().getDisplayMetrics().density));
+        animation.setAnimationListener(detailsAnimation);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setStartOffset(LibraryConstants.START_OFFSET);
+        linearLayout.startAnimation(animation);
     }
 }

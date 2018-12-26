@@ -3,13 +3,14 @@ package com.mchapagai.movies.utils;
 import android.content.Context;
 import android.graphics.Point;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.Movies;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MovieUtils {
 

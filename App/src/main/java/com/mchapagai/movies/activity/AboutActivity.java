@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.util.TypedValue;
@@ -18,22 +14,42 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.BuildConfig;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AboutActivity extends BaseActivity {
 
-    private Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingToolbar;
-    private AppBarLayout appBarLayout;
-    private MaterialTextView aboutAppVersion;
+    @BindView(R.id.circle_image_view)
+    MaterialCircleImageView circleImageView;
+    @BindView(R.id.about_app_version)
+    MaterialTextView aboutAppVersion;
+    @BindView(R.id.about_toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout appBarLayout;
+    @BindView(R.id.about_copyright)
+    MaterialTextView aboutCopyright;
+    @BindView(R.id.licenses_layout)
+    LinearLayout licensesLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity_container);
+        ButterKnife.bind(this);
+
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
@@ -45,11 +61,6 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initViews() {
-        toolbar = findViewById(R.id.about_toolbar);
-        appBarLayout = findViewById(R.id.app_bar_layout);
-        collapsingToolbar = findViewById(R.id.collapsing_toolbar_layout);
-        aboutAppVersion = findViewById(R.id.about_app_version);
-
 
         setSupportActionBar(toolbar);
         if (toolbar != null) {
@@ -92,15 +103,14 @@ public class AboutActivity extends BaseActivity {
 
     private void initLicenses() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        LinearLayout content = findViewById(R.id.licenses_layout);
 
         String[] softwareList = getResources().getStringArray(R.array.software_list);
         String[] licenseList = getResources().getStringArray(R.array.license_list);
-        content.addView(createItemsText(softwareList));
+        licensesLayout.addView(createItemsText(softwareList));
         for (int i = 0; i < softwareList.length; i++) {
-            content.addView(createDivider(inflater, content));
-            content.addView(createHeader(softwareList[i]));
-            content.addView(createHtmlText(licenseList[i]));
+            licensesLayout.addView(createDivider(inflater, licensesLayout));
+            licensesLayout.addView(createHeader(softwareList[i]));
+            licensesLayout.addView(createHtmlText(licenseList[i]));
         }
     }
 
@@ -130,8 +140,7 @@ public class AboutActivity extends BaseActivity {
         text.setAutoLinkMask(Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
         text.setText(Html.fromHtml(s));
         LinearLayout.LayoutParams layoutParams =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int marginPx = (0 < margin) ? (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin,
                 getResources().getDisplayMetrics()) : 0;
         layoutParams.setMargins(0, marginPx, 0, marginPx);

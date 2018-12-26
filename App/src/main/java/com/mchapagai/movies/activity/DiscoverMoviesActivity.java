@@ -2,11 +2,6 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +24,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAdapter.OnItemClickListener {
@@ -37,11 +39,16 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
 
     private static final int COLUMN_COUNT = 2;
     private List<Movies> movieItems = new ArrayList<>();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private RecyclerView recyclerView;
-    private PageLoader pageLoader;
     private Sort sort = Sort.MOST_POPULAR;
     private PreferencesHelper preferencesHelper;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    @BindView(R.id.movies_recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.movies_page_loader)
+    PageLoader pageLoader;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -51,16 +58,14 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discover_movies_activity_container);
 
+        ButterKnife.bind(this);
+
         preferencesHelper = new PreferencesHelper(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = findViewById(R.id.movies_recycler_view);
-        pageLoader = findViewById(R.id.movies_page_loader);
         GridLayoutManager layoutManager = new GridLayoutManager(this, COLUMN_COUNT);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
