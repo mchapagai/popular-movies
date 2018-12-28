@@ -11,6 +11,7 @@
     <string name="coming_soon">Coming soon</string>
     <string name="cast_credits">Cast credits</string>
     <string name="crew_credits">Crew credits</string>
+    <string name="not_available">N/A</string>
 
     <!--Resource string with placeholder-->
     <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
@@ -58,6 +59,7 @@
     <!-- ADA Strings-->
     <string name="user_profile_ada">User profile</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="about">About</string>
 
     <!-- Login Screen -->
     <string name="prompt_to_login_title">Oh, snap!</string>

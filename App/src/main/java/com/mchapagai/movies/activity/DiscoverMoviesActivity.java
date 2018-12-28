@@ -6,7 +6,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
@@ -18,37 +24,22 @@ import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.MovieViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.List;
+import javax.inject.Inject;
 
 public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAdapter.OnItemClickListener {
 
     private static final String TAG = DiscoverMoviesActivity.class.getSimpleName();
 
     private static final int COLUMN_COUNT = 2;
-    private List<Movies> movieItems = new ArrayList<>();
     private Sort sort = Sort.MOST_POPULAR;
     private PreferencesHelper preferencesHelper;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    @BindView(R.id.movies_recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.movies_page_loader)
-    PageLoader pageLoader;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.movies_recycler_view)    RecyclerView recyclerView;
+    @BindView(R.id.movies_page_loader)      PageLoader pageLoader;
+    @BindView(R.id.toolbar)                 Toolbar toolbar;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -125,7 +116,7 @@ public class DiscoverMoviesActivity extends BaseActivity implements MoviesGridAd
     }
 
     private void movieResponseItems(MovieResponse response) {
-        movieItems = response.getMovies();
+        final List<Movies> movieItems = response.getMovies();
         recyclerView.setAdapter(new MoviesGridAdapter(movieItems, this));
     }
 

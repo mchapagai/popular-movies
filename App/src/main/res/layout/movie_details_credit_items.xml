@@ -4,8 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8dp"
-        android:id="@+id/credit_layout">
+        android:layout_marginEnd="@dimen/margin_8dp">
 
     <com.mchapagai.library.views.MaterialCircleImageView
             android:id="@+id/credit_profile_image"

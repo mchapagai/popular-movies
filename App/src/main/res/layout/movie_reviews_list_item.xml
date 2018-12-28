@@ -1,22 +1,44 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/review_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:background="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/review_author"
-        android:paddingTop="@dimen/margin_16dp"
+    <com.mchapagai.library.views.MaterialTextView
+        android:id="@+id/review_author_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.00"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/app_name" />
 
-    <TextView
+    <com.mchapagai.library.views.MaterialImageView
+        android:id="@+id/review_icon"
+        android:layout_width="@dimen/margin_24dp"
+        android:layout_height="@dimen/margin_24dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/graphics_chevron_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.mchapagai.library.views.ExpandableTextView
         android:id="@+id/review_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
         android:ellipsize="end"
-        android:paddingTop="@dimen/margin_8dp"
-        android:maxLines="1"
-        android:textAppearance="?android:textAppearanceMedium" />
+        android:maxLines="4"
+        android:paddingBottom="@dimen/margin_16dp"
+        android:paddingEnd="@dimen/margin_16dp"
+        app:animationDuration="750"
+        app:layout_constraintTop_toBottomOf="@id/review_icon"
+        tools:text="@string/lorem_placeholder" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

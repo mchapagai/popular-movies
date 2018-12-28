@@ -37,6 +37,6 @@
         <item>@color/dot_dark_screen3</item>
     </array>
 
-    <color name="grey_800">#424242</color>
+    <color name="animate_background">#424242</color>
 
 </resources>

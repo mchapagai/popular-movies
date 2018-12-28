@@ -2,10 +2,9 @@ package com.mchapagai.movies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Objects;
+import com.mchapagai.library.utils.DateTimeUtils;
 
 public class CombinedCrewCredits implements Parcelable {
 
@@ -151,7 +150,11 @@ public class CombinedCrewCredits implements Parcelable {
 	}
 
 	public String getReleaseDate() {
-		return releaseDate;
+        String date = null;
+        if (!TextUtils.isEmpty(releaseDate)) {
+            date = DateTimeUtils.getYearOnly(releaseDate);
+        }
+        return date;
 	}
 
 	public String getCreditId() {
@@ -186,33 +189,4 @@ public class CombinedCrewCredits implements Parcelable {
 		return voteCount;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		CombinedCrewCredits that = (CombinedCrewCredits) o;
-		return video == that.video &&
-				Double.compare(that.voteAverage, voteAverage) == 0 &&
-				Double.compare(that.popularity, popularity) == 0 &&
-				id == that.id &&
-				adult == that.adult &&
-				voteCount == that.voteCount &&
-				Objects.equals(overview, that.overview) &&
-				Objects.equals(originalLanguage, that.originalLanguage) &&
-				Objects.equals(originalTitle, that.originalTitle) &&
-				Objects.equals(title, that.title) &&
-				Objects.equals(posterPath, that.posterPath) &&
-				Objects.equals(backdropPath, that.backdropPath) &&
-				Objects.equals(mediaType, that.mediaType) &&
-				Objects.equals(releaseDate, that.releaseDate) &&
-				Objects.equals(creditId, that.creditId) &&
-				Objects.equals(department, that.department) &&
-				Objects.equals(job, that.job);
-	}
-
-	@Override
-	public int hashCode() {
-
-		return Objects.hash(overview, originalLanguage, originalTitle, video, title, posterPath, backdropPath, mediaType, releaseDate, creditId, voteAverage, popularity, id, department, job, adult, voteCount);
-	}
 }

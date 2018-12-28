@@ -32,22 +32,25 @@ public class LoginActivity extends BaseActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.login_button)                MaterialButton loginButton;
-    @BindView(R.id.username_edit_text)          EditText usernameInputFiled;
-    @BindView(R.id.password_edit_text)          EditText passwordInputField;
-    @BindView(R.id.progress_page_loader)        PageLoader pageLoader;
-    @BindView(R.id.navigate_to_about)           MaterialTextView aboutView;
-    @BindView(R.id.navigate_to_tmdb)            MaterialTextView tmdbSite;
+    @BindView(R.id.toolbar)                 Toolbar toolbar;
+    @BindView(R.id.login_button)            MaterialButton loginButton;
+    @BindView(R.id.username_edit_text)      EditText usernameInputFiled;
+    @BindView(R.id.password_edit_text)      EditText passwordInputField;
+    @BindView(R.id.progress_page_loader)    PageLoader pageLoader;
+    @BindView(R.id.navigate_to_about)       MaterialTextView aboutView;
+    @BindView(R.id.navigate_to_tmdb)        MaterialTextView tmdbSite;
 
     @Inject
     LoginViewModel loginViewModel;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     private String authenticationToken;
+
     boolean requestTokenAccess, verifyToken, stopped;
+
     private PreferencesHelper preferencesUtils;
+
     private String sessionId;
 
     @Override
@@ -95,9 +98,7 @@ public class LoginActivity extends BaseActivity {
         tmdbSite.setOnClickListener(getNavigateToTMDb);
     }
 
-    private View.OnClickListener navigateToAbout = view -> {
-        startActivity(new Intent(view.getContext(), AboutActivity.class));
-    };
+    private View.OnClickListener navigateToAbout = view -> startActivity(new Intent(view.getContext(), AboutActivity.class));
 
     private View.OnClickListener getNavigateToTMDb = v -> {
         String url = "https://www.themoviedb.org/";
@@ -111,7 +112,8 @@ public class LoginActivity extends BaseActivity {
             final String username = usernameInputFiled.getText().toString();
             final String password = passwordInputField.getText().toString();
 
-            Single<AuthToken> authenticatedSingle = loginViewModel.getRequestAuthenticated(authenticationToken, username, password);
+            Single<AuthToken> authenticatedSingle = loginViewModel
+                    .getRequestAuthenticated(authenticationToken, username, password);
             Single<AuthSession> sessionIdSingle = loginViewModel.getSessionID(authenticationToken);
 
             compositeDisposable.add(Single.zip(authenticatedSingle, sessionIdSingle, CombinedAuthResponse::new)
@@ -163,7 +165,8 @@ public class LoginActivity extends BaseActivity {
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(accountDetails -> {
                             if (accountDetails.getUsername() != null) {
-                                preferencesUtils.setAccountDetails(String.valueOf(accountDetails.getId()), accountDetails.getUsername());
+                                preferencesUtils.setAccountDetails(String.valueOf(accountDetails.getId()),
+                                        accountDetails.getUsername());
                             } else {
                                 preferencesUtils.setAccountIDFalse();
                             }

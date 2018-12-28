@@ -9,9 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.mchapagai.library.utils.DateTimeUtils;
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.ItemOffsetDecoration;
 import com.mchapagai.library.views.MaterialImageView;
@@ -34,47 +41,86 @@ import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
-import com.mchapagai.movies.utils.DateTimeUtils;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
-
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
 
 public class MovieDetailsActivity extends BaseActivity {
 
+    @BindView(R.id.details_backdrop)
+    MaterialImageView detailsBackdrop;
+
+    @BindView(R.id.movie_details_toolbar)
+    Toolbar movieDetailsToolbar;
+
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+
+    @BindView(R.id.original_title)
+    TextView detailsOriginalTitle;
+
+    @BindView(R.id.movie_tagline)
+    MaterialTextView movieTagline;
+
+    @BindView(R.id.release_date)
+    MaterialTextView detailsReleaseDate;
+
+    @BindView(R.id.ratings)
+    MaterialTextView detailsRatings;
+
+    @BindView(R.id.details_over_view)
+    MaterialTextView detailsOverView;
+
+    @BindView(R.id.movie_genre_recycler_view)
+    RecyclerView movieGenreRecyclerView;
+
+    @BindView(R.id.movie_creditsrecycler_view)
+    RecyclerView movieCreditsrecyclerView;
+
+    @BindView(R.id.video_divider)
+    View videoDivider;
+
+    @BindView(R.id.videos_title)
+    TextView videosTitle;
+
+    @BindView(R.id.movie_video_recycler_view)
+    RecyclerView movieVideoRecyclerView;
+
+    @BindView(R.id.videos_error_text)
+    MaterialTextView videosErrorText;
+
+    @BindView(R.id.details_empty_video)
+    MaterialImageView detailsEmptyVideo;
+
+    @BindView(R.id.video_layout)
+    ConstraintLayout videoLayout;
+
+    @BindView(R.id.reviews_divider)
+    View reviewsDivider;
+
+    @BindView(R.id.detail_review_header)
+    TextView detailReviewHeader;
+
+    @BindView(R.id.reviews_recycler_view)
+    RecyclerView reviewsRecyclerView;
+
     private Movies movies;
-    private AppBarLayout appBarLayout;
-    private CollapsingToolbarLayout collapsingToolbar;
-    private Toolbar toolbar;
-    private MaterialImageView posterBackdropImageView;
-    private TextView originalTitle, releaseDate, ratings, overview;
-    private RecyclerView reviewsRecyclerView, videosRecyclerView, genreRecycleView, creditsRecyclerView;
-    private View videoDivider, reviewsDivider;
-    private TextView videoTitle;
-    private MaterialTextView videoErrorText;
-    private TextView reviewHeader;
-    private MaterialImageView videoEmptyStateImage;
     private VideosAdapter videosAdapter;
     private List<VideoItems> videoItems = new ArrayList<>();
     private List<Genres> genreItems = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private GenresAdapter genresAdapter;
+
     private List<CastCredit> castCredits = new ArrayList<>();
     private List<CrewCredits> crewCredits = new ArrayList<>();
-    private CreditsAdapter adapter;
-    private TextView tagline;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -83,6 +129,7 @@ public class MovieDetailsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details_activity_container);
+        ButterKnife.bind(this);
 
         movies = getIntent().getParcelableExtra(Constants.MOVIE_DETAILS);
 
@@ -100,23 +147,14 @@ public class MovieDetailsActivity extends BaseActivity {
         // Fullscreen - hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        toolbar = findViewById(R.id.movie_details_toolbar);
-        appBarLayout = findViewById(R.id.appbar);
-        collapsingToolbar = findViewById(R.id.collapsing_toolbar);
-        posterBackdropImageView = findViewById(R.id.details_backdrop);
-        originalTitle = findViewById(R.id.original_title);
-        releaseDate = findViewById(R.id.release_date);
-        ratings = findViewById(R.id.ratings);
-        overview = findViewById(R.id.details_over_view);
-        tagline = findViewById(R.id.movie_tagline);
-
-        setSupportActionBar(toolbar);
+        setSupportActionBar(movieDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("");
 
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
+
             int scrollRange = -1;
 
             @Override
@@ -135,52 +173,47 @@ public class MovieDetailsActivity extends BaseActivity {
             }
         });
 
-        originalTitle.setText(movies.getTitle());
-        overview.setText(movies.getOverview());
-        releaseDate.setText(DateTimeUtils.getNameOfMonth(movies.getReleaseDate()));
-        ratings.setText(String.format(Locale.US, "%.2f", movies.getVoteAverage()));
+        detailsOriginalTitle.setText(movies.getTitle());
+        detailsOverView.setText(movies.getOverview());
+        detailsReleaseDate.setText(DateTimeUtils.getNameOfMonth(movies.getReleaseDate()));
+        detailsRatings.setText(getString(R.string.details_rating_votes_count,
+                String.format(Locale.US, "%.2f", movies.getVoteAverage()),
+                String.valueOf(movies.getVoteCount())));
         Uri backdropUri = MovieUtils.getMovieBackdropPathUri(movies);
 
-        genreRecycleView = findViewById(R.id.movie_genre_recycler_view);
-        genreRecycleView.setLayoutManager(new LinearLayoutManager(MovieDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        genresAdapter = new GenresAdapter(genreItems);
-        genreRecycleView.setAdapter(genresAdapter);
-
-        Picasso.get().load(backdropUri).into(posterBackdropImageView);
+        movieGenreRecyclerView.setLayoutManager(
+                new LinearLayoutManager(MovieDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        final GenresAdapter genresAdapter = new GenresAdapter(genreItems);
+        movieGenreRecyclerView.setAdapter(genresAdapter);
+        Picasso.get().load(backdropUri).into(detailsBackdrop);
     }
 
     private void loadMoreMovies() {
         compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
-                .subscribe(response -> movieDetailsResponseItems(response),
+                .subscribe(this::movieDetailsResponseItems,
                         throwable -> {
                         }
                 ));
     }
 
     private void movieDetailsResponseItems(MovieDetailsResponse response) {
-        genreRecycleView = findViewById(R.id.movie_genre_recycler_view);
-        genreRecycleView.setItemAnimator(new DefaultItemAnimator());
-        genreRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        movieGenreRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        movieGenreRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         genreItems = response.getGenres();
         if (response.getTagline() != null && !response.getTagline().equals("")) {
-            tagline.setText(response.getTagline());
+            movieTagline.setText(response.getTagline());
+        } else {
+            movieTagline.setVisibility(View.GONE);
         }
-        genreRecycleView.setAdapter(new GenresAdapter(genreItems));
+        movieGenreRecyclerView.setAdapter(new GenresAdapter(genreItems));
     }
 
     private void populateMovieTrailer() {
-        videoDivider = findViewById(R.id.video_divider);
-        videoTitle = findViewById(R.id.videos_title);
-        videoErrorText = findViewById(R.id.videos_error_text);
-        videosRecyclerView = findViewById(R.id.movie_video_recycler_view);
-        videoEmptyStateImage = findViewById(R.id.details_empty_video);
-        videoTitle = findViewById(R.id.videos_title);
-
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        videosRecyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.margin_4dp));
-        videosRecyclerView.setLayoutManager(manager);
-        videosRecyclerView.setHasFixedSize(true);
-        videosRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        movieVideoRecyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.margin_4dp));
+        movieVideoRecyclerView.setLayoutManager(manager);
+        movieVideoRecyclerView.setHasFixedSize(true);
+        movieVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         videosAdapter = new VideosAdapter(this, videoItems);
         videosAdapter.setOnItemClick((view, position) -> {
@@ -191,18 +224,17 @@ public class MovieDetailsActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        videosRecyclerView.setAdapter(videosAdapter);
+        movieVideoRecyclerView.setAdapter(videosAdapter);
     }
 
     private void creditResponseItems(CreditResponse response) {
-        creditsRecyclerView = findViewById(R.id.movie_creditsrecycler_view);
-        creditsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        creditsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        movieCreditsrecyclerView.setItemAnimator(new DefaultItemAnimator());
+        movieCreditsrecyclerView
+                .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         castCredits = response.getCast();
         crewCredits = response.getCrew();
-
-        adapter = new CreditsAdapter(combineCreditsForUI());
-        creditsRecyclerView.setAdapter(adapter);
+        final CreditsAdapter adapter = new CreditsAdapter(combinedCreditsResponse());
+        movieCreditsrecyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(combinedCreditsResponse -> {
             Intent intent = new Intent();
@@ -212,7 +244,7 @@ public class MovieDetailsActivity extends BaseActivity {
         });
     }
 
-    private ArrayList<CombinedCreditsResponse> combineCreditsForUI() {
+    private ArrayList<CombinedCreditsResponse> combinedCreditsResponse() {
         ArrayList<CombinedCreditsResponse> combinedCreditsResponseList = new ArrayList<>();
         for (CastCredit castCredit : castCredits) {
             CombinedCreditsResponse combinedCreditsResponse = new CombinedCreditsResponse();
@@ -236,9 +268,6 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void populateMovieReviews() {
-        reviewHeader = findViewById(R.id.detail_review_header);
-        reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
-        reviewsDivider = findViewById(R.id.reviews_divider);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         reviewsRecyclerView.setHasFixedSize(true);
         reviewsRecyclerView.setLayoutManager(layoutManager);
@@ -282,26 +311,26 @@ public class MovieDetailsActivity extends BaseActivity {
         if (reviewItems.isEmpty()) {
             reviewsRecyclerView.setVisibility(View.GONE);
             reviewsDivider.setVisibility(View.GONE);
-            reviewHeader.setVisibility(View.GONE);
+            detailReviewHeader.setVisibility(View.GONE);
         } else {
             reviewsRecyclerView.setVisibility(View.VISIBLE);
             reviewsDivider.setVisibility(View.VISIBLE);
-            reviewHeader.setVisibility(View.VISIBLE);
+            detailReviewHeader.setVisibility(View.VISIBLE);
         }
         reviewsRecyclerView.setAdapter(new ReviewsAdapter(reviewItems));
     }
 
     private void showVideoError() {
-        videoEmptyStateImage.setVisibility(View.VISIBLE);
-        videoErrorText.setVisibility(View.VISIBLE);
-        videosRecyclerView.setVisibility(View.GONE);
-        videoTitle.setVisibility(View.GONE);
+        detailsEmptyVideo.setVisibility(View.VISIBLE);
+        videosErrorText.setVisibility(View.VISIBLE);
+        movieVideoRecyclerView.setVisibility(View.GONE);
+        videosTitle.setVisibility(View.GONE);
     }
 
     private void hideVideoError() {
-        videoEmptyStateImage.setVisibility(View.GONE);
-        videoErrorText.setVisibility(View.GONE);
-        videosRecyclerView.setVisibility(View.VISIBLE);
+        detailsEmptyVideo.setVisibility(View.GONE);
+        videosErrorText.setVisibility(View.GONE);
+        movieVideoRecyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

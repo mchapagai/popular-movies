@@ -4,18 +4,15 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> {
 
@@ -46,7 +43,8 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
                 .transform(new RoundedTransformation(20, 0))
                 .into(holder.poster);
 
-        holder.poster.setOnClickListener(v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition()));
+        holder.poster.setOnClickListener(v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition())
+        );
     }
 
     @Override

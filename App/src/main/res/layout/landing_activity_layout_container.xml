@@ -15,6 +15,7 @@
             android:id="@+id/landing_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/title_about_activity"
             android:importantForAccessibility="yes"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.94"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +48,7 @@
             app:srcCompat="@drawable/icon_info" />
 
         <com.mchapagai.library.views.MaterialImageView
-            android:id="@+id/landing_popular_movies_point"
+            android:id="@+id/landing_popular_movies_entry"
             android:layout_width="@dimen/margin_142dp"
             android:layout_height="@dimen/margin_142dp"
             android:layout_gravity="center"
@@ -65,17 +67,45 @@
             android:layout_height="wrap_content"
             android:text="@string/movies"
             android:textSize="@dimen/text_medium"
-            app:layout_constraintBottom_toBottomOf="@+id/landing_popular_movies_point"
-            app:layout_constraintEnd_toEndOf="@+id/landing_popular_movies_point"
+            app:layout_constraintBottom_toBottomOf="@+id/landing_popular_movies_entry"
+            app:layout_constraintEnd_toEndOf="@+id/landing_popular_movies_entry"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/landing_popular_movies_point"
-            app:layout_constraintTop_toTopOf="@+id/landing_popular_movies_point"
+            app:layout_constraintStart_toStartOf="@+id/landing_popular_movies_entry"
+            app:layout_constraintTop_toTopOf="@+id/landing_popular_movies_entry"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <com.mchapagai.library.views.MaterialImageView
+            android:id="@+id/landing_popular_shows_entry"
+            android:layout_width="@dimen/margin_96dp"
+            android:layout_height="@dimen/margin_96dp"
+            android:layout_gravity="center"
+            android:focusable="true"
+            android:src="@drawable/graphics_landing_popular_movies"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.094" />
+
+        <com.mchapagai.library.views.MaterialTextView
+            android:id="@+id/landing_popular_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shows"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintBottom_toBottomOf="@+id/landing_popular_shows_entry"
+            app:layout_constraintEnd_toEndOf="@+id/landing_popular_shows_entry"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/landing_popular_shows_entry"
+            app:layout_constraintTop_toTopOf="@+id/landing_popular_shows_entry"
             app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -86,7 +116,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/dummy_text_view"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/dummy_text_view"
+                app:layout_constraintStart_toStartOf="@+id/dummy_text_view"
                 app:srcCompat="@drawable/icon_info" />
 
             <com.mchapagai.library.views.MaterialTextView
@@ -95,6 +126,63 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_about_activity"
                 app:layout_constraintTop_toBottomOf="@+id/dummy_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.mchapagai.library.views.MaterialImageView
+                android:id="@+id/dummy_view_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/dummy_text_view_2"
+                app:layout_constraintEnd_toEndOf="@+id/dummy_text_view_2"
+                app:layout_constraintStart_toStartOf="@+id/dummy_text_view_2"
+                app:srcCompat="@drawable/icon_info" />
+
+            <com.mchapagai.library.views.MaterialTextView
+                android:id="@+id/dummy_text_view_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_about_activity"
+                app:layout_constraintTop_toBottomOf="@+id/dummy_view_2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/landing_about_page_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:contentDescription="@string/about"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.mchapagai.library.views.MaterialImageView
+                android:id="@+id/landing_about_page_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/landing_about_page_text"
+                app:layout_constraintEnd_toEndOf="@+id/landing_about_page_text"
+                app:layout_constraintStart_toStartOf="@+id/landing_about_page_text"
+                app:srcCompat="@drawable/icon_info" />
+
+            <com.mchapagai.library.views.MaterialTextView
+                android:id="@+id/landing_about_page_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_about_activity"
+                app:layout_constraintTop_toBottomOf="@+id/landing_about_page_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

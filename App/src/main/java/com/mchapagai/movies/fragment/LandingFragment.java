@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
@@ -13,23 +17,13 @@ import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.List;
+import javax.inject.Inject;
 
 public class LandingFragment extends BaseFragment {
 
     private static final int COLUMN_COUNT = 2;
-    private List<Movies> movieItems = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private RecyclerView recyclerView;
     private PageLoader pageLoader;
@@ -57,7 +51,7 @@ public class LandingFragment extends BaseFragment {
     }
 
     private void movieResponseItems(MovieResponse response) {
-        movieItems = response.getMovies();
+        final List<Movies> movieItems = response.getMovies();
         recyclerView.setAdapter(new MoviesGridAdapter(movieItems, null));
     }
 

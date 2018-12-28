@@ -35,4 +35,8 @@
         <attr name="tagviewBackgroundColor" format="color" />
         <attr name="tagviewTextColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
 </resources>

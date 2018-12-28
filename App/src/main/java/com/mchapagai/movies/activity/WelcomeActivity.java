@@ -10,39 +10,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import io.reactivex.annotations.NonNull;
-
 public class WelcomeActivity extends BaseActivity {
 
-    private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
-    private LinearLayout dotsLayout;
-    private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+
+    @BindView(R.id.view_pager)  ViewPager viewPager;
+    @BindView(R.id.skip_button) MaterialButton skipButton;
+    @BindView(R.id.next_button) MaterialButton nextButton;
+    @BindView(R.id.layout_dots) LinearLayout dotsLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Making notification bar transparent
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().getDecorView()
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setContentView(R.layout.welcome_activity_container);
-
-        viewPager = findViewById(R.id.view_pager);
-        dotsLayout = findViewById(R.id.layout_dots);
-        btnSkip = findViewById(R.id.btn_skip);
-        btnNext = findViewById(R.id.btn_next);
 
         layouts = new int[]{
                 R.layout.welcome_screen_movies,
@@ -55,13 +50,13 @@ public class WelcomeActivity extends BaseActivity {
         // making notification bar transparent
         changeStatusBarColor();
 
-        viewPagerAdapter = new ViewPagerAdapter();
+        final ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter();
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(v -> launchHomeScreen());
+        skipButton.setOnClickListener(v -> launchHomeScreen());
 
-        btnNext.setOnClickListener(v -> {
+        nextButton.setOnClickListener(v -> {
             // checking for last page
             // if last page home screen will be launched
             int current = getItem(+1);
@@ -75,7 +70,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
+        final TextView[] dots = new TextView[layouts.length];
 
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
@@ -89,8 +84,9 @@ public class WelcomeActivity extends BaseActivity {
             dotsLayout.addView(dots[i]);
         }
 
-        if (dots.length > 0)
+        if (dots.length > 0) {
             dots[currentPage].setTextColor(colorsActive[currentPage]);
+        }
     }
 
     private int getItem(int i) {
@@ -112,12 +108,12 @@ public class WelcomeActivity extends BaseActivity {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.button_got_it).toUpperCase());
-                btnSkip.setVisibility(View.GONE);
+                nextButton.setText(getString(R.string.button_got_it).toUpperCase());
+                skipButton.setVisibility(View.GONE);
             } else {
                 // still pages are left
-                btnNext.setText(getString(R.string.button_next).toUpperCase());
-                btnSkip.setVisibility(View.VISIBLE);
+                nextButton.setText(getString(R.string.button_next).toUpperCase());
+                skipButton.setVisibility(View.VISIBLE);
             }
         }
 
@@ -140,10 +136,12 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     class ViewPagerAdapter extends PagerAdapter {
+
         private LayoutInflater layoutInflater;
 
+        @NonNull
         @Override
-        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        public Object instantiateItem(@NonNull final ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
@@ -156,12 +154,12 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object obj) {
             return view == obj;
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             View view = (View) object;
             container.removeView(view);
         }

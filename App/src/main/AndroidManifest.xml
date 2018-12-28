@@ -38,9 +38,6 @@
             android:name=".activity.LandingActivity"
             android:label="@null" />
         <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity
             android:name=".activity.WelcomeActivity"
             android:label="@null" />
     </application>

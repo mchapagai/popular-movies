@@ -6,7 +6,7 @@ import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
-import com.mchapagai.movies.model.binding.CreditResponseCombined;
+import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.PopularPersonResponse;
 
 import io.reactivex.Observable;
@@ -39,6 +39,6 @@ public interface MovieService {
     Observable<PopularPersonResponse> getPopularPersons();
 
     @GET("person/{personId}/combined_credits")
-    Observable<CreditResponseCombined> getPersonCombinedDetailsById(@Path("personId") int personId);
+    Observable<CombinedPersonResponse> getPersonCombinedDetailsById(@Path("personId") int personId);
 
 }

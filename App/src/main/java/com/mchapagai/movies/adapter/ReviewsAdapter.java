@@ -3,15 +3,18 @@ package com.mchapagai.movies.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
+import android.view.animation.OvershootInterpolator;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.mchapagai.library.views.ExpandableTextView;
+import com.mchapagai.library.views.MaterialImageView;
+import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Reviews;
-
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder> {
 
@@ -24,7 +27,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
     @NonNull
     @Override
     public ReviewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.movie_reviews_list_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.movie_reviews_list_item, viewGroup, false);
         return new ReviewsViewHolder(view);
     }
 
@@ -32,28 +36,48 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
     public void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position) {
         final Reviews reviews = reviewItems.get(position);
 
-        holder.contentView.setText(reviews.getReviewContent());
-        holder.contentView.setMaxLines(5);
-        holder.contentView.setEllipsize(null);
-        holder.authorView.setText(reviews.getAuthor());
+        holder.reviewAuthor.setText(reviews.getAuthor());
+        holder.reviewContent.setInterpolator(new OvershootInterpolator());
+        holder.reviewContent.setText(reviews.getReviewContent());
+        holder.reviewContent.setMaxLines(4);
+        holder.reviewContent.setEllipsize(null);
+        holder.reviewIcon.setOnClickListener(view -> {
+            holder.reviewIcon.setImageResource(
+                    holder.reviewContent.isExpanded() ? R.drawable.graphics_chevron_down
+                            : R.drawable.graphics_chevron_up);
+            holder.reviewContent.toggle();
+        });
+        holder.reviewsParentLayout.setOnClickListener(view -> {
+            holder.reviewIcon.setImageResource(
+                    holder.reviewContent.isExpanded() ? R.drawable.graphics_chevron_down
+                            : R.drawable.graphics_chevron_up);
+            holder.reviewContent.toggle();
+        });
     }
 
     @Override
     public int getItemCount() {
-        return reviewItems.size();
+        return reviewItems == null ? 0 : reviewItems.size();
     }
 
     class ReviewsViewHolder extends RecyclerView.ViewHolder {
 
-        public final View holderView;
-        TextView authorView;
-        TextView contentView;
+        @BindView(R.id.review_author_name)
+        MaterialTextView reviewAuthor;
+
+        @BindView(R.id.review_content)
+        ExpandableTextView reviewContent;
+
+        @BindView(R.id.review_icon)
+        MaterialImageView reviewIcon;
+
+        @BindView(R.id.review_constraint_layout)
+        ConstraintLayout reviewsParentLayout;
+
 
         public ReviewsViewHolder(View itemView) {
             super(itemView);
-            holderView = itemView;
-            authorView = holderView.findViewById(R.id.review_author);
-            contentView = holderView.findViewById(R.id.review_content);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

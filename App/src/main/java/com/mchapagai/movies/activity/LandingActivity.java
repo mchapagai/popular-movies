@@ -2,24 +2,27 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
+import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.utils.PreferencesHelper;
-
 import java.io.Serializable;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private MaterialImageView launchPopularMovies;
-    private MaterialImageView launchInfoScreen;
-    private MaterialCircleImageView launchProfileScreen;
-    private MaterialImageView launchSettingsScreen;
+    @BindView(R.id.landing_popular_movies_entry)    MaterialImageView launchPopularMovies;
+    @BindView(R.id.landing_popular_shows_entry)     MaterialImageView launchPopularShows;
+    @BindView(R.id.landing_about_page_layout)       ConstraintLayout launchInfoScreen;
+    @BindView(R.id.landing_user_profile)            MaterialCircleImageView launchProfileScreen;
+    @BindView(R.id.landing_settings)                MaterialImageView launchSettingsScreen;
+
     private PreferencesHelper preferencesHelper;
 
     @Override
@@ -27,16 +30,19 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_activity_layout_container);
 
+        ButterKnife.bind(this);
+
         preferencesHelper = new PreferencesHelper(this);
 
-        launchPopularMovies = findViewById(R.id.landing_popular_movies_point);
-        launchInfoScreen = findViewById(R.id.landing_about_page);
-        launchSettingsScreen = findViewById(R.id.landing_settings);
-        launchProfileScreen = findViewById(R.id.landing_user_profile);
-
-        launchPopularMovies.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));
-        launchInfoScreen.setOnClickListener(view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
-        launchSettingsScreen.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
+        launchPopularMovies.setOnClickListener(
+                view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));
+        launchInfoScreen
+                .setOnClickListener(view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
+        launchPopularShows.
+                setOnClickListener(view ->
+                        MaterialDialogUtils.showDialogWithoutTitle(this,
+                                R.string.coming_soon,
+                                R.string.material_dialog_ok));
         launchProfileScreen.setOnClickListener(view -> {
             // Check to see if user is logged in, if not show a dialog to prompt user to login
             if (!preferencesHelper.isSignedIn()) {

@@ -31,7 +31,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_credit_items, parent, false);
         return new ViewHolder(view);
     }
@@ -52,7 +52,6 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
         return combinedCreditsResponseList == null ? 0 : combinedCreditsResponseList.size();
 
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textName, textInfo;

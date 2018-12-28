@@ -29,20 +29,12 @@ import butterknife.ButterKnife;
 
 public class AboutActivity extends BaseActivity {
 
-    @BindView(R.id.circle_image_view)
-    MaterialCircleImageView circleImageView;
-    @BindView(R.id.about_app_version)
-    MaterialTextView aboutAppVersion;
-    @BindView(R.id.about_toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbar;
-    @BindView(R.id.app_bar_layout)
-    AppBarLayout appBarLayout;
-    @BindView(R.id.about_copyright)
-    MaterialTextView aboutCopyright;
-    @BindView(R.id.licenses_layout)
-    LinearLayout licensesLayout;
+    @BindView(R.id.circle_image_view)           MaterialCircleImageView circleImageView;
+    @BindView(R.id.about_app_version)           MaterialTextView aboutAppVersion;
+    @BindView(R.id.about_toolbar)               Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar_layout)   CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.app_bar_layout)              AppBarLayout appBarLayout;
+    @BindView(R.id.licenses_layout)             LinearLayout licensesLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +63,7 @@ public class AboutActivity extends BaseActivity {
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
+
             int scrollRange = -1;
 
             @Override
@@ -140,7 +133,8 @@ public class AboutActivity extends BaseActivity {
         text.setAutoLinkMask(Linkify.WEB_URLS | Linkify.EMAIL_ADDRESSES);
         text.setText(Html.fromHtml(s));
         LinearLayout.LayoutParams layoutParams =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
         int marginPx = (0 < margin) ? (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, margin,
                 getResources().getDisplayMetrics()) : 0;
         layoutParams.setMargins(0, marginPx, 0, marginPx);

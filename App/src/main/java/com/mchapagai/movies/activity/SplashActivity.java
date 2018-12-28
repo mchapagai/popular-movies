@@ -21,7 +21,8 @@ public class SplashActivity extends BaseActivity {
 
         preferencesHelper = new PreferencesHelper(this);
         // Fullscreen
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow()
+                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         new Handler().postDelayed(() -> {
             if (preferencesHelper.isAppInstalledForTheFirstTime()) {
                 startActivity(new Intent(this, WelcomeActivity.class));

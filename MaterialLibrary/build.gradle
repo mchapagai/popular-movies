@@ -39,6 +39,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$versions.androidx_annotation"
     implementation "androidx.palette:palette:$versions.androidx_palette"
     implementation "androidx.recyclerview:recyclerview:$versions.androidx_recyclerview"
+    implementation "com.google.android.material:material:$versions.androidx_design"
 
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
