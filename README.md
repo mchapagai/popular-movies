@@ -13,6 +13,9 @@ This app will:
   - user rating (called `vote_average` in the api)
   - release date
 #### The Service
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/503587bf2c5a411e898655382e894589)](https://app.codacy.com/app/mchapagai/popular-movies?utm_source=github.com&utm_medium=referral&utm_content=mchapagai/popular-movies&utm_campaign=Badge_Grade_Settings)
+
 API, that I will be using in this app [**MovieDB**](https://www.themoviedb.org/). Fetch the data from the Internet with the **MovidDB** API, use adapters and custom list layouts to populate list views.
 
 #### Configuration
