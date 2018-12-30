@@ -160,10 +160,14 @@ public class CreditDetailsActivity extends BaseActivity {
                                 creditsPersonName.setText(String.format("%s \"%s\"", response.getName(),
                                         response.getKnownForDepartment()));
                                 creditsBiography.setText(response.getBiography());
-                                String birthDayAndPlace = getString(R.string.concat_strings_placeholder,
-                                        DateTimeUtils.getNameOfMonth(response.getBirthday()),
-                                        response.getPlaceOfBirth());
-                                birthDate.setText(birthDayAndPlace);
+                                if (response.getBirthday() != null) {
+                                    String birthDayAndPlace = getString(R.string.concat_strings_placeholder,
+                                            DateTimeUtils.getNameOfMonth(response.getBirthday()),
+                                            response.getPlaceOfBirth());
+                                    birthDate.setText(birthDayAndPlace);
+                                } else {
+                                    birthDate.setVisibility(View.GONE);
+                                }
                             }
                         }, throwable -> MaterialDialogUtils.showDialog(CreditDetailsActivity.this,
                                 R.string.service_error_title, R.string.service_error_title,

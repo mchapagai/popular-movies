@@ -1,5 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/503587bf2c5a411e898655382e894589)](https://app.codacy.com/app/mchapagai/popular-movies?utm_source=github.com&utm_medium=referral&utm_content=mchapagai/popular-movies&utm_campaign=Badge_Grade_Settings)
 ![Build Status](https://travis-ci.org/mchapagai/popular-movies.svg?branch=master)
+
 An app to allow users to discover the most popular movies playing.
 
 This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.
@@ -38,6 +39,4 @@ placeholder which is configured in `build.gradle` to be used on the project.
 
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
-
-https://api.themoviedb.org/3/person/2524?api_key=key&language=en-US&append_to_response=credits%2Cimages%2C%20movie_credits
 

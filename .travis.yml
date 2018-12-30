@@ -6,7 +6,7 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-28.0.0
+    - build-tools-28.0.3 // match the version used in targetSdk version inside build.gradle
     - android-28
     - android-22
     # Latest artifacts in local repository
