@@ -2,7 +2,7 @@ ext.versions = [
         minSdk                      : 22,
         targetSdk                   : 28,
         compileSdk                  : 28,
-        buildTools           : "28.0.3",
+        buildTools                  : "28.0.3",
 
         // AndroidX
         androidx_appcompat          : '1.0.2',
@@ -37,4 +37,5 @@ ext.versions = [
 
         jacocoGradlePlugin          : '0.7.6.201602180812',
         androidGradlePlugin         : '3.0.0',
+        multidex                    : '1.0.3'
 ]

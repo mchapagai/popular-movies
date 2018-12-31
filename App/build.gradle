@@ -5,7 +5,7 @@ def getVersionName = { ->
     try {
         def stdout = new ByteArrayOutputStream()
         exec {
-            commandLine 'git', 'describe', '--tags'
+            commandLine 'git', 'describe', '--tags', '--always'
             standardOutput = stdout
         }
         return stdout.toString().trim()
@@ -23,8 +23,11 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
-        versionName "1.0"
+        versionName getVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "API_KEY", "${API_KEY}"
@@ -37,7 +40,7 @@ android {
             testCoverageEnabled true
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -60,6 +63,17 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/rxjava.properties'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    // https://stackoverflow.com/a/27119543/152938
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
+        }
+    }
+    testVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
+        }
     }
 }
 
@@ -119,4 +133,6 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$versions.arch_lifecycle"
 
     implementation "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin"
+    implementation "com.android.support:multidex:$versions.multidex"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

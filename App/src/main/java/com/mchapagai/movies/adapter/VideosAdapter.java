@@ -4,19 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.mchapagai.library.views.MaterialImageView;
+import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.VideoItems;
 import com.mchapagai.movies.widget.OnItemClickListener;
 import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
 
@@ -46,11 +46,12 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
                     .transform(new RoundedTransformation(14, 0))
                     .into(holder.videoThumbnail);
         }
+        holder.videoThumbnailTitle.setText(videos.getName());
     }
 
     @Override
     public int getItemCount() {
-        return videoItems.size();
+        return videoItems == null ? 0 : videoItems.size();
     }
 
     public void setOnItemClick(OnItemClickListener onItemClick) {
@@ -59,11 +60,12 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
     public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView videoThumbnail;
+        @BindView(R.id.movie_video_thumbnail)           MaterialImageView videoThumbnail;
+        @BindView(R.id.movie_video_thumbnail_title)     MaterialTextView videoThumbnailTitle;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
-            videoThumbnail = itemView.findViewById(R.id.movie_video_thumbnail);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

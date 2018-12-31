@@ -1,8 +1,6 @@
 package com.mchapagai.movies.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
@@ -13,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mchapagai.library.views.MaterialCircleImageView;
@@ -21,11 +22,6 @@ import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.BuildConfig;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class AboutActivity extends BaseActivity {
 
@@ -82,7 +78,7 @@ public class AboutActivity extends BaseActivity {
             }
         });
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-        aboutAppVersion.setText(getString(R.string.msg_app_version, getVersionName(), BuildConfig.VERSION_NAME));
+        aboutAppVersion.setText(getString(R.string.msg_app_version, BuildConfig.VERSION_NAME));
     }
 
     @Override
@@ -144,18 +140,6 @@ public class AboutActivity extends BaseActivity {
 
     private View createDivider(final LayoutInflater inflater, final ViewGroup parent) {
         return inflater.inflate(R.layout.divider, parent, false);
-    }
-
-    private String getVersionName() {
-        final PackageManager manager = getPackageManager();
-        String versionName;
-        try {
-            final PackageInfo info = manager.getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
-            versionName = info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            versionName = "";
-        }
-        return versionName;
     }
 
     @Override

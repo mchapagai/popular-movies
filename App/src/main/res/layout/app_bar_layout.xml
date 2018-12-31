@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/circle_image_view"
                 android:layout_marginTop="@dimen/margin_16dp"
-                android:text="@string/msg_app_version"
+                android:text="@string/app_name"
                 android:textAlignment="center" />
 
         </RelativeLayout>
