@@ -1,10 +1,9 @@
 package com.mchapagai.movies.common;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 
 public class BaseFragment extends Fragment {
 
@@ -12,10 +11,9 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        AndroidInjection.inject(getActivity());
+        AndroidSupportInjection.inject(this);
     }
 
 }

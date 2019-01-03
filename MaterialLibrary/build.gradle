@@ -53,6 +53,7 @@ dependencies {
     implementation "androidx.palette:palette:$versions.androidx_palette"
     implementation "androidx.recyclerview:recyclerview:$versions.androidx_recyclerview"
     implementation "com.google.android.material:material:$versions.androidx_design"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"

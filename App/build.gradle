@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply from: '../jacoco.gradle'
 
 def getVersionName = { ->
@@ -64,7 +67,6 @@ android {
         exclude 'META-INF/rxjava.properties'
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
-    // https://stackoverflow.com/a/27119543/152938
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
@@ -118,21 +120,23 @@ dependencies {
 
     //Dagger2
     implementation "com.google.dagger:dagger:$versions.dagger"
-    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation "com.google.dagger:dagger-android:$versions.dagger"
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:$versions.butterknife"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
+    kapt "com.jakewharton:butterknife-compiler:$versions.butterknife"
 
     // ViweModel & LoveData
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.arch_lifecycle_ext"
     implementation "androidx.lifecycle:lifecycle-runtime:$versions.arch_lifecycle"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$versions.arch_lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.arch_lifecycle"
 
     implementation "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin"
-    implementation "com.android.support:multidex:$versions.multidex"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }

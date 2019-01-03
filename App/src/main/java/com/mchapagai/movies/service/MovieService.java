@@ -1,14 +1,12 @@
 package com.mchapagai.movies.service;
 
+import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
-import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.PopularPersonResponse;
-
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -34,9 +32,6 @@ public interface MovieService {
 
     @GET("person/{personId}")
     Single<PersonResponse> getPersonDetailsById(@Path("personId") int id);
-
-    @GET("person/popular")
-    Observable<PopularPersonResponse> getPopularPersons();
 
     @GET("person/{personId}/combined_credits")
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(@Path("personId") int personId);

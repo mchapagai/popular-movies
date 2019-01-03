@@ -10,7 +10,7 @@ import com.mchapagai.movies.activity.SplashActivity;
 import com.mchapagai.movies.activity.WelcomeActivity;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.BaseFragment;
-
+import com.mchapagai.movies.fragment.DiscoverMoviesFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -22,6 +22,9 @@ public abstract class ViewsModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract BaseFragment baseFragment();
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract DiscoverMoviesFragment discoverMoviesFragment();
 
     @ActivityScope
     @ContributesAndroidInjector

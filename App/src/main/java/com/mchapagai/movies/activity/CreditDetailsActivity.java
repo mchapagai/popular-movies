@@ -259,22 +259,24 @@ public class CreditDetailsActivity extends BaseActivity {
 
     private void castResponseItems(CombinedPersonResponse response) {
         List<CombinedCastCredit> castCredit = response.getCast();
-        if (castCredit.isEmpty()) {
+        if (!castCredit.isEmpty() && castCredit.size() > 0) {
+            moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            LinearLayoutManager castLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            moviesCastRecyclerView.setLayoutManager(castLayout);
+            moviesCastRecyclerView.setAdapter(new CastAdapter(castCredit, this));
+        } else {
             castCreditTitle.setVisibility(View.GONE);
         }
-        moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        LinearLayoutManager castLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        moviesCastRecyclerView.setLayoutManager(castLayout);
-        moviesCastRecyclerView.setAdapter(new CastAdapter(castCredit, this));
 
         List<CombinedCrewCredits> crewCredits = response.getCrew();
-        if (castCredit.isEmpty()) {
+        if (!crewCredits.isEmpty() && crewCredits.size() > 0) {
+            moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            LinearLayoutManager crewLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            moviesCrewRecyclerView.setLayoutManager(crewLayout);
+            moviesCrewRecyclerView.setAdapter(new CrewAdapter(crewCredits, this));
+        } else {
             crewCreditTitle.setVisibility(View.GONE);
         }
-        moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        LinearLayoutManager crewLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        moviesCrewRecyclerView.setLayoutManager(crewLayout);
-        moviesCrewRecyclerView.setAdapter(new CrewAdapter(crewCredits, this));
     }
 
     @Override

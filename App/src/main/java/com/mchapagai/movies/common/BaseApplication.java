@@ -1,16 +1,28 @@
 package com.mchapagai.movies.common;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
-import androidx.multidex.MultiDex;
+import androidx.fragment.app.Fragment;
 import com.mchapagai.movies.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import javax.inject.Inject;
 
-public class BaseApplication extends DaggerApplication {
+public class BaseApplication extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
     private static Context context;
+
     private static BaseApplication baseApplication;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -19,15 +31,13 @@ public class BaseApplication extends DaggerApplication {
             return;
         }
         LeakCanary.install(this);
-        context = this.getApplicationContext();
+        context = this;
+
+        DaggerAppComponent.builder().build().inject(this);
     }
 
     public static Context getApplicationContextInstance() {
         return context;
-    }
-
-    public AndroidInjector<BaseApplication> applicationInjector() {
-        return DaggerAppComponent.builder().create(this);
     }
 
     public static BaseApplication getBaseApplication() {
@@ -37,16 +47,21 @@ public class BaseApplication extends DaggerApplication {
         return baseApplication;
     }
 
+
     /**
-     * Set the base context for this ContextWrapper.  All calls will then be
-     * delegated to the base context.  Throws
-     * IllegalStateException if a base context has already been set.
-     *
-     * @param base The new base context for this wrapper.
+     * Returns an {@link AndroidInjector} of {@link Activity}s.
      */
     @Override
-    protected void attachBaseContext(final Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
+    public AndroidInjector<Activity> activityInjector() {
+        return activityDispatchingAndroidInjector;
     }
+
+    /**
+     * Returns an {@link AndroidInjector} of {@link Fragment}s.
+     */
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
+    }
+
 }
