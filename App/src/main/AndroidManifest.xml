@@ -40,6 +40,13 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@null" />
+        <activity
+            android:name=".activity.DiscoverOnTheAirActivity"
+            android:label="@string/landing_shows" />
+
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:label="@string/title_profile" />
     </application>
 
 </manifest>

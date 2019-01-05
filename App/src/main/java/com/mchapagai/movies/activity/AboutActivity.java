@@ -78,6 +78,7 @@ public class AboutActivity extends BaseActivity {
             }
         });
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
+        aboutAppVersion.setVisibility(View.VISIBLE);
         aboutAppVersion.setText(getString(R.string.msg_app_version, BuildConfig.VERSION_NAME));
     }
 

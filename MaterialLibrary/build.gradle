@@ -55,6 +55,8 @@ dependencies {
     implementation "com.google.android.material:material:$versions.androidx_design"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
+    implementation "com.squareup.picasso:picasso:$versions.picasso"
+
     testImplementation "junit:junit:$versions.junit_version"
     androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"

@@ -1,12 +1,6 @@
 package com.mchapagai.movies.activity;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.GradientDrawable.Orientation;
 import android.net.Uri;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -14,13 +8,9 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.palette.graphics.Palette;
-import androidx.palette.graphics.Palette.Swatch;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,34 +19,30 @@ import butterknife.ButterKnife;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mchapagai.library.common.LibraryConstants;
-import com.mchapagai.library.utils.AnimationUtils;
 import com.mchapagai.library.utils.DateTimeUtils;
 import com.mchapagai.library.utils.LibraryUtils;
 import com.mchapagai.library.utils.MaterialDialogUtils;
-import com.mchapagai.library.utils.PaletteColorUtils;
-import com.mchapagai.library.utils.PaletteColorUtils.ColorUtils;
 import com.mchapagai.library.views.ItemOffsetDecoration;
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.adapter.CreditsAdapter;
-import com.mchapagai.movies.adapter.GenresAdapter;
-import com.mchapagai.movies.adapter.ReviewsAdapter;
-import com.mchapagai.movies.adapter.VideosAdapter;
+import com.mchapagai.movies.adapter.movies.CreditsAdapter;
+import com.mchapagai.movies.adapter.movies.GenresAdapter;
+import com.mchapagai.movies.adapter.movies.ReviewsAdapter;
+import com.mchapagai.movies.adapter.movies.VideosAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CastCredit;
-import com.mchapagai.movies.model.CrewCredits;
-import com.mchapagai.movies.model.Genres;
-import com.mchapagai.movies.model.Movies;
-import com.mchapagai.movies.model.Reviews;
-import com.mchapagai.movies.model.VideoItems;
-import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
-import com.mchapagai.movies.model.binding.CreditResponse;
-import com.mchapagai.movies.model.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
-import com.mchapagai.movies.model.binding.VideoResponse;
+import com.mchapagai.movies.model.movies.CastCredit;
+import com.mchapagai.movies.model.movies.CrewCredits;
+import com.mchapagai.movies.model.movies.Genres;
+import com.mchapagai.movies.model.movies.Movies;
+import com.mchapagai.movies.model.movies.Reviews;
+import com.mchapagai.movies.model.movies.VideoItems;
+import com.mchapagai.movies.model.movies.binding.CombinedCreditsResponse;
+import com.mchapagai.movies.model.movies.binding.CreditResponse;
+import com.mchapagai.movies.model.movies.binding.MovieDetailsResponse;
+import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
+import com.mchapagai.movies.model.movies.binding.VideoResponse;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
@@ -146,7 +132,6 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private List<CrewCredits> crewCredits = new ArrayList<>();
 
-    private int statusBarColor;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -216,78 +201,6 @@ public class MovieDetailsActivity extends BaseActivity {
         favoriteActionButton.setOnClickListener(
                 v -> LibraryUtils
                         .showSnackBar(MovieDetailsActivity.this, v, getString(R.string.prompt_to_login_message)));
-    }
-
-    private void displayImage(String profileImagePath) {
-
-        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + profileImagePath).into(detailsBackdrop);
-
-        final Bitmap bitmap = ((BitmapDrawable) detailsBackdrop.getDrawable()).getBitmap();
-        Palette.from(bitmap).generate(palette -> {
-            boolean isDark;
-            @ColorUtils int lightness = PaletteColorUtils.isDark(palette);
-            if (lightness == LibraryConstants.UNKNOWN) {
-                isDark = PaletteColorUtils.isDark(bitmap, bitmap.getWidth() / 2, 0);
-            } else {
-                isDark = lightness == LibraryConstants.DARK_COLOR;
-            }
-
-            if (!isDark) {
-                // Make back icon dark on light images
-                ImageButton backButton = (ImageButton) movieDetailsToolbar.getChildAt(0);
-                backButton
-                        .setColorFilter(ContextCompat.getColor(this, R.color.darkThemePrimary));
-
-                // Make toolbar title text color dark
-                collapsingToolbar.setCollapsedTitleTextColor(
-                        ContextCompat.getColor(this, R.color.darkThemeSecondary));
-            }
-
-            // color the status bar.
-            statusBarColor = getWindow().getStatusBarColor();
-            final Swatch topColor = PaletteColorUtils.getMostPopulousSwatch(palette);
-            if (topColor != null && isDark) {
-                statusBarColor = PaletteColorUtils.scrimify(topColor.getRgb(), isDark, Constants.SCRIM_ADJUSTMENT);
-                // set a light status bar
-                if (!isDark) {
-                    AnimationUtils.setLightStatusBar(getWindow().getDecorView());
-                }
-            }
-
-            if (statusBarColor != getWindow().getStatusBarColor()) {
-                ValueAnimator statusBarColorAnim = ValueAnimator
-                        .ofArgb(getWindow().getStatusBarColor(), statusBarColor);
-                statusBarColorAnim.addUpdateListener(
-                        animation -> getWindow().setStatusBarColor((int) animation.getAnimatedValue()));
-                statusBarColorAnim.setDuration(500L);
-                statusBarColorAnim
-                        .setInterpolator(AnimationUtils.getFastOutSlowInInterpolator(this));
-                statusBarColorAnim.start();
-            }
-
-            if (isDark) {
-                GradientDrawable gradientDrawable = new GradientDrawable(
-                        Orientation.BOTTOM_TOP,
-                        new int[]{
-                                ContextCompat.getColor(this, android.R.color.transparent),
-                                statusBarColor});
-
-                appbar.setBackground(gradientDrawable);
-                collapsingToolbar
-                        .setContentScrim(new ColorDrawable(PaletteColorUtils.modifyAlpha(statusBarColor, 0.9f)));
-            } else {
-                GradientDrawable gradientDrawable = new GradientDrawable(
-                        Orientation.BOTTOM_TOP,
-                        new int[]{
-                                ContextCompat.getColor(this, android.R.color.transparent),
-                                ContextCompat.getColor(this, R.color.grey)});
-
-                appbar.setBackground(gradientDrawable);
-                collapsingToolbar.setContentScrim(new ColorDrawable(PaletteColorUtils
-                        .modifyAlpha(ContextCompat.getColor(this, R.color.grey), 0.9f)));
-            }
-
-        });
     }
 
     private void loadMoreMovies() {

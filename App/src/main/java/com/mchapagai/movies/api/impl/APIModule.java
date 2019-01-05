@@ -1,10 +1,13 @@
 package com.mchapagai.movies.api.impl;
+
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.api.MovieAPI;
+import com.mchapagai.movies.api.TvAPI;
 import com.mchapagai.movies.service.LoginService;
 import com.mchapagai.movies.service.MovieService;
 import com.mchapagai.movies.service.ServiceModule;
 
+import com.mchapagai.movies.service.TvService;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
@@ -26,5 +29,11 @@ public class APIModule {
     @Singleton
     LoginAPI providesLoginAPI(Provider<LoginService> service) {
         return new LoginAPIImpl(service);
+    }
+
+    @Singleton
+    @Provides
+    TvAPI providesTvAPI(Provider<TvService> service) {
+        return new TvAPIImpl(service);
     }
 }

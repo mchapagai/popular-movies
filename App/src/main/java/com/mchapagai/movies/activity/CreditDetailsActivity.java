@@ -38,14 +38,14 @@ import com.mchapagai.library.utils.PaletteColorUtils.ColorUtils;
 import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.adapter.CastAdapter;
-import com.mchapagai.movies.adapter.CrewAdapter;
+import com.mchapagai.movies.adapter.movies.CastAdapter;
+import com.mchapagai.movies.adapter.movies.CrewAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CombinedCastCredit;
-import com.mchapagai.movies.model.CombinedCrewCredits;
-import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.PersonResponse;
+import com.mchapagai.movies.model.movies.CombinedCastCredit;
+import com.mchapagai.movies.model.movies.CombinedCrewCredits;
+import com.mchapagai.movies.model.movies.binding.CombinedPersonResponse;
+import com.mchapagai.movies.model.movies.binding.PersonResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
 import io.reactivex.disposables.CompositeDisposable;
@@ -67,13 +67,13 @@ public class CreditDetailsActivity extends BaseActivity {
     @BindView(R.id.credit_toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.credit_app_bar_layout)
+    @BindView(R.id.app_bar_layout)
     AppBarLayout appbarLayout;
 
     @BindView(R.id.birth_date)
     MaterialTextView birthDate;
 
-    @BindView(R.id.credit_circle_image_view)
+    @BindView(R.id.credit_image_view)
     MaterialCircleImageView profileImageView;
 
     @BindView(R.id.credit_collapsing_toolbar_layout)
@@ -187,7 +187,7 @@ public class CreditDetailsActivity extends BaseActivity {
 
     private void displayImage(String profileImagePath) {
 
-        Picasso.get().load(Constants.MOVIE_POSTER_ENDPOINT + profileImagePath).into(profileImageView);
+        Picasso.get().load(Constants.SECURE_IMAGE_ENDPOINT + profileImagePath).into(profileImageView);
 
         final Bitmap bitmap = ((BitmapDrawable) profileImageView.getDrawable()).getBitmap();
         Palette.from(bitmap).generate(palette -> {
@@ -214,7 +214,7 @@ public class CreditDetailsActivity extends BaseActivity {
             statusBarColor = getWindow().getStatusBarColor();
             final Swatch topColor = PaletteColorUtils.getMostPopulousSwatch(palette);
             if (topColor != null && isDark) {
-                statusBarColor = PaletteColorUtils.scrimify(topColor.getRgb(), isDark, Constants.SCRIM_ADJUSTMENT);
+                statusBarColor = PaletteColorUtils.scrimify(topColor.getRgb(), true, Constants.SCRIM_ADJUSTMENT);
                 // set a light status bar
                 if (!isDark) {
                     AnimationUtils.setLightStatusBar(getWindow().getDecorView());

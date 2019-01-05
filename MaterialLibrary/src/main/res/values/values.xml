@@ -14,7 +14,6 @@
     <dimen name="margin_60dp">60dp</dimen>
     <dimen name="margin_125dp">125dp</dimen>
     <dimen name="margin_256dp">256dp</dimen>
-
     <dimen name="margin_negative_6dp">-6dp</dimen>
 
     <dimen name="text_medium">18sp</dimen>
@@ -39,4 +38,29 @@
     <declare-styleable name="ExpandableTextView">
         <attr name="animationDuration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="MaterialTextView">
+        <attr name="linkColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialCircleImageView">
+        <attr name="borderWidth" format="dimension|reference" />
+        <attr name="borderColor" format="color|reference" />
+        <attr name="borderOverlay" format="boolean" />>
+        <attr name="circleBackgroundColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialView">
+        <attr name="str" format="string" />
+        <attr name="dimension" format="dimension" />
+        <attr name="colorId" format="color" />
+        <attr name="drawableId" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PageLoader">
+        <attr name="loaderHeaderText" format="string" />
+        <attr name="loaderPrimaryText" format="string" />
+        <attr name="showShowAnimationView" format="boolean" />
+    </declare-styleable>
+
 </resources>

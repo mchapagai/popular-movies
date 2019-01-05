@@ -1,6 +1,5 @@
 package com.mchapagai.movies.injection;
 
-
 import com.mchapagai.movies.common.BaseApplication;
 
 import dagger.android.AndroidInjectionModule;

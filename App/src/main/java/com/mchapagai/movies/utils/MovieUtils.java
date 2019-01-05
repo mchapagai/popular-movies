@@ -8,7 +8,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.Movies;
+import com.mchapagai.movies.model.movies.Movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +18,7 @@ public class MovieUtils {
      * Helper methods to build Movie poster path using Poster Endpoint
      */
 
-    private static final Uri MOVIE_POSTER_URI = Uri.parse(Constants.MOVIE_POSTER_ENDPOINT)
+    private static final Uri MOVIE_POSTER_URI = Uri.parse(Constants.SECURE_IMAGE_ENDPOINT)
             .buildUpon()
             .build();
 

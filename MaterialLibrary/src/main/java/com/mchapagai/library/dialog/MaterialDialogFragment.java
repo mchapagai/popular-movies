@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import com.mchapagai.library.R;
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.library.views.MaterialTextView;
@@ -57,6 +58,7 @@ public class MaterialDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MovieDialogBuilder dialogBuilder = getArguments().getParcelable(DATA_MODEL);

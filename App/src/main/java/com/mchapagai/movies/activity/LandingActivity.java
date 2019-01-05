@@ -2,26 +2,35 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
-import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.MaterialCircleImageView;
-import com.mchapagai.library.views.MaterialImageView;
+import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import java.io.Serializable;
 
 public class LandingActivity extends AppCompatActivity {
 
-    @BindView(R.id.landing_popular_movies_entry)    MaterialImageView launchPopularMovies;
-    @BindView(R.id.landing_popular_shows_entry)     MaterialImageView launchPopularShows;
-    @BindView(R.id.landing_about_page_layout)       ConstraintLayout launchInfoScreen;
-    @BindView(R.id.landing_user_profile)            MaterialCircleImageView launchProfileScreen;
-    @BindView(R.id.landing_settings)                MaterialImageView launchSettingsScreen;
+    @BindView(R.id.landing_popular_movies)
+    MaterialTextView launchPopularMovies;
+
+    @BindView(R.id.landing_popular_shows)
+    MaterialTextView launchPopularShows;
+
+    @BindView(R.id.landing_about_page_layout)
+    ConstraintLayout launchInfoScreen;
+
+    @BindView(R.id.landing_user_profile)
+    MaterialCircleImageView launchProfileScreen;
 
     private PreferencesHelper preferencesHelper;
 
@@ -36,13 +45,13 @@ public class LandingActivity extends AppCompatActivity {
 
         launchPopularMovies.setOnClickListener(
                 view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));
+        animateCircle(launchPopularMovies);
         launchInfoScreen
                 .setOnClickListener(view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
         launchPopularShows.
-                setOnClickListener(view ->
-                        MaterialDialogUtils.showDialogWithoutTitle(this,
-                                R.string.coming_soon,
-                                R.string.material_dialog_ok));
+                setOnClickListener(
+                        view -> startActivity(new Intent(view.getContext(), DiscoverOnTheAirActivity.class)));
+        animateCircle(launchPopularShows);
         launchProfileScreen.setOnClickListener(view -> {
             // Check to see if user is logged in, if not show a dialog to prompt user to login
             if (!preferencesHelper.isSignedIn()) {
@@ -68,10 +77,21 @@ public class LandingActivity extends AppCompatActivity {
                     }
                 });
             } else if (preferencesHelper.isSignedIn()) {
-                Intent intent = new Intent(view.getContext(), DiscoverMoviesActivity.class);
+                Intent intent = new Intent(view.getContext(), ProfileActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private void animateCircle(TextView textView) {
+        TranslateAnimation anim = new TranslateAnimation(-25, 25, -25, 25);
+        anim.setDuration(600);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setFillEnabled(true);
+        anim.setFillAfter(true);
+        anim.setRepeatMode(Animation.RELATIVE_TO_SELF);
+        anim.setRepeatCount(1);
+        textView.startAnimation(anim);
     }
 
 }

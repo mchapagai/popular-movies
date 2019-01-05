@@ -16,7 +16,7 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.model.AuthSession;
 import com.mchapagai.movies.model.AuthToken;
-import com.mchapagai.movies.model.binding.CombinedAuthResponse;
+import com.mchapagai.movies.model.movies.CombinedAuthResponse;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
 
@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity {
                                 preferencesUtils.setUserSessionId(sessionId);
                                 getAccountSignInDetails();
                                 if (!stopped) {
-                                    startActivity(new Intent(LoginActivity.this, DiscoverMoviesActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                                 }
                             }, throwable -> {
                                 preferencesUtils.setAccessTokenVerifiedFalse();

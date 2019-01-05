@@ -16,4 +16,9 @@ public class ServiceModule {
         return ServiceFactory.createService(LoginService.class);
     }
 
+    @Provides
+    TvService provideTvService() {
+        return ServiceFactory.createService(TvService.class);
+    }
+
 }

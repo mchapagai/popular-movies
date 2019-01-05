@@ -47,13 +47,16 @@
             app:layout_constraintTop_toTopOf="@+id/landing_user_profile"
             app:srcCompat="@drawable/icon_info" />
 
-        <com.mchapagai.library.views.MaterialImageView
-            android:id="@+id/landing_popular_movies_entry"
+        <com.mchapagai.library.views.MaterialTextView
+            android:id="@+id/landing_popular_movies"
             android:layout_width="@dimen/margin_142dp"
             android:layout_height="@dimen/margin_142dp"
-            android:layout_gravity="center"
-            android:focusable="true"
-            android:src="@drawable/graphics_landing_popular_movies"
+            android:background="@drawable/graphics_landing"
+            android:elevation="@dimen/margin_4dp"
+            android:gravity="center|center_vertical"
+            android:importantForAccessibility="yes"
+            android:text="@string/movies"
+            android:textSize="@dimen/text_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,44 +65,21 @@
             app:layout_constraintVertical_bias="0.45" />
 
         <com.mchapagai.library.views.MaterialTextView
-            android:id="@+id/landing_popular_movies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movies"
-            android:textSize="@dimen/text_medium"
-            app:layout_constraintBottom_toBottomOf="@+id/landing_popular_movies_entry"
-            app:layout_constraintEnd_toEndOf="@+id/landing_popular_movies_entry"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/landing_popular_movies_entry"
-            app:layout_constraintTop_toTopOf="@+id/landing_popular_movies_entry"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <com.mchapagai.library.views.MaterialImageView
-            android:id="@+id/landing_popular_shows_entry"
+            android:id="@+id/landing_popular_shows"
             android:layout_width="@dimen/margin_96dp"
             android:layout_height="@dimen/margin_96dp"
-            android:layout_gravity="center"
+            android:background="@drawable/graphics_landing"
             android:focusable="true"
-            android:src="@drawable/graphics_landing_popular_movies"
+            android:gravity="center|center_vertical"
+            android:importantForAccessibility="yes"
+            android:text="@string/landing_shows"
+            android:textSize="@dimen/text_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.094" />
-
-        <com.mchapagai.library.views.MaterialTextView
-            android:id="@+id/landing_popular_shows"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shows"
-            android:textSize="@dimen/text_medium"
-            app:layout_constraintBottom_toBottomOf="@+id/landing_popular_shows_entry"
-            app:layout_constraintEnd_toEndOf="@+id/landing_popular_shows_entry"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/landing_popular_shows_entry"
-            app:layout_constraintTop_toTopOf="@+id/landing_popular_shows_entry"
-            app:layout_constraintVertical_bias="0.5" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

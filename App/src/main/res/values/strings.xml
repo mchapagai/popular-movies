@@ -5,13 +5,16 @@
     <string name="title_credit_details_activity">Person Details</string>
     <string name="tmdb_link">TMDb</string>
     <string name="movies">Movies</string>
+    <string name="landing_shows">Shows</string>
     <string name="activity_login">Login</string>
     <string name="app_discover_shows">Discover TV shows</string>
     <string name="app_show_tickets">Buy show tickets</string>
     <string name="coming_soon">Coming soon</string>
     <string name="cast_credits">Cast credits</string>
     <string name="crew_credits">Crew credits</string>
-    <string name="not_available">N/A</string>
+    <string name="title_profile">Profile</string>
+    <string name="profile_movie_details">/Tap to see the movies</string>
+    <string name="profile_show_details">/Tap to see the shows</string>
 
     <!--Resource string with placeholder-->
     <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
@@ -33,6 +36,7 @@
 
     <string name="login_placeholder">Login</string>
     <string name="signup_placeholder">Sign up</string>
+    <string name="signout_placeholder">Sign out</string>
     <string name="password_placeholder">Password</string>
     <string name="username_placeholder">Username</string>
     <string name="no_account_placeholder">Don\'t have an account?</string>
@@ -46,7 +50,6 @@
     <string name="menu_sort_popularity">Most popular</string>
     <string name="menu_sort_vote_average">Highest rated</string>
     <string name="menu_sort_vote_count">Most rated</string>
-    <string name="menu_sort_favorites">Favored</string>
 
     <string name="movie_details_trailer_placeholder">Trailer</string>
     <string name="date_placeholder" translatable="false">01-01-2010</string>
@@ -67,5 +70,8 @@
 
     <!-- ADA Global -->
     <string name="login_image_ada">Login screen</string>
+
+    <!-- Transition names-->
+    <string name="movies_poster_transition" translatable="false">posterPathTransition</string>
 
 </resources>

@@ -40,14 +40,6 @@ public class BaseApplication extends Application implements HasActivityInjector,
         return context;
     }
 
-    public static BaseApplication getBaseApplication() {
-        if (baseApplication == null) {
-            baseApplication = new BaseApplication();
-        }
-        return baseApplication;
-    }
-
-
     /**
      * Returns an {@link AndroidInjector} of {@link Activity}s.
      */
