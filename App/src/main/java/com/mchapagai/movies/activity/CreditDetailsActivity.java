@@ -48,6 +48,7 @@ import com.mchapagai.movies.model.movies.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.movies.binding.PersonResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 import javax.inject.Inject;
@@ -145,11 +146,13 @@ public class CreditDetailsActivity extends BaseActivity {
         Log.i(TAG, "PersonId: " + personId);
 
         loadPersonDetails();
-        loadPersonDetailsCombined();
+        loadCreditDetails();
+        loadCrewDetails();
         showDetailsAnimation();
     }
 
     private void loadPersonDetails() {
+
         compositeDisposable.add(movieViewModel.getPersonDetailsById(personId)
                 .subscribe(
                         response -> {
@@ -175,14 +178,75 @@ public class CreditDetailsActivity extends BaseActivity {
                 ));
     }
 
-    private void loadPersonDetailsCombined() {
+    private void loadCreditDetails() {
         compositeDisposable.add(movieViewModel.getPersonCombinedDetailsById(personId)
                 .subscribe(
-                        this::castResponseItems,
+                        response -> castResponseItems(response),
                         throwable -> MaterialDialogUtils.showDialog(CreditDetailsActivity.this,
                                 getString(R.string.service_error_title), throwable.getMessage(),
                                 getString(R.string.material_dialog_ok))
                 ));
+    }
+
+    private void loadCrewDetails() {
+        Observable<CombinedCrewCredits> distinct = movieViewModel
+                .getPersonCombinedDetailsById(personId)
+                .flatMap(response -> Observable.just(response.getCrew())
+                        .flatMapIterable(combinedCrewCredits -> combinedCrewCredits))
+                .distinct(crewItems -> crewItems.getTitle());
+
+        compositeDisposable
+                .add(distinct.toList()
+                        .toObservable()
+                        .subscribe(
+                                combinedCrewCreditsList -> crewResponseItems(combinedCrewCreditsList),
+                                throwable -> MaterialDialogUtils.showDialog(CreditDetailsActivity.this,
+                                        getString(R.string.service_error_title), throwable.getMessage(),
+                                        getString(R.string.material_dialog_ok))
+                        ));
+    }
+
+    private void castResponseItems(CombinedPersonResponse response) {
+        List<CombinedCastCredit> castCredit = response.getCast();
+        if (!castCredit.isEmpty() && castCredit.size() > 0) {
+            moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            LinearLayoutManager castLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            moviesCastRecyclerView.setLayoutManager(castLayout);
+            moviesCastRecyclerView.setAdapter(new CastAdapter(castCredit, this));
+        } else {
+            castCreditTitle.setVisibility(View.GONE);
+        }
+    }
+
+    private void crewResponseItems(List<CombinedCrewCredits> crewCredits) {
+        if (!crewCredits.isEmpty() && crewCredits.size() > 0) {
+            moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            LinearLayoutManager crewLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            moviesCrewRecyclerView.setLayoutManager(crewLayout);
+            moviesCrewRecyclerView.setAdapter(new CrewAdapter(crewCredits, this));
+        } else {
+            crewCreditTitle.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDetailsAnimation() {
+        final int targetHeight = AnimationUtils.getTargetHeight(creditDetailsChildLayout);
+        Animation animation = AnimationUtils.getExpandHeightAnimation(creditDetailsChildLayout, targetHeight);
+        animation.setDuration(
+                (int) (targetHeight / creditDetailsChildLayout.getContext().getResources()
+                        .getDisplayMetrics().density));
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setStartOffset(LibraryConstants.START_OFFSET);
+        creditDetailsChildLayout.startAnimation(animation);
     }
 
     private void displayImage(String profileImagePath) {
@@ -255,47 +319,5 @@ public class CreditDetailsActivity extends BaseActivity {
             }
 
         });
-    }
-
-    private void castResponseItems(CombinedPersonResponse response) {
-        List<CombinedCastCredit> castCredit = response.getCast();
-        if (!castCredit.isEmpty() && castCredit.size() > 0) {
-            moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            LinearLayoutManager castLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            moviesCastRecyclerView.setLayoutManager(castLayout);
-            moviesCastRecyclerView.setAdapter(new CastAdapter(castCredit, this));
-        } else {
-            castCreditTitle.setVisibility(View.GONE);
-        }
-
-        List<CombinedCrewCredits> crewCredits = response.getCrew();
-        if (!crewCredits.isEmpty() && crewCredits.size() > 0) {
-            moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            LinearLayoutManager crewLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            moviesCrewRecyclerView.setLayoutManager(crewLayout);
-            moviesCrewRecyclerView.setAdapter(new CrewAdapter(crewCredits, this));
-        } else {
-            crewCreditTitle.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void showDetailsAnimation() {
-        final int targetHeight = AnimationUtils.getTargetHeight(creditDetailsChildLayout);
-        Animation animation = AnimationUtils.getExpandHeightAnimation(creditDetailsChildLayout, targetHeight);
-        animation.setDuration(
-                (int) (targetHeight / creditDetailsChildLayout.getContext().getResources()
-                        .getDisplayMetrics().density));
-        animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setStartOffset(LibraryConstants.START_OFFSET);
-        creditDetailsChildLayout.startAnimation(animation);
     }
 }

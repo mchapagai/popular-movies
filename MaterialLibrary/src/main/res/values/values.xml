@@ -63,4 +63,8 @@
         <attr name="showShowAnimationView" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="PosterView">
+        <attr name="imageAspectRatio" format="dimension" />
+    </declare-styleable>
+
 </resources>

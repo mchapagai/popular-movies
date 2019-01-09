@@ -14,7 +14,7 @@ public class PreferencesHelper {
     private final String PREF_INSTALLED_FIRST_TIME = "firstTime";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private Boolean firstTime = null;
+    private boolean firstTime;
 
     public PreferencesHelper(Context context) {
         sharedPreferences = context.getSharedPreferences(POPULAR_MOVIES_SHARED_PREF, Context.MODE_PRIVATE);
@@ -27,42 +27,37 @@ public class PreferencesHelper {
 
     public void setAccessToken(String token) {
         editor.putString(Constants.PREF_ACCESS_TOKEN, token);
-        editor.commit();
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_TAKEN, true);
-        editor.commit();
+        editor.apply();
     }
 
     public void setAccessTokenFalse() {
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_TAKEN, false);
-        editor.commit();
+        editor.apply();
     }
 
     public void setAccessTokenVerifiedFalse() {
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_VERIFIED, false);
-        editor.commit();
+        editor.apply();
     }
 
     public void setAccessTokenVerified() {
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_VERIFIED, true);
-        editor.commit();
+        editor.apply();
     }
 
     public void setUserSessionId(String id) {
         editor.putString(Constants.PREF_SESSION_ID, id);
-        editor.commit();
         editor.putBoolean(Constants.PREF_SESSION_ID_GRANTED, true);
-        editor.commit();
         editor.putBoolean(Constants.PREF_SIGNED_IN, true);
-        editor.commit();
+        editor.apply();
     }
 
     public void setAccountDetails(String id, String username) {
         editor.putString(PREF_USER_ID, id);
-        editor.commit();
         editor.putBoolean(Constants.PREF_GET_ACCOUNT_ID, true);
-        editor.commit();
         editor.putString(PREF_USER_NAME, username);
-        editor.commit();
+        editor.apply();
     }
 
     public void setAccountIDFalse() {
@@ -76,11 +71,9 @@ public class PreferencesHelper {
 
     public void setSignedOut() {
         editor.putBoolean(Constants.PREF_SIGNED_IN, false);
-        editor.commit();
         editor.putBoolean(Constants.PREF_ACCESS_TOKEN_TAKEN, false);
-        editor.commit();
         editor.putBoolean(Constants.PREF_SESSION_ID_GRANTED, false);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -90,12 +83,10 @@ public class PreferencesHelper {
      * @return boolean
      */
     public boolean isAppInstalledForTheFirstTime() {
-        if (firstTime == null) {
-            firstTime = sharedPreferences.getBoolean(PREF_INSTALLED_FIRST_TIME, true);
-            if (firstTime) {
-                editor.putBoolean(PREF_INSTALLED_FIRST_TIME, false);
-                editor.apply();
-            }
+        firstTime = sharedPreferences.getBoolean(PREF_INSTALLED_FIRST_TIME, true);
+        if (firstTime) {
+            editor.putBoolean(PREF_INSTALLED_FIRST_TIME, false);
+            editor.apply();
         }
         return firstTime;
     }

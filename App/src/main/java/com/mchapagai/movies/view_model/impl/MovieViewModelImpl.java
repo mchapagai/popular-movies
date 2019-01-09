@@ -11,6 +11,7 @@ import com.mchapagai.movies.model.movies.binding.VideoResponse;
 import com.mchapagai.movies.utils.RxUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 
+import io.reactivex.Flowable;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -26,8 +27,8 @@ public class MovieViewModelImpl implements MovieViewModel {
     }
 
     @Override
-    public Observable<MovieResponse> discoverMovies(String sortBy) {
-        return movieAPI.discoverMovies(sortBy).compose(RxUtils.applySchedulers());
+    public Flowable<MovieResponse> discoverMovies(int page, String sortBy) {
+        return movieAPI.discoverMovies(page, sortBy).compose(RxUtils.applyFlowableSchedulers());
     }
 
     @Override

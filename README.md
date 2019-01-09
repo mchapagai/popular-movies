@@ -40,3 +40,6 @@ placeholder which is configured in `build.gradle` to be used on the project.
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
 
+TODO:
+loading footer
+

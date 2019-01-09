@@ -7,6 +7,7 @@ import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
 import android.transition.Fade;
 import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,8 +21,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.PageLoader;
+import com.mchapagai.library.widget.EndlessScrollListener;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.adapter.movies.MoviesGridAdapter;
@@ -31,17 +32,32 @@ import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.model.movies.Movies;
 import com.mchapagai.movies.model.movies.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
+import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.processors.PublishProcessor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.reactivestreams.Publisher;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
 public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAdapter.OnItemClickListener {
 
+    private static final String TAG = DiscoverMoviesFragment.class.getSimpleName();
+
     private static final int COLUMN_COUNT = 2;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private Sort sort = Sort.MOST_POPULAR;
+    private MoviesGridAdapter moviesGridAdapter;
+    private List<Movies> movieItems = new ArrayList<>();
+    private PublishProcessor<Integer> pagination = PublishProcessor.create();
+    private boolean isLoading = false;
+    private boolean isMenuSortChanged = true;
+    private int pageNumber = 1;
 
     @BindView(R.id.movies_recycler_view)
     RecyclerView recyclerView;
@@ -67,6 +83,20 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.discover_movies_fragment_container, container, false);
         ButterKnife.bind(this, view);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), COLUMN_COUNT);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addOnScrollListener(new EndlessScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(final int currentPage, final int totalItemCount, final View view) {
+                if (!isLoading) {
+                    pagination.onNext(pageNumber++);
+                }
+            }
+        });
+
         return view;
     }
 
@@ -84,24 +114,57 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
         startActivity(intent.putExtra(Constants.MOVIE_DETAILS, movies));
     }
 
-    private void movieResponseItems(MovieResponse response) {
-        final List<Movies> movieItems = response.getMovies();
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), COLUMN_COUNT);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new MoviesGridAdapter(movieItems, this));
+    private Flowable<MovieResponse> movieResponseItems(int page, String sort) {
+        return movieViewModel.discoverMovies(page, sort);
     }
 
     private void loadMovies() {
+
         pageLoader.setVisibility(View.VISIBLE);
-        compositeDisposable.add(movieViewModel.discoverMovies(sort.toString())
-                .doFinally(() -> pageLoader.setVisibility(View.GONE))
-                .subscribe(
-                        this::movieResponseItems,
-                        throwable -> MaterialDialogUtils.showDialog(getActivity(), R.string.service_error_title,
-                                R.string.service_error_404, R.string.material_dialog_ok)
-                ));
+        Disposable disposable = pagination.doFinally(() -> pageLoader.setVisibility(View.GONE))
+                .concatMap(new Function<Integer, Publisher<MovieResponse>>() {
+                    /**
+                     * Apply some calculation to the input value and return some other value.`
+                     *
+                     * @param page the input value
+                     * @return the output value
+                     */
+                    @Override
+                    public Publisher<MovieResponse> apply(Integer page) {
+                        return movieResponseItems(page, sort.toString());
+                    }
+                }).doOnSubscribe(s -> isLoading = true)
+                .doOnNext(new Consumer<MovieResponse>() {
+                    /**
+                     * Consume the given value.
+                     *
+                     * @param movieResponse the value
+                     */
+                    @Override
+                    public void accept(MovieResponse movieResponse) {
+                        if(isMenuSortChanged) {
+                            moviesGridAdapter = new MoviesGridAdapter(movieResponse.getMovies(),
+                                    DiscoverMoviesFragment.this);
+                            recyclerView.setAdapter(moviesGridAdapter);
+                        } else {
+                            moviesGridAdapter.notifyDataChange(movieResponse.getMovies());
+                        }
+                        isMenuSortChanged = false;
+                        isLoading = false;
+                        pageLoader.setVisibility(View.GONE);
+                    }
+                })
+                .doOnError(throwable -> {
+                    if (throwable instanceof HttpException) {
+                        Response<?> response = ((HttpException) throwable).response();
+                        Log.d(TAG, response.message());
+                    }
+
+                })
+                .subscribe();
+
+        compositeDisposable.add(disposable);
+        pagination.onNext(pageNumber);
     }
 
     @Override
@@ -130,6 +193,9 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
 
     private void onSortChanged(Sort sort) {
         this.sort = sort;
+        isMenuSortChanged = true;
+        pageNumber = 1;
+        loadMovies();
     }
 
     @Override
@@ -142,23 +208,16 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
 
         switch (item.getItemId()) {
             case R.id.menu_sort_popularity:
-                item.setChecked(!item.isChecked());
                 onSortChanged(Sort.MOST_POPULAR);
-                loadMovies();
                 break;
             case R.id.menu_sort_vote_count:
-                item.setChecked(!item.isChecked());
                 onSortChanged(Sort.MOST_RATED);
-                loadMovies();
                 break;
             case R.id.menu_sort_vote_average:
-                item.setChecked(!item.isChecked());
                 onSortChanged(Sort.TOP_RATED);
-                loadMovies();
                 break;
         }
-        getActivity().invalidateOptionsMenu();
+        item.setChecked(!item.isChecked());
         return super.onOptionsItemSelected(item);
     }
-
 }

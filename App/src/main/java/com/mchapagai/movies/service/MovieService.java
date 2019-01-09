@@ -7,6 +7,7 @@ import com.mchapagai.movies.model.movies.binding.MovieResponse;
 import com.mchapagai.movies.model.movies.binding.PersonResponse;
 import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
 import com.mchapagai.movies.model.movies.binding.VideoResponse;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -16,7 +17,7 @@ import retrofit2.http.Query;
 public interface MovieService {
 
     @GET("discover/movie")
-    Observable<MovieResponse> discoverMovies(@Query("sort_by") String sortBy);
+    Flowable<MovieResponse> discoverMovies(@Query("page") int page, @Query("sort_by") String sortBy);
 
     @GET("movie/{id}/videos")
     Observable<VideoResponse> getMovieVideosbyId(@Path("id") int movieId);

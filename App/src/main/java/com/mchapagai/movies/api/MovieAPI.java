@@ -8,16 +8,23 @@ import com.mchapagai.movies.model.movies.binding.PersonResponse;
 import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
 import com.mchapagai.movies.model.movies.binding.VideoResponse;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public interface MovieAPI {
 
-    Observable<MovieResponse> discoverMovies(String sortBy);
+    Flowable<MovieResponse> discoverMovies(int page, String sortBy);
+
     Observable<VideoResponse> getMovieVideosbyId(int movieId);
+
     Observable<ReviewsResponse> getMovieReviewsById(int movieId);
+
     Observable<MovieDetailsResponse> getMovieDetails(int movieId);
+
     Observable<CreditResponse> getMovieCreditDetails(int movieId);
+
     Single<PersonResponse> getPersonDetailsById(int personId);
+
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId);
 }

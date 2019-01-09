@@ -3,6 +3,7 @@ package com.mchapagai.movies.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -186,7 +187,9 @@ public class MovieDetailsActivity extends BaseActivity {
 
         detailsOriginalTitle.setText(movies.getTitle());
         detailsOverView.setText(movies.getOverview());
-        detailsReleaseDate.setText(DateTimeUtils.getNameOfMonth(movies.getReleaseDate()));
+        if (!TextUtils.isEmpty(movies.getReleaseDate())) {
+            detailsReleaseDate.setText(DateTimeUtils.getNameOfMonth(movies.getReleaseDate()));
+        }
         detailsRatings.setText(getString(R.string.details_rating_votes_count,
                 String.format(Locale.US, "%.2f", movies.getVoteAverage()),
                 String.valueOf(movies.getVoteCount())));

@@ -10,6 +10,7 @@ import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
 import com.mchapagai.movies.model.movies.binding.VideoResponse;
 import com.mchapagai.movies.service.MovieService;
 
+import io.reactivex.Flowable;
 import javax.inject.Provider;
 
 import io.reactivex.Observable;
@@ -24,8 +25,8 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Observable<MovieResponse> discoverMovies(String sortBy) {
-        return movieService.get().discoverMovies(sortBy);
+    public Flowable<MovieResponse> discoverMovies(int page, String sortBy) {
+        return movieService.get().discoverMovies(page, sortBy);
     }
 
     @Override

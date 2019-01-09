@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mchapagai.movies.model.movies.CombinedCastCredit;
 import com.mchapagai.movies.model.movies.CombinedCrewCredits;
 import java.util.List;
+import java.util.Objects;
 
 public class CombinedPersonResponse implements Parcelable {
 
@@ -58,4 +59,23 @@ public class CombinedPersonResponse implements Parcelable {
         return crew;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final CombinedPersonResponse that = (CombinedPersonResponse) o;
+        return id == that.id &&
+                Objects.equals(cast, that.cast) &&
+                Objects.equals(crew, that.crew);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(cast, id, crew);
+    }
 }

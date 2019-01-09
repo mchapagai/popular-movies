@@ -2,8 +2,10 @@ package com.mchapagai.library.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateTimeUtils {
 
@@ -44,6 +46,19 @@ public class DateTimeUtils {
         }
 
         return yearFormat.format(date);
+    }
+
+    public static Calendar getCalender(String timestamp, String pattern) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+        simpleDateFormat.setTimeZone(TimeZone.getDefault());
+        try {
+            Date date = simpleDateFormat.parse(timestamp);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+        return calendar;
     }
 
 }

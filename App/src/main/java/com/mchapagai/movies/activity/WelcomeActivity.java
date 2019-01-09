@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
@@ -38,6 +39,7 @@ public class WelcomeActivity extends BaseActivity {
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setContentView(R.layout.welcome_activity_container);
+        ButterKnife.bind(this);
 
         layouts = new int[]{
                 R.layout.welcome_screen_movies,

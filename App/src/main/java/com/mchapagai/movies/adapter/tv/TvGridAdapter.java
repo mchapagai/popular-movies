@@ -32,6 +32,11 @@ public class TvGridAdapter extends RecyclerView.Adapter<TvGridAdapter.ViewHolder
     }
 
     @Override
+    public int getItemViewType(final int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final OnTheAir shows = onTheAirItems.get(position);
 
@@ -49,8 +54,7 @@ public class TvGridAdapter extends RecyclerView.Adapter<TvGridAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_poster)
-        MaterialImageView poster;
+        @BindView(R.id.movie_poster) MaterialImageView poster;
 
         public ViewHolder(View itemView) {
             super(itemView);

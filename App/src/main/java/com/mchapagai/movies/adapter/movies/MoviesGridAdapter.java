@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mchapagai.library.views.MaterialImageView;
+import com.mchapagai.library.widget.RoundedTransformation;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.movies.Movies;
 import com.mchapagai.movies.utils.MovieUtils;
-import com.mchapagai.library.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> {
 
     private List<Movies> movieItems;
-
     private OnItemClickListener onItemClickListener;
 
     public MoviesGridAdapter(List<Movies> movieItems, OnItemClickListener onItemClickListener) {
@@ -41,7 +40,6 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
         final Movies movies = movieItems.get(position);
 
         Uri posterUrl = MovieUtils.getMoviePosterPathUri(movies);
-
         Picasso.get()
                 .load(posterUrl)
                 .transform(new RoundedTransformation(20, 0))
@@ -57,14 +55,20 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
         return movieItems.size();
     }
 
-    public class MoviesViewHolder extends RecyclerView.ViewHolder {
+    class MoviesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_poster) MaterialImageView poster;
+        @BindView(R.id.movie_poster)
+        MaterialImageView poster;
 
         public MoviesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void notifyDataChange(List<Movies> items) {
+        movieItems.addAll(items);
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickListener {
