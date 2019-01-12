@@ -2,12 +2,11 @@ package com.mchapagai.movies.view_model;
 
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.api.MovieAPI;
-import com.mchapagai.movies.api.TvAPI;
+import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.api.impl.APIModule;
 import com.mchapagai.movies.view_model.impl.LoginViewModelImpl;
 import com.mchapagai.movies.view_model.impl.MovieViewModelImpl;
-
-import com.mchapagai.movies.view_model.impl.TvViewModelImpl;
+import com.mchapagai.movies.view_model.impl.ShowsViewModelImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,8 +26,8 @@ public class ViewModelModule {
     }
 
     @Provides
-    TvViewModel providesTvViewModel(TvAPI tvAPI) {
-        return new TvViewModelImpl(tvAPI);
+    ShowsViewModel providesTvViewModel(ShowsAPI showsAPI) {
+        return new ShowsViewModelImpl(showsAPI);
     }
 
 }

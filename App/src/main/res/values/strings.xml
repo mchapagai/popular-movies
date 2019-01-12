@@ -18,6 +18,8 @@
 
     <!--Resource string with placeholder-->
     <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
+    <string name="concat_strings_placeholder_shows" translatable="false">%1$d Seasons\u00A0\u2022%2$d Episodes\u00A0\u2022%3$f Popularity
+        \u00A0\u2022%4$s First air date\u00A0\u2022\u00A0%5$f Vote\u00A0\u2022%6$s Last air date\u00A0\u2022%7$s Type</string>
 
     <!-- Buttons -->
     <string name="button_skip">Skip</string>
@@ -73,5 +75,7 @@
 
     <!-- Transition names-->
     <string name="movies_poster_transition" translatable="false">posterPathTransition</string>
+    <string name="overview">Overview</string>
+    <string name="todo">TODO</string>
 
 </resources>

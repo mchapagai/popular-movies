@@ -14,6 +14,7 @@
     <color name="grey">#cccccc</color>
     <color name="welcome_screen_tv_bg">#20d2bb</color>
     <color name="welcome_screen_tickets_bg">#3395ff</color>
+    <color name="white">#fff</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#d1395c</color>

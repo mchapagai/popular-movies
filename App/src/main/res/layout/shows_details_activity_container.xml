@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.ShowDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/shows_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/shows_collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="@dimen/margin_32dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
+
+            <FrameLayout
+                android:id="@+id/show_backdrop_fl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_350dp"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax">
+
+                <com.mchapagai.library.views.MaterialImageView
+                    android:id="@+id/show_details_backdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/shows_header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_80dp"
+                android:layout_gravity="bottom"
+                android:background="?attr/actionColor"
+                android:fitsSystemWindows="true" />
+
+            <LinearLayout
+                android:id="@+id/movie_info_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/margin_16dp"
+                android:paddingStart="@dimen/margin_16dp">
+
+                <com.mchapagai.library.views.MaterialTextView
+                    android:id="@+id/shows_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingBottom="@dimen/margin_2dp"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/text_large" />
+
+                <com.mchapagai.library.views.MaterialTextView
+                    android:id="@+id/shows_info"
+                    style="@style/Subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:gravity="top"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/lorem_placeholder" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/shows_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:titleMarginTop="@dimen/margin_16dp" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/shows_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/actionColor"
+            android:minHeight="?attr/actionBarSize"
+            app:tabIndicatorColor="?attr/greyColor"
+            app:tabIndicatorHeight="@dimen/margin_4dp"
+            app:tabTextColor="?attr/whiteColor" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/shows_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/favorite_button_selector"
+        app:backgroundTint="?attr/whiteColor"
+        app:borderWidth="@dimen/margin_0dp"
+        app:elevation="@dimen/margin_4dp"
+        app:layout_anchor="@+id/shows_header"
+        app:layout_anchorGravity="top|right|end"
+        app:pressedTranslationZ="@dimen/dimen_12dp"
+        app:rippleColor="@android:color/white" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/shows_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

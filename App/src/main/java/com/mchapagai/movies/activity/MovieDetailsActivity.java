@@ -1,17 +1,22 @@
 package com.mchapagai.movies.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnScrollChangeListener;
 import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,23 +32,23 @@ import com.mchapagai.library.views.ItemOffsetDecoration;
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.adapter.movies.CreditsAdapter;
-import com.mchapagai.movies.adapter.movies.GenresAdapter;
-import com.mchapagai.movies.adapter.movies.ReviewsAdapter;
-import com.mchapagai.movies.adapter.movies.VideosAdapter;
+import com.mchapagai.movies.adapter.CreditsAdapter;
+import com.mchapagai.movies.adapter.GenresAdapter;
+import com.mchapagai.movies.adapter.ReviewsAdapter;
+import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.movies.CastCredit;
-import com.mchapagai.movies.model.movies.CrewCredits;
-import com.mchapagai.movies.model.movies.Genres;
-import com.mchapagai.movies.model.movies.Movies;
-import com.mchapagai.movies.model.movies.Reviews;
-import com.mchapagai.movies.model.movies.VideoItems;
-import com.mchapagai.movies.model.movies.binding.CombinedCreditsResponse;
-import com.mchapagai.movies.model.movies.binding.CreditResponse;
-import com.mchapagai.movies.model.movies.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
-import com.mchapagai.movies.model.movies.binding.VideoResponse;
+import com.mchapagai.movies.model.CastCredit;
+import com.mchapagai.movies.model.CrewCredits;
+import com.mchapagai.movies.model.Genres;
+import com.mchapagai.movies.model.Movies;
+import com.mchapagai.movies.model.Reviews;
+import com.mchapagai.movies.model.Videos;
+import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
+import com.mchapagai.movies.model.binding.CreditResponse;
+import com.mchapagai.movies.model.binding.MovieDetailsResponse;
+import com.mchapagai.movies.model.binding.ReviewsResponse;
+import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
@@ -55,6 +60,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 public class MovieDetailsActivity extends BaseActivity {
+
+    private final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     @BindView(R.id.details_backdrop)
     MaterialImageView detailsBackdrop;
@@ -119,11 +126,17 @@ public class MovieDetailsActivity extends BaseActivity {
     @BindView(R.id.details_favorite)
     FloatingActionButton favoriteActionButton;
 
+    @BindView(R.id.movie_details_parent_layout)
+    NestedScrollView nestedScrollView;
+
+    @BindView(R.id.details_favorite_copy)
+    FloatingActionButton favCopy;
+
     private Movies movies;
 
     private VideosAdapter videosAdapter;
 
-    private List<VideoItems> videoItems = new ArrayList<>();
+    private List<Videos> videoItems = new ArrayList<>();
 
     private List<Genres> genreItems = new ArrayList<>();
 
@@ -155,6 +168,7 @@ public class MovieDetailsActivity extends BaseActivity {
         populateMovieReviews();
     }
 
+    @TargetApi(VERSION_CODES.M)
     private void initViews() {
         // Fullscreen - hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -162,6 +176,21 @@ public class MovieDetailsActivity extends BaseActivity {
         setSupportActionBar(movieDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("");
+
+        nestedScrollView.setOnScrollChangeListener(new OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(final View v, final int scrollX, final int scrollY, final int oldScrollX,
+                    final int oldScrollY) {
+                // toolbar: 56dp
+                if (scrollY == movieDetailsToolbar.getHeight()) {
+                    favCopy.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "Finally on collapse");
+                } else if (scrollY > movieDetailsToolbar.getHeight()) {
+                    favCopy.setVisibility(View.GONE);
+                    Log.d(TAG, "Finally something weird?");
+                }
+            }
+        });
 
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -209,8 +238,11 @@ public class MovieDetailsActivity extends BaseActivity {
     private void loadMoreMovies() {
         compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
                 .subscribe(this::movieDetailsResponseItems,
-                        throwable -> {
-                        }
+                        throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
+                                getResources().getString(R.string.service_error_title),
+                                throwable.getMessage(),
+                                getResources().getString(R.string.material_dialog_ok))
+
                 ));
     }
 
@@ -235,7 +267,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
         videosAdapter = new VideosAdapter(this, videoItems);
         videosAdapter.setOnItemClick((view, position) -> {
-            VideoItems video = videosAdapter.getItem(position);
+            Videos video = videosAdapter.getItem(position);
             if (video != null && video.isYoutubeVideo()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));

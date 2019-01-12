@@ -16,7 +16,7 @@ public class DiscoverMoviesActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.discover_movies_activity_container);
+        setContentView(R.layout.common_activity_container);
 
         ButterKnife.bind(this);
 
@@ -26,7 +26,7 @@ public class DiscoverMoviesActivity extends BaseActivity {
         }
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.movies_fragment_container, new DiscoverMoviesFragment()).commit();
+                .add(R.id.common_fragment_container, new DiscoverMoviesFragment()).commit();
     }
 
     @Override

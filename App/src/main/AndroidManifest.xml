@@ -43,6 +43,9 @@
         <activity
             android:name=".activity.DiscoverOnTheAirActivity"
             android:label="@string/landing_shows" />
+        <activity
+            android:name=".activity.ShowDetailsActivity"
+            android:label="@null" />
 
         <activity
             android:name=".activity.ProfileActivity"

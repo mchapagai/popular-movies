@@ -1,8 +1,8 @@
 package com.mchapagai.movies.view_model;
 
-import com.mchapagai.movies.model.AccountDetails;
-import com.mchapagai.movies.model.AuthSession;
-import com.mchapagai.movies.model.AuthToken;
+import com.mchapagai.movies.model.account.AccountDetails;
+import com.mchapagai.movies.model.account.AuthSession;
+import com.mchapagai.movies.model.account.AuthToken;
 
 import io.reactivex.Single;
 

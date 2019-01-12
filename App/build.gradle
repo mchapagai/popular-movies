@@ -139,4 +139,5 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

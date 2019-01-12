@@ -1,0 +1,153 @@
+{
+  "backdrop_path": "/2Qg2fViQzWenpUaMjhv0kNhCbE9.jpg",
+  "created_by": [
+    {
+      "id": 52139,
+      "credit_id": "591a3a48c3a368371b052143",
+      "name": "Seth MacFarlane",
+      "gender": 2,
+      "profile_path": "/4N0P6CN6HfnswVBIXzdUWPQ1cRN.jpg"
+    }
+  ],
+  "episode_run_time": [
+    42
+  ],
+  "first_air_date": "2017-09-10",
+  "genres": [
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 10765,
+      "name": "Sci-Fi & Fantasy"
+    }
+  ],
+  "homepage": "http://www.fox.com/the-orville",
+  "id": 71738,
+  "in_production": true,
+  "languages": [
+    "en"
+  ],
+  "last_air_date": "2019-01-03",
+  "last_episode_to_air": {
+    "air_date": "2019-01-03",
+    "episode_number": 2,
+    "id": 1527952,
+    "name": "Primal Urges",
+    "overview": "Ed and the crew race to save a small group of survivors on a planet about to be destroyed by its sun. Meanwhile, Bortus and Klyden start marriage counseling when Bortus' obsession with the ship's simulation room gets out of hand.",
+    "production_code": "1LAB12",
+    "season_number": 2,
+    "show_id": 71738,
+    "still_path": "/3nWUxIP780vRO4wvtuEGCM5Gan0.jpg",
+    "vote_average": 0,
+    "vote_count": 0
+  },
+  "name": "The Orville",
+  "next_episode_to_air": {
+    "air_date": "2019-01-10",
+    "episode_number": 3,
+    "id": 1629368,
+    "name": "Home",
+    "overview": "Ed, Gordon and Alara visit Alara's home planet of Xelayah.",
+    "production_code": "2LAB02",
+    "season_number": 2,
+    "show_id": 71738,
+    "still_path": null,
+    "vote_average": 0,
+    "vote_count": 0
+  },
+  "networks": [
+    {
+      "name": "FOX",
+      "id": 19,
+      "logo_path": "/1DSpHrWyOORkL9N2QHX7Adt31mQ.png",
+      "origin_country": "US"
+    }
+  ],
+  "number_of_episodes": 21,
+  "number_of_seasons": 2,
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_name": "The Orville",
+  "overview": "Follows the crew of the not-so-functional exploratory ship in the Earth's interstellar fleet, 400 years in the future.",
+  "popularity": 70.562,
+  "poster_path": "/1q2gRQ8uN8D2ythPMzd5NvsHkVf.jpg",
+  "production_companies": [
+    {
+      "id": 1556,
+      "logo_path": "/31h94rG9hzjprXoYNy3L1ErUya2.png",
+      "name": "20th Century Fox Television",
+      "origin_country": "US"
+    },
+    {
+      "id": 8789,
+      "logo_path": null,
+      "name": "Fuzzy Door Productions",
+      "origin_country": "US"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2017-09-10",
+      "episode_count": 12,
+      "id": 88414,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/51ZCOrM7yh7nnH5WGG4NNQlVxaW.jpg",
+      "season_number": 1
+    },
+    {
+      "air_date": "2018-12-30",
+      "episode_count": 9,
+      "id": 106463,
+      "name": "Season 2",
+      "overview": "",
+      "poster_path": "/8gB4zeP5OEU5r2dnXw9P87qJ1Di.jpg",
+      "season_number": 2
+    }
+  ],
+  "status": "Returning Series",
+  "type": "Scripted",
+  "vote_average": 7.2,
+  "vote_count": 285,
+  "videos": {
+    "results": [
+      {
+        "id": "59c15940925141734d000da2",
+        "iso_639_1": "en",
+        "iso_3166_1": "US",
+        "key": "d8aUuFsXRjU",
+        "name": "THE ORVILLE Official Trailer (2017) Star Trek Spoof, Seth MacFarlane Comedy Drama Series HD",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "Trailer"
+      }
+    ]
+  },
+  "reviews": {
+    "page": 1,
+    "results": [
+      {
+        "author": "chris",
+        "content": "ok so I watched the first episode of this show and I was expecting more laughs that what I received but I still really liked it the show  had lots of action some humor and heart I really liked the crew too they seemed fun so far I think I will keep this one around for awhile and see just how it goes I am liking what I am seeing so far though loads of fun to watch' update I have seen almost every episode of this and its getting funnier every time '",
+        "id": "59b7fb50c3a36813d3000438",
+        "url": "https://www.themoviedb.org/review/59b7fb50c3a36813d3000438"
+      },
+      {
+        "author": "larz9",
+        "content": "More heart than humour. Nothing wrong with that, if you find that sort of thing to be entertaining. Perhaps it's because we're talking about the creator of Family Guy, American Dad and A Million Ways to Die in the West. Maybe that set my funny bone's expectations too high but the guy is indeed hilarious and I suppose that was the standard I was hoping for.\r\n\r\nIn any case, this comes off more as pure homage to Star Trek with a little sprinkling of humour here and there. I gave it a chance with three episodes. I'll give it another chance with the fourth episode but if that doesn't tickle me pink, well, this series will be off my list.",
+        "id": "59c9ddcc9251412414003cb8",
+        "url": "https://www.themoviedb.org/review/59c9ddcc9251412414003cb8"
+      }
+    ],
+    "total_pages": 1,
+    "total_results": 2
+  }
+}

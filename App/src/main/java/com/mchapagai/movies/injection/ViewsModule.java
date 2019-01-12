@@ -8,11 +8,16 @@ import com.mchapagai.movies.activity.LandingActivity;
 import com.mchapagai.movies.activity.LoginActivity;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.activity.ProfileActivity;
+import com.mchapagai.movies.activity.ShowDetailsActivity;
 import com.mchapagai.movies.activity.SplashActivity;
 import com.mchapagai.movies.activity.WelcomeActivity;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.fragment.DiscoverMoviesFragment;
+import com.mchapagai.movies.fragment.DiscoverOnTheAirFragment;
+import com.mchapagai.movies.fragment.InfoFragment;
+import com.mchapagai.movies.fragment.ReviewsFragment;
+import com.mchapagai.movies.fragment.TrailerFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -70,4 +75,24 @@ public abstract class ViewsModule {
     @ActivityScope
     @ContributesAndroidInjector
     abstract ProfileActivity profileActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract DiscoverOnTheAirFragment discoverOnTheAirFragment();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract ShowDetailsActivity showDetailsActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract InfoFragment overviewFragment();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract ReviewsFragment reviewsFragment();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract TrailerFragment trailerFragment();
 }

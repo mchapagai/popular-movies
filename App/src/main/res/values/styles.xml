@@ -1,15 +1,35 @@
 <resources>
+
     <style name="HorizontalDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/margin_2dp</item>
         <item name="android:background">?attr/greyColor</item>
     </style>
 
-    <style name="MovieTitle">
+    <style name="Header1">
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/bold</item>
         <item name="android:text">@string/app_name</item>
+    </style>
+
+    <style name="Subtitle">
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:lines">2</item>
+        <item name="android:textColor">?attr/darkTextSecondaryColor</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#757575</item>
+        <item name="colorControlActivated">#ffc400</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
 </resources>

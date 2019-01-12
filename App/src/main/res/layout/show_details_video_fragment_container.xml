@@ -1,0 +1,57 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/video_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_16dp"
+    android:layout_marginStart="@dimen/margin_16dp"
+    android:layout_marginTop="@dimen/margin_16dp"
+    app:layout_constraintStart_toStartOf="@+id/video_divider"
+    app:layout_constraintTop_toBottomOf="@+id/video_divider">
+
+    <TextView
+        android:id="@+id/shows_videos_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_details_trailer_placeholder"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shows_video_recycler_view"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:minHeight="@dimen/margin_126dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shows_videos_title"
+        tools:layout_height="@dimen/margin_126dp"
+        tools:listitem="@layout/movie_details_video_items" />
+
+    <com.mchapagai.library.views.MaterialTextView
+        android:id="@+id/show_videos_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:text="@string/details_empty_video_message"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/shows_video_recycler_view" />
+
+    <com.mchapagai.library.views.MaterialImageView
+        android:id="@+id/_shows_details_empty_video"
+        android:layout_width="@dimen/margin_96dp"
+        android:layout_height="@dimen/margin_96dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:alpha="0.3"
+        android:src="@drawable/icon_sad_face"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/show_videos_error_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/show_videos_error_text"
+        app:layout_goneMarginTop="@dimen/margin_16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

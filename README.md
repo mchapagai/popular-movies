@@ -40,6 +40,15 @@ placeholder which is configured in `build.gradle` to be used on the project.
 discover/movie
 language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
 
+tv details (with videos and reviews)
+
+https://api.themoviedb.org/3/
+tv/48891
+?api_key=api_key
+&language=en-US
+&append_to_response=videos%2Creviews
+
 TODO:
 loading footer
 
+Credits: Icon Downloaded from FlatIon

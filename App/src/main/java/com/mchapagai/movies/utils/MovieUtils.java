@@ -8,7 +8,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.movies.Movies;
+import com.mchapagai.movies.model.Movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 

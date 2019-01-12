@@ -18,6 +18,7 @@ public class Constants {
 
     // Movie Details
     public static final String MOVIE_DETAILS = "MOVIE_DETAILS_INTENT";
+    public static final String SHOWS_DETAILS = "SHOW_DETAILS_INTENT";
     public static final String YOUTUBE_THUMBNAIL = "https://img.youtube.com/vi/%s/mqdefault.jpg";
 
     public static final float SCRIM_ADJUSTMENT = 0.075f;

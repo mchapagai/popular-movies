@@ -4,6 +4,7 @@
     <dimen name="margin_2dp">2dp</dimen>
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
@@ -15,6 +16,7 @@
     <dimen name="margin_126dp">126dp</dimen>
     <dimen name="margin_142dp">142dp</dimen>
     <dimen name="margin_256dp">256dp</dimen>
+    <dimen name="margin_350dp">350dp</dimen>
 
     <!-- Custom font size -->
     <dimen name="text_large">22sp</dimen>

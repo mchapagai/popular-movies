@@ -7,7 +7,7 @@
     <attr name="darkTextSecondaryColor" format="reference|color" />
     <attr name="darkLinkColor" format="reference|color" />
     <attr name="actionColor" format="reference|color" />
-    <attr name="redColor" format="reference|color" />
+    <attr name="whiteColor" format="reference|color" />
     <attr name="greyColor" format="reference|color" />
     <attr name="welcomeScreenTvBackground" format="reference|color" />
     <attr name="welcomeScreenTicketBackground" format="reference|color" />

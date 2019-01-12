@@ -1,9 +1,9 @@
 package com.mchapagai.movies.api.impl;
 
 import com.mchapagai.movies.api.LoginAPI;
-import com.mchapagai.movies.model.AccountDetails;
-import com.mchapagai.movies.model.AuthSession;
-import com.mchapagai.movies.model.AuthToken;
+import com.mchapagai.movies.model.account.AccountDetails;
+import com.mchapagai.movies.model.account.AuthSession;
+import com.mchapagai.movies.model.account.AuthToken;
 import com.mchapagai.movies.service.LoginService;
 
 import javax.inject.Provider;

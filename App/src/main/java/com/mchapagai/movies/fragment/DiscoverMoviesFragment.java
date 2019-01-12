@@ -2,11 +2,6 @@ package com.mchapagai.movies.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
-import android.transition.Fade;
-import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,18 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.ChangeBounds;
+import androidx.transition.ChangeImageTransform;
+import androidx.transition.ChangeTransform;
+import androidx.transition.Fade;
+import androidx.transition.TransitionSet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.library.widget.EndlessScrollListener;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
-import com.mchapagai.movies.adapter.movies.MoviesGridAdapter;
+import com.mchapagai.movies.adapter.MoviesGridAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.Sort;
-import com.mchapagai.movies.model.movies.Movies;
-import com.mchapagai.movies.model.movies.binding.MovieResponse;
+import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -38,31 +37,35 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.processors.PublishProcessor;
-import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAdapter.OnItemClickListener {
+public class DiscoverMoviesFragment extends BaseFragment {
 
     private static final String TAG = DiscoverMoviesFragment.class.getSimpleName();
 
     private static final int COLUMN_COUNT = 2;
+
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     private Sort sort = Sort.MOST_POPULAR;
+
     private MoviesGridAdapter moviesGridAdapter;
-    private List<Movies> movieItems = new ArrayList<>();
+
     private PublishProcessor<Integer> pagination = PublishProcessor.create();
+
     private boolean isLoading = false;
+
     private boolean isMenuSortChanged = true;
+
     private int pageNumber = 1;
 
-    @BindView(R.id.movies_recycler_view)
+    @BindView(R.id.common_recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.movies_page_loader)
+    @BindView(R.id.common_page_loader)
     PageLoader pageLoader;
 
     @Inject
@@ -81,7 +84,7 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.discover_movies_fragment_container, container, false);
+        View view = inflater.inflate(R.layout.common_fragment_container, container, false);
         ButterKnife.bind(this, view);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), COLUMN_COUNT);
@@ -98,20 +101,6 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
         });
 
         return view;
-    }
-
-    @Override
-    public void onClickItem(final Movies movies, final int position) {
-        Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
-        setSharedElementEnterTransition(
-                new TransitionSet().addTransition(new ChangeBounds()).addTransition(new ChangeImageTransform())
-                        .addTransition(new ChangeTransform()));
-        setEnterTransition(new Fade());
-        setExitTransition(new Fade());
-        setSharedElementReturnTransition(
-                new TransitionSet().addTransition(new ChangeBounds()).addTransition(new ChangeImageTransform())
-                        .addTransition(new ChangeTransform()));
-        startActivity(intent.putExtra(Constants.MOVIE_DETAILS, movies));
     }
 
     private Flowable<MovieResponse> movieResponseItems(int page, String sort) {
@@ -142,13 +131,29 @@ public class DiscoverMoviesFragment extends BaseFragment implements MoviesGridAd
                      */
                     @Override
                     public void accept(MovieResponse movieResponse) {
-                        if(isMenuSortChanged) {
-                            moviesGridAdapter = new MoviesGridAdapter(movieResponse.getMovies(),
-                                    DiscoverMoviesFragment.this);
+                        if (isMenuSortChanged) {
+                            moviesGridAdapter = new MoviesGridAdapter(movieResponse.getMovies());
                             recyclerView.setAdapter(moviesGridAdapter);
                         } else {
                             moviesGridAdapter.notifyDataChange(movieResponse.getMovies());
                         }
+
+                        moviesGridAdapter.setOnItemClickListener((movies, position) -> {
+                            Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+                            setSharedElementEnterTransition(
+                                    new TransitionSet().addTransition(new ChangeBounds())
+                                            .addTransition(new ChangeImageTransform())
+                                            .addTransition(new ChangeTransform()));
+                            setEnterTransition(new Fade());
+                            setExitTransition(new Fade());
+                            setSharedElementReturnTransition(
+                                    new TransitionSet().addTransition(new ChangeBounds())
+                                            .addTransition(new ChangeImageTransform())
+                                            .addTransition(new ChangeTransform()));
+                            intent.putExtra(Constants.MOVIE_DETAILS, movies);
+                            startActivity(intent);
+                        });
+
                         isMenuSortChanged = false;
                         isLoading = false;
                         pageLoader.setVisibility(View.GONE);

@@ -1,13 +1,13 @@
 package com.mchapagai.movies.view_model.impl;
 
 import com.mchapagai.movies.api.MovieAPI;
-import com.mchapagai.movies.model.movies.binding.CreditResponse;
-import com.mchapagai.movies.model.movies.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.movies.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.movies.binding.MovieResponse;
-import com.mchapagai.movies.model.movies.binding.PersonResponse;
-import com.mchapagai.movies.model.movies.binding.ReviewsResponse;
-import com.mchapagai.movies.model.movies.binding.VideoResponse;
+import com.mchapagai.movies.model.binding.CreditResponse;
+import com.mchapagai.movies.model.binding.CombinedPersonResponse;
+import com.mchapagai.movies.model.binding.MovieDetailsResponse;
+import com.mchapagai.movies.model.binding.MovieResponse;
+import com.mchapagai.movies.model.binding.PersonResponse;
+import com.mchapagai.movies.model.binding.ReviewsResponse;
+import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.utils.RxUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 
