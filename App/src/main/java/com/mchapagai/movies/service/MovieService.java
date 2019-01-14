@@ -37,4 +37,7 @@ public interface MovieService {
     @GET("person/{personId}/combined_credits")
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(@Path("personId") int personId);
 
+    @GET("search/movie")
+    Observable<MovieResponse> searchMovies(@Query("query") String q);
+
 }

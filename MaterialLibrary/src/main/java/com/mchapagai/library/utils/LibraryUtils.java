@@ -1,5 +1,6 @@
 package com.mchapagai.library.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +14,14 @@ import javax.annotation.Nonnull;
 
 public class LibraryUtils {
 
-    public static float constrain(float min, float max, float v) {
-        return Math.max(min, Math.min(max, v));
+    static float constrain(float v) {
+        return Math.max((float) 0.0, Math.min((float) 1.0, v));
     }
 
     public static Snackbar showSnackBar(@Nonnull Context context, @Nonnull View view, @Nonnull String message) {
         Snackbar snackbar = Snackbar.make(view, LibraryConstants.EMPTY_STRING, Snackbar.LENGTH_LONG);
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        View snackView = LayoutInflater.from(context).inflate(R.layout.material_snackbar, null);
+        @SuppressLint("InflateParams") View snackView = LayoutInflater.from(context).inflate(R.layout.material_snackbar, null);
         snackView.setBackgroundColor(ContextCompat.getColor(context, R.color.actionColor));
         layout.addView(snackView, 0);
         MaterialTextView snackMessage = snackView.findViewById(R.id.snackbar_message);

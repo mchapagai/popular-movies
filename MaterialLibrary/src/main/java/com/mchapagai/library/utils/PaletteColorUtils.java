@@ -131,7 +131,7 @@ public class PaletteColorUtils {
             lightnessMultiplier = 1f - lightnessMultiplier;
         }
 
-        hsl[2] = LibraryUtils.constrain(0f, 1f, hsl[2] * lightnessMultiplier);
+        hsl[2] = LibraryUtils.constrain(hsl[2] * lightnessMultiplier);
         return androidx.core.graphics.ColorUtils.HSLToColor(hsl);
     }
 

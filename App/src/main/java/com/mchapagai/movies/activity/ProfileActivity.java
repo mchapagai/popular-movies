@@ -3,8 +3,6 @@ package com.mchapagai.movies.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -76,24 +74,13 @@ public class ProfileActivity extends BaseActivity {
         getAccountSignInDetails();
         profileMovieLaunch.setOnClickListener(view -> startActivity(new Intent(this, DiscoverMoviesActivity.class)));
         profileShowLaunch.setOnClickListener(view -> startActivity(new Intent(this, DiscoverOnTheAirActivity.class)));
-        signoutButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                preferencesHelper.setSignedOut();
-                Intent i = new Intent(view.getContext(), LandingActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
-                ActivityCompat.finishAffinity(ProfileActivity.this);
-            }
+        signoutButton.setOnClickListener(view -> {
+            preferencesHelper.setSignedOut();
+            Intent i = new Intent(view.getContext(), LandingActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            ActivityCompat.finishAffinity(ProfileActivity.this);
         });
-
-
-//        if (!preferencesHelper.isSignedIn()) {
-//            item.setVisible(false);
-//        } else {
-//            item.setVisible(true);
-//        }
-
 
     }
 

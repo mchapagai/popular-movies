@@ -38,20 +38,6 @@
                     android:scaleType="centerCrop" />
             </FrameLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/details_favorite_copy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/margin_16dp"
-                android:backgroundTint="?attr/actionColor"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/icon_favorite"
-                android:visibility="gone"
-                app:layout_anchor="@+id/movie_details_toolbar"
-                app:layout_anchorGravity="bottom|end" />
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/movie_details_toolbar"
                 android:layout_width="match_parent"

@@ -58,4 +58,9 @@ public class MovieAPIImpl implements MovieAPI {
     public Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId) {
         return movieService.get().getPersonCombinedDetailsById(personId);
     }
+
+    @Override
+    public Observable<MovieResponse> searchMovies(String query) {
+        return movieService.get().searchMovies(query);
+    }
 }

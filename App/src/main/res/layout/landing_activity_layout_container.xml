@@ -22,11 +22,12 @@
             app:srcCompat="@drawable/icon_settings" />
 
         <com.mchapagai.library.views.MaterialCircleImageView
-            android:id="@+id/landing_user_profile"
+            android:id="@+id/landing_user_profile_copy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/user_profile_ada"
             android:importantForAccessibility="yes"
+            android:visibility="gone"
             app:borderColor="?attr/greyColor"
             app:borderWidth="@dimen/margin_2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.94"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/landing_user_profile"
+            app:layout_constraintTop_toTopOf="@+id/landing_user_profile_copy"
             app:srcCompat="@drawable/icon_info" />
 
         <com.mchapagai.library.views.MaterialTextView
@@ -85,27 +86,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent">
 
-            <com.mchapagai.library.views.MaterialImageView
-                android:id="@+id/dummy_view"
+            <com.mchapagai.library.views.MaterialCircleImageView
+                android:id="@+id/landing_user_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:contentDescription="@string/user_profile_ada"
+                android:importantForAccessibility="yes"
+                app:borderColor="?attr/greyColor"
+                app:borderWidth="@dimen/margin_2dp"
                 app:layout_constraintBottom_toTopOf="@+id/dummy_text_view"
                 app:layout_constraintEnd_toEndOf="@+id/dummy_text_view"
                 app:layout_constraintStart_toStartOf="@+id/dummy_text_view"
-                app:srcCompat="@drawable/icon_info" />
+                app:srcCompat="@drawable/icon_user" />
 
             <com.mchapagai.library.views.MaterialTextView
                 android:id="@+id/dummy_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_about_activity"
-                app:layout_constraintTop_toBottomOf="@+id/dummy_view" />
+                android:text="@string/title_profile"
+                app:layout_constraintTop_toBottomOf="@+id/landing_user_profile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,27 +118,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_16dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent">
 
             <com.mchapagai.library.views.MaterialImageView
-                android:id="@+id/dummy_view_2"
+                android:id="@+id/landing_now_playing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/dummy_text_view_2"
-                app:layout_constraintEnd_toEndOf="@+id/dummy_text_view_2"
-                app:layout_constraintStart_toStartOf="@+id/dummy_text_view_2"
-                app:srcCompat="@drawable/icon_info" />
+                app:layout_constraintBottom_toTopOf="@+id/now_playing_title"
+                app:layout_constraintEnd_toEndOf="@+id/now_playing_title"
+                app:layout_constraintStart_toStartOf="@+id/now_playing_title"
+                app:srcCompat="@drawable/icon_play" />
 
             <com.mchapagai.library.views.MaterialTextView
-                android:id="@+id/dummy_text_view_2"
+                android:id="@+id/now_playing_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_about_activity"
-                app:layout_constraintTop_toBottomOf="@+id/dummy_view_2" />
+                android:text="@string/title_in_theaters"
+                app:layout_constraintTop_toBottomOf="@+id/landing_now_playing" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

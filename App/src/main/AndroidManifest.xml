@@ -24,7 +24,7 @@
             android:label="@string/title_about_activity" />
         <activity
             android:name=".activity.DiscoverMoviesActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/activity_login" />
@@ -46,7 +46,6 @@
         <activity
             android:name=".activity.ShowDetailsActivity"
             android:label="@null" />
-
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/title_profile" />

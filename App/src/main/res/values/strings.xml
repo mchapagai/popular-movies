@@ -13,8 +13,11 @@
     <string name="cast_credits">Cast credits</string>
     <string name="crew_credits">Crew credits</string>
     <string name="title_profile">Profile</string>
+    <string name="title_in_theaters">Now playing</string>
     <string name="profile_movie_details">/Tap to see the movies</string>
     <string name="profile_show_details">/Tap to see the shows</string>
+    <string name="search_menu">Search</string>
+    <string name="search_menu_hint">Select to provide movie name</string>
 
     <!--Resource string with placeholder-->
     <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
@@ -27,8 +30,7 @@
     <string name="button_got_it">Got it</string>
 
     <string name="lorem_placeholder" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
-    <string name="about_description">Base Android Application is a sample application that can be uses as a starting project.
-    This base application is made for Model-View-ViewModel architecture. This application defines a various dependencies or libraries for head start.</string>
+    <string name="about_description">Application will allow user to discover movies and shows. The application is made for Model-View-ViewModel architecture.</string>
 
     <string name="msg_app_version">App Version: %s</string>
     <string name="about_app_copyright">&#169; Manorath Chapagai | All rights reserved.</string>
@@ -69,13 +71,12 @@
     <string name="prompt_to_login_title">Oh, snap!</string>
     <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
     <string name="welcome_screen_movie_details">An app to allow users to discover the most popular movies playing. This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.</string>
+    <string name="welcome_screen_shows_details">Now usee can browse the TV shows.</string>
 
     <!-- ADA Global -->
     <string name="login_image_ada">Login screen</string>
 
     <!-- Transition names-->
     <string name="movies_poster_transition" translatable="false">posterPathTransition</string>
-    <string name="overview">Overview</string>
-    <string name="todo">TODO</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.mchapagai.movies.adapter.movies;
+package com.mchapagai.movies.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

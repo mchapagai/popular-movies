@@ -28,4 +28,6 @@ public interface MovieViewModel {
 
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId);
 
+    Observable<MovieResponse> searchMovies(String query);
+
 }

@@ -4,8 +4,9 @@
     <string name="msg_license">This application is constructed using following software.</string>
 
     <string-array name="software_list" translatable="false">
-        <item>Sample App</item>
+        <item>Discover Movies</item>
         <item>Source Sans Fonts</item>
+        <item>Creative Commons (IconFinder)</item>
     </string-array>
 
     <string-array name="license_list" translatable="false">
@@ -36,120 +37,9 @@
         ]]></item>
 
         <item><![CDATA[
-
+        CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES. DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.<br \>
+        https://creativecommons.org/licenses/by/3.0/legalcode
         ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
-        <item><![CDATA[
-
-        ]]></item>
-
-
     </string-array>
 
 </resources>

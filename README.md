@@ -32,23 +32,5 @@ placeholder which is configured in `build.gradle` to be used on the project.
 - [x] ButterKnife (view binding)
 - [x] Dagger (dependency injection)
 
-
-### Future Enhancement
- - Search
- - Favorite
-
-discover/movie
-language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
-
-tv details (with videos and reviews)
-
-https://api.themoviedb.org/3/
-tv/48891
-?api_key=api_key
-&language=en-US
-&append_to_response=videos%2Creviews
-
-TODO:
-loading footer
-
-Credits: Icon Downloaded from FlatIon
+#### Credits
+- Icons are downloaded from [ICONFINDER](https://www.iconfinder.com/). [Creative Commons License](https://creativecommons.org/licenses/by/3.0/legalcode)

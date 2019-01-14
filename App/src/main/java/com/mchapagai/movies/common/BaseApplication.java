@@ -14,8 +14,6 @@ import javax.inject.Inject;
 
 public class BaseApplication extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
-    private static Context context;
-
     private static BaseApplication baseApplication;
 
     @Inject
@@ -31,13 +29,13 @@ public class BaseApplication extends Application implements HasActivityInjector,
             return;
         }
         LeakCanary.install(this);
-        context = this;
+        baseApplication = this;
 
         DaggerAppComponent.builder().build().inject(this);
     }
 
     public static Context getApplicationContextInstance() {
-        return context;
+        return baseApplication;
     }
 
     /**

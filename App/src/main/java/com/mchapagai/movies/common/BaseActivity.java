@@ -1,9 +1,11 @@
 package com.mchapagai.movies.common;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import dagger.android.AndroidInjection;
 
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     @Override

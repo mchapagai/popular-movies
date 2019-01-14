@@ -37,7 +37,7 @@
         android:layout_marginBottom="@dimen/margin_126dp"
         android:paddingLeft="@dimen/margin_40dp"
         android:paddingRight="@dimen/margin_40dp"
-        android:text="@string/coming_soon"
+        android:text="@string/welcome_screen_shows_details"
         android:textSize="@dimen/text_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

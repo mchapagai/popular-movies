@@ -1,6 +1,7 @@
 package com.mchapagai.library.utils;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,6 +20,7 @@ public class AnimationUtils {
 
     private static Interpolator fastOutSlowIn;
 
+    @SuppressLint("InlinedApi")
     public static void setLightStatusBar(@NonNull View view) {
         int flags = view.getSystemUiVisibility();
         flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;

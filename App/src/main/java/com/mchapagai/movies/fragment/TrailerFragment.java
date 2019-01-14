@@ -89,21 +89,15 @@ public class TrailerFragment extends BaseFragment {
 
         compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
                 .subscribe(
-                        new Consumer<ShowsDetailsResponse>() {
-                            @Override
-                            public void accept(final ShowsDetailsResponse showsDetailsResponse) throws Exception {
-                                if (showsDetailsResponse.getVideos().getVideos().isEmpty()) {
-                                    showVideoError();
-                                } else {
-                                    hideVideoError();
-                                    videosAdapter.setMovieVideos(showsDetailsResponse.getVideos().getVideos());
-                                }
+                        showsDetailsResponse -> {
+                            if (showsDetailsResponse.getVideos().getVideos().isEmpty()) {
+                                showVideoError();
+                            } else {
+                                hideVideoError();
+                                videosAdapter.setMovieVideos(showsDetailsResponse.getVideos().getVideos());
                             }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(final Throwable throwable) throws Exception {
+                        }, throwable -> {
 
-                            }
                         }
 
                 ));

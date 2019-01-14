@@ -2,21 +2,19 @@ package com.mchapagai.movies.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnScrollChangeListener;
 import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -126,12 +124,6 @@ public class MovieDetailsActivity extends BaseActivity {
     @BindView(R.id.details_favorite)
     FloatingActionButton favoriteActionButton;
 
-    @BindView(R.id.movie_details_parent_layout)
-    NestedScrollView nestedScrollView;
-
-    @BindView(R.id.details_favorite_copy)
-    FloatingActionButton favCopy;
-
     private Movies movies;
 
     private VideosAdapter videosAdapter;
@@ -175,22 +167,10 @@ public class MovieDetailsActivity extends BaseActivity {
 
         setSupportActionBar(movieDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_close);
+        movieDetailsToolbar.getNavigationIcon().setTint(getResources().getColor(R.color.darkThemePrimaryDark));
+        movieDetailsToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), Mode.DARKEN);
         setTitle("");
-
-        nestedScrollView.setOnScrollChangeListener(new OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(final View v, final int scrollX, final int scrollY, final int oldScrollX,
-                    final int oldScrollY) {
-                // toolbar: 56dp
-                if (scrollY == movieDetailsToolbar.getHeight()) {
-                    favCopy.setVisibility(View.VISIBLE);
-                    Log.d(TAG, "Finally on collapse");
-                } else if (scrollY > movieDetailsToolbar.getHeight()) {
-                    favCopy.setVisibility(View.GONE);
-                    Log.d(TAG, "Finally something weird?");
-                }
-            }
-        });
 
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -348,11 +328,13 @@ public class MovieDetailsActivity extends BaseActivity {
     private void loadMovieReviews() {
         compositeDisposable.add(movieViewModel.getMovieReviewsById(movies.getId())
                 .subscribe(
-                        response -> reviewsResponseItems(response),
+                        response -> MovieDetailsActivity.this.reviewsResponseItems(response),
                         throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
-                                getResources().getString(R.string.service_error_title),
+                                MovieDetailsActivity.this.getResources()
+                                        .getString(R.string.service_error_title),
                                 throwable.getMessage(),
-                                getResources().getString(R.string.material_dialog_ok))
+                                MovieDetailsActivity.this.getResources()
+                                        .getString(R.string.material_dialog_ok))
                 ));
     }
 

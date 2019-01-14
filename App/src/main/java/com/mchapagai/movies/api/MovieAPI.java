@@ -27,4 +27,6 @@ public interface MovieAPI {
     Single<PersonResponse> getPersonDetailsById(int personId);
 
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId);
+
+    Observable<MovieResponse> searchMovies(String query);
 }

@@ -137,36 +137,28 @@ public class ShowDetailsActivity extends BaseActivity {
     private void loadShowDetails() {
         compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
                 .subscribe(
-                        new Consumer<ShowsDetailsResponse>() {
-                            @Override
-                            public void accept(final ShowsDetailsResponse showsDetailsResponse) throws Exception {
+                        showsDetailsResponse -> {
 
-                                if (showsDetailsResponse != null) {
-                                    String info = getString(R.string.concat_strings_placeholder_shows,
-                                            showsDetailsResponse.getNumberOfSeasons(),
-                                            showsDetailsResponse.getNumberOfEpisodes(),
-                                            showsDetailsResponse.getPopularity(),
-                                            DateTimeUtils.getNameOfMonth(showsDetailsResponse.getFirstAirDate()),
-                                            showsDetailsResponse.getVoteAverage(),
-                                            DateTimeUtils.getNameOfMonth(showsDetailsResponse.getLastAirDate()),
-                                            showsDetailsResponse.getStatus());
-                                    // Make sure setSelected is specified for marqueee to work
-                                    showsInfo.setSelected(true);
-                                    showsInfo.setTextColor(getResources().getColor(R.color.darkThemePrimary));
-                                    showsInfo.setText(info);
-                                } else {
-                                    showsInfo.setVisibility(View.GONE);
-                                }
+                            if (showsDetailsResponse != null) {
+                                String info = getString(R.string.concat_strings_placeholder_shows,
+                                        showsDetailsResponse.getNumberOfSeasons(),
+                                        showsDetailsResponse.getNumberOfEpisodes(),
+                                        showsDetailsResponse.getPopularity(),
+                                        DateTimeUtils.getNameOfMonth(showsDetailsResponse.getFirstAirDate()),
+                                        showsDetailsResponse.getVoteAverage(),
+                                        DateTimeUtils.getNameOfMonth(showsDetailsResponse.getLastAirDate()),
+                                        showsDetailsResponse.getStatus());
+                                // Make sure setSelected is specified for marqueee to work
+                                showsInfo.setSelected(true);
+                                showsInfo.setTextColor(getResources().getColor(R.color.darkThemePrimary));
+                                showsInfo.setText(info);
+                            } else {
+                                showsInfo.setVisibility(View.GONE);
                             }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(final Throwable throwable) throws Exception {
-                                MaterialDialogUtils.showDialog(ShowDetailsActivity.this,
-                                        getResources().getString(R.string.service_error_title),
-                                        throwable.getMessage(),
-                                        getResources().getString(R.string.material_dialog_ok));
-                            }
-                        }
+                        }, throwable -> MaterialDialogUtils.showDialog(ShowDetailsActivity.this,
+                                getResources().getString(R.string.service_error_title),
+                                throwable.getMessage(),
+                                getResources().getString(R.string.material_dialog_ok))
                 ));
     }
 

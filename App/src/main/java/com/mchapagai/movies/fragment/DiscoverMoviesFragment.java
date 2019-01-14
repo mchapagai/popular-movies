@@ -1,7 +1,10 @@
 package com.mchapagai.movies.fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,15 +32,22 @@ import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.adapter.MoviesGridAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
+import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.processors.PublishProcessor;
+import io.reactivex.subjects.PublishSubject;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import retrofit2.HttpException;
@@ -55,6 +66,8 @@ public class DiscoverMoviesFragment extends BaseFragment {
     private MoviesGridAdapter moviesGridAdapter;
 
     private PublishProcessor<Integer> pagination = PublishProcessor.create();
+
+    private SearchView searchView;
 
     private boolean isLoading = false;
 
@@ -172,6 +185,62 @@ public class DiscoverMoviesFragment extends BaseFragment {
         pagination.onNext(pageNumber);
     }
 
+    private void searchSubscription() {
+        instantiateSearchQuery(searchView)
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .filter(s -> !s.isEmpty())
+                .switchMap((Function<String, ObservableSource<List<Movies>>>) s -> searchResponse(s))
+                .subscribe(
+                        new DisposableObserver<List<Movies>>() {
+                            @Override
+                            public void onNext(List<Movies> moviesList) {
+                                moviesGridAdapter = new MoviesGridAdapter(moviesList);
+                                recyclerView.setAdapter(moviesGridAdapter);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+        pagination.onNext(pageNumber);
+    }
+
+
+    private Observable<List<Movies>> searchResponse(String query) {
+         return movieViewModel.searchMovies(query)
+                .flatMapIterable(movieResponse -> movieResponse.getMovies()).distinct(movies -> movies.getTitle()).toList().toObservable();
+    }
+
+    private Observable<String> instantiateSearchQuery(SearchView view) {
+        PublishSubject<String> publishSubject = PublishSubject.create();
+        view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                if (!TextUtils.isEmpty(query)) {
+                    publishSubject.onComplete();
+                    publishSubject.onNext(query);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                publishSubject.onNext(newText);
+                return true;
+            }
+        });
+
+        return publishSubject;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -193,6 +262,26 @@ public class DiscoverMoviesFragment extends BaseFragment {
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.movies_menu, menu);
+
+        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchSubscription();
+                moviesGridAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -223,6 +312,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
                 break;
         }
         item.setChecked(!item.isChecked());
+
         return super.onOptionsItemSelected(item);
     }
 }

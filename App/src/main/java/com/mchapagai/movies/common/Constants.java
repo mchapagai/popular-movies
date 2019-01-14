@@ -25,6 +25,4 @@ public class Constants {
     public static final String SECURE_IMAGE_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
     public static final String SECURE_BASE_URL = "https://image.tmdb.org/t/p/w342";
 
-    public static final String DATE_PATTERN = "yyyy-MM-dd";
-
 }

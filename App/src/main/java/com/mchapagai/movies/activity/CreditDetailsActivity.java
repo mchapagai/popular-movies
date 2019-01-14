@@ -39,7 +39,7 @@ import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.CastAdapter;
-import com.mchapagai.movies.adapter.movies.CrewAdapter;
+import com.mchapagai.movies.adapter.CrewAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.CombinedCastCredit;
@@ -192,7 +192,8 @@ public class CreditDetailsActivity extends BaseActivity {
         Observable<CombinedCrewCredits> distinct = movieViewModel
                 .getPersonCombinedDetailsById(personId)
                 .flatMap(response -> Observable.just(response.getCrew())
-                        .flatMapIterable(combinedCrewCredits -> combinedCrewCredits))
+                        .flatMapIterable(
+                                combinedCrewCredits -> combinedCrewCredits))
                 .distinct(crewItems -> crewItems.getTitle());
 
         compositeDisposable

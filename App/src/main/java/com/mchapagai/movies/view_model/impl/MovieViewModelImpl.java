@@ -60,4 +60,9 @@ public class MovieViewModelImpl implements MovieViewModel {
     public Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId) {
         return movieAPI.getPersonCombinedDetailsById(personId).compose(RxUtils.applySchedulers());
     }
+
+    @Override
+    public Observable<MovieResponse> searchMovies(String query) {
+        return movieAPI.searchMovies(query).compose(RxUtils.applySchedulers());
+    }
 }
