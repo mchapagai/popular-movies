@@ -33,7 +33,7 @@ ext.versions = [
         picasso                     : '2.71828',
         dagger                      : '2.16',
         guava                       : '24.1-android',
-        butterknife                 : '9.0.0-rc3',
+        butterknife                 : '10.0.0',
 
         jacocoGradlePlugin          : '0.7.6.201602180812',
         androidGradlePlugin         : '3.0.0',

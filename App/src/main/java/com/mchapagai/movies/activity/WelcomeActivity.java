@@ -12,11 +12,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
@@ -25,10 +28,14 @@ public class WelcomeActivity extends BaseActivity {
 
     private int[] layouts;
 
-    @BindView(R.id.view_pager)  ViewPager viewPager;
-    @BindView(R.id.skip_button) MaterialButton skipButton;
-    @BindView(R.id.next_button) MaterialButton nextButton;
-    @BindView(R.id.layout_dots) LinearLayout dotsLayout;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.skip_button)
+    MaterialButton skipButton;
+    @BindView(R.id.next_button)
+    MaterialButton nextButton;
+    @BindView(R.id.layout_dots)
+    LinearLayout dotsLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,8 @@ public class WelcomeActivity extends BaseActivity {
 
         // Making notification bar transparent
         getWindow().getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                .setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setContentView(R.layout.welcome_activity_container);
         ButterKnife.bind(this);
@@ -101,32 +109,33 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener =
+            new ViewPager.OnPageChangeListener() {
 
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
+                @Override
+                public void onPageSelected(int position) {
+                    addBottomDots(position);
 
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
-                nextButton.setText(getString(R.string.button_got_it).toUpperCase());
-                skipButton.setVisibility(View.GONE);
-            } else {
-                // still pages are left
-                nextButton.setText(getString(R.string.button_next).toUpperCase());
-                skipButton.setVisibility(View.VISIBLE);
-            }
-        }
+                    // changing the next button text 'NEXT' / 'GOT IT'
+                    if (position == layouts.length - 1) {
+                        // last page. make button text to GOT IT
+                        nextButton.setText(getString(R.string.button_got_it).toUpperCase());
+                        skipButton.setVisibility(View.GONE);
+                    } else {
+                        // still pages are left
+                        nextButton.setText(getString(R.string.button_next).toUpperCase());
+                        skipButton.setVisibility(View.VISIBLE);
+                    }
+                }
 
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-        }
+                @Override
+                public void onPageScrolled(int arg0, float arg1, int arg2) {
+                }
 
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-        }
-    };
+                @Override
+                public void onPageScrollStateChanged(int arg0) {
+                }
+            };
 
     /**
      * Making notification bar transparent
@@ -161,7 +170,8 @@ public class WelcomeActivity extends BaseActivity {
         }
 
         @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position,
+                @NonNull Object object) {
             View view = (View) object;
             container.removeView(view);
         }

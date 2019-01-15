@@ -6,16 +6,20 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
 import com.mchapagai.library.views.MaterialCircleImageView;
 import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.utils.PreferencesHelper;
+
 import java.io.Serializable;
 
 public class LandingActivity extends AppCompatActivity {
@@ -47,10 +51,12 @@ public class LandingActivity extends AppCompatActivity {
                 view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));
         animateCircle(launchPopularMovies);
         launchInfoScreen
-                .setOnClickListener(view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
+                .setOnClickListener(
+                        view -> startActivity(new Intent(view.getContext(), AboutActivity.class)));
         launchPopularShows.
                 setOnClickListener(
-                        view -> startActivity(new Intent(view.getContext(), DiscoverOnTheAirActivity.class)));
+                        view -> startActivity(
+                                new Intent(view.getContext(), DiscoverOnTheAirActivity.class)));
         animateCircle(launchPopularShows);
         launchProfileScreen.setOnClickListener(view -> {
             // Check to see if user is logged in, if not show a dialog to prompt user to login
@@ -59,23 +65,28 @@ public class LandingActivity extends AppCompatActivity {
                         .setMessage(getResources().getString(R.string.prompt_to_login_message))
                         .setTitle(getResources().getString(R.string.prompt_to_login_title))
                         .setLayoutResId(R.layout.confirmation_dialog)
-                        .setPositiveButtonText(getResources().getString(R.string.material_dialog_ok))
-                        .setNegativeButtonText(getResources().getString(R.string.material_dialog_cancel))
+                        .setPositiveButtonText(
+                                getResources().getString(R.string.material_dialog_ok))
+                        .setNegativeButtonText(
+                                getResources().getString(R.string.material_dialog_cancel))
                         .setCustomButton(true);
 
-                MaterialDialogFragment materialDialogFragment = MaterialDialogFragment.showDialog(builder, this);
-                materialDialogFragment.setOnDialogClickListener(new MaterialDialogFragment.OnDialogClickListener() {
-                    @Override
-                    public void onPositiveButtonClicked(Serializable data, String tag) {
-                        Intent intent = new Intent(LandingActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
+                MaterialDialogFragment materialDialogFragment = MaterialDialogFragment.showDialog(
+                        builder, this);
+                materialDialogFragment.setOnDialogClickListener(
+                        new MaterialDialogFragment.OnDialogClickListener() {
+                            @Override
+                            public void onPositiveButtonClicked(Serializable data, String tag) {
+                                Intent intent = new Intent(LandingActivity.this,
+                                        LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
 
-                    @Override
-                    public void onNegativeButtonClicked(String tag) {
-                    }
-                });
+                            @Override
+                            public void onNegativeButtonClicked(String tag) {
+                            }
+                        });
             } else if (preferencesHelper.isSignedIn()) {
                 Intent intent = new Intent(view.getContext(), ProfileActivity.class);
                 startActivity(intent);

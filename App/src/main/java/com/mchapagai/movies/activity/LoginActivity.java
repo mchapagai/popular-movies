@@ -23,6 +23,7 @@ import com.mchapagai.movies.view_model.LoginViewModel;
 import javax.inject.Inject;
 
 import androidx.appcompat.widget.Toolbar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Single;
@@ -32,25 +33,28 @@ public class LoginActivity extends BaseActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
-    @BindView(R.id.toolbar)                 Toolbar toolbar;
-    @BindView(R.id.login_button)            MaterialButton loginButton;
-    @BindView(R.id.username_edit_text)      EditText usernameInputFiled;
-    @BindView(R.id.password_edit_text)      EditText passwordInputField;
-    @BindView(R.id.progress_page_loader)    PageLoader pageLoader;
-    @BindView(R.id.navigate_to_about)       MaterialTextView aboutView;
-    @BindView(R.id.navigate_to_tmdb)        MaterialTextView tmdbSite;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.login_button)
+    MaterialButton loginButton;
+    @BindView(R.id.username_edit_text)
+    EditText usernameInputFiled;
+    @BindView(R.id.password_edit_text)
+    EditText passwordInputField;
+    @BindView(R.id.progress_page_loader)
+    PageLoader pageLoader;
+    @BindView(R.id.navigate_to_about)
+    MaterialTextView aboutView;
+    @BindView(R.id.navigate_to_tmdb)
+    MaterialTextView tmdbSite;
 
     @Inject
     LoginViewModel loginViewModel;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private String authenticationToken;
-
     boolean requestTokenAccess, verifyToken, stopped;
-
     private PreferencesHelper preferencesUtils;
-
     private String sessionId;
 
     @Override
@@ -98,7 +102,8 @@ public class LoginActivity extends BaseActivity {
         tmdbSite.setOnClickListener(getNavigateToTMDb);
     }
 
-    private View.OnClickListener navigateToAbout = view -> startActivity(new Intent(view.getContext(), AboutActivity.class));
+    private View.OnClickListener navigateToAbout = view -> startActivity(
+            new Intent(view.getContext(), AboutActivity.class));
 
     private View.OnClickListener getNavigateToTMDb = v -> {
         String url = "https://www.themoviedb.org/";
@@ -116,25 +121,31 @@ public class LoginActivity extends BaseActivity {
                     .getRequestAuthenticated(authenticationToken, username, password);
             Single<AuthSession> sessionIdSingle = loginViewModel.getSessionID(authenticationToken);
 
-            compositeDisposable.add(Single.zip(authenticatedSingle, sessionIdSingle, CombinedAuthResponse::new)
-                    .subscribe(combinedAuthResponse -> {
-                                verifyToken = true;
-                                preferencesUtils.setAccessTokenVerified();
-                                authenticationToken = combinedAuthResponse.getAuthToken().getRequestToken();
-                                Log.d(TAG, combinedAuthResponse.getAuthToken().getRequestToken());
+            compositeDisposable.add(
+                    Single.zip(authenticatedSingle, sessionIdSingle, CombinedAuthResponse::new)
+                            .subscribe(combinedAuthResponse -> {
+                                        verifyToken = true;
+                                        preferencesUtils.setAccessTokenVerified();
+                                        authenticationToken =
+                                                combinedAuthResponse.getAuthToken().getRequestToken();
+                                        Log.d(TAG,
+                                                combinedAuthResponse.getAuthToken().getRequestToken());
 
-                                sessionId = combinedAuthResponse.getAuthSession().getSessionId();
-                                preferencesUtils.setUserSessionId(sessionId);
-                                getAccountSignInDetails();
-                                if (!stopped) {
-                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                                }
-                            }, throwable -> {
-                                preferencesUtils.setAccessTokenVerifiedFalse();
-                                verifyToken = false;
-                                errorDialog();
-                            }
-                    ));
+                                        sessionId =
+                                                combinedAuthResponse.getAuthSession().getSessionId();
+                                        preferencesUtils.setUserSessionId(sessionId);
+                                        getAccountSignInDetails();
+                                        if (!stopped) {
+                                            startActivity(
+                                                    new Intent(LoginActivity.this,
+                                                            ProfileActivity.class));
+                                        }
+                                    }, throwable -> {
+                                        preferencesUtils.setAccessTokenVerifiedFalse();
+                                        verifyToken = false;
+                                        errorDialog();
+                                    }
+                            ));
         });
     }
 

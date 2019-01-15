@@ -83,7 +83,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':MaterialLibrary')
 
-    //noinspection GradleCompatible
     implementation "androidx.appcompat:appcompat:$versions.androidx_core"
     implementation "com.google.android.material:material:$versions.androidx_design"
     implementation "androidx.annotation:annotation:$versions.androidx_annotation"

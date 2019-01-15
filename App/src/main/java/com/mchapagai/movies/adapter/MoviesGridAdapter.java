@@ -7,21 +7,26 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.library.widget.RoundedTransformation;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> implements
+public class MoviesGridAdapter extends
+        RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> implements
         Filterable {
 
     private List<Movies> movieItems;
@@ -61,7 +66,8 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
             }
 
             @Override
-            protected void publishResults(final CharSequence constraint, final FilterResults results) {
+            protected void publishResults(final CharSequence constraint,
+                    final FilterResults results) {
                 movieItemsFilterable = (List<Movies>) results.values;
                 notifyDataSetChanged();
             }
@@ -90,19 +96,22 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Mo
                 .transform(new RoundedTransformation(20, 0))
                 .into(holder.poster);
 
-        ViewCompat.setTransitionName(holder.poster, String.valueOf(R.string.movies_poster_transition));
+        ViewCompat.setTransitionName(holder.poster,
+                String.valueOf(R.string.movies_poster_transition));
 
-        holder.poster.setOnClickListener(v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition()));
+        holder.poster.setOnClickListener(
+                v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition()));
     }
 
     @Override
     public int getItemCount() {
-        return movieItemsFilterable ==  null ? 0 : movieItemsFilterable.size();
+        return movieItemsFilterable == null ? 0 : movieItemsFilterable.size();
     }
 
     class MoviesViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_poster) MaterialImageView poster;
+        @BindView(R.id.movie_poster)
+        MaterialImageView poster;
 
         MoviesViewHolder(View itemView) {
             super(itemView);
