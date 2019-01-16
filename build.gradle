@@ -3,15 +3,13 @@
 buildscript {
 
     apply from: 'versions.gradle'
-    
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin"
     }
 }
 
@@ -19,7 +17,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 }
 

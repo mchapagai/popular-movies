@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
@@ -22,14 +25,16 @@ import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.model.binding.OnTheAirResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
+
 import io.reactivex.disposables.CompositeDisposable;
+
 import java.util.List;
+
 import javax.inject.Inject;
 
 public class DiscoverOnTheAirFragment extends BaseFragment {
 
     private static final int COLUMN_COUNT = 2;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @BindView(R.id.common_recycler_view)
@@ -41,15 +46,13 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
     @Inject
     ShowsViewModel showsViewModel;
 
-    private ShowsGridAdapter tvGridAdapter;
-
-
     public DiscoverOnTheAirFragment() {
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.common_fragment_container, container, false);
 
@@ -65,7 +68,7 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
 
     private void showsResponseItems(OnTheAirResponse response) {
         final List<OnTheAir> ontheAirItems = response.getOnTheAir();
-        tvGridAdapter = new ShowsGridAdapter(ontheAirItems);
+        ShowsGridAdapter tvGridAdapter = new ShowsGridAdapter(ontheAirItems);
         tvGridAdapter.setOnShowClickListener((shows, position) -> {
             Intent intent = new Intent(getActivity(), ShowDetailsActivity.class);
             intent.putExtra(Constants.SHOWS_DETAILS, shows);
@@ -79,7 +82,8 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
         compositeDisposable.add(showsViewModel.discoverOnTheAirShows()
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(
-                        response -> showsResponseItems(response), throwable -> MaterialDialogUtils.showDialog(getActivity(),
+                        response -> showsResponseItems(response),
+                        throwable -> MaterialDialogUtils.showDialog(getActivity(),
                                 getResources().getString(R.string.service_error_title),
                                 throwable.getMessage(),
                                 getResources().getString(R.string.material_dialog_ok))

@@ -16,7 +16,7 @@ public class AccountDetails implements Parcelable {
 	@SerializedName("avatar")
 	private Avatar avatar;
 
-	@SerializedName("id")
+	@SerializedName("sessionId")
 	private int id;
 
 	@SerializedName("username")

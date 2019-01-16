@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -23,8 +24,10 @@ import androidx.transition.ChangeImageTransform;
 import androidx.transition.ChangeTransform;
 import androidx.transition.Fade;
 import androidx.transition.TransitionSet;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.library.widget.EndlessScrollListener;
 import com.mchapagai.movies.R;
@@ -36,6 +39,7 @@ import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -46,33 +50,28 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.subjects.PublishSubject;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
+
 import org.reactivestreams.Publisher;
+
 import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class DiscoverMoviesFragment extends BaseFragment {
 
     private static final String TAG = DiscoverMoviesFragment.class.getSimpleName();
-
     private static final int COLUMN_COUNT = 2;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private Sort sort = Sort.MOST_POPULAR;
-
     private MoviesGridAdapter moviesGridAdapter;
-
     private PublishProcessor<Integer> pagination = PublishProcessor.create();
-
     private SearchView searchView;
-
     private boolean isLoading = false;
-
     private boolean isMenuSortChanged = true;
-
     private int pageNumber = 1;
 
     @BindView(R.id.common_recycler_view)
@@ -106,7 +105,8 @@ public class DiscoverMoviesFragment extends BaseFragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addOnScrollListener(new EndlessScrollListener(gridLayoutManager) {
             @Override
-            public void onLoadMore(final int currentPage, final int totalItemCount, final View view) {
+            public void onLoadMore(final int currentPage, final int totalItemCount,
+                    final View view) {
                 if (!isLoading) {
                     pagination.onNext(pageNumber++);
                 }
@@ -189,7 +189,8 @@ public class DiscoverMoviesFragment extends BaseFragment {
         instantiateSearchQuery(searchView)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .filter(s -> !s.isEmpty())
-                .switchMap((Function<String, ObservableSource<List<Movies>>>) s -> searchResponse(s))
+                .switchMap(
+                        (Function<String, ObservableSource<List<Movies>>>) s -> searchResponse(s))
                 .subscribe(
                         new DisposableObserver<List<Movies>>() {
                             @Override
@@ -213,8 +214,9 @@ public class DiscoverMoviesFragment extends BaseFragment {
 
 
     private Observable<List<Movies>> searchResponse(String query) {
-         return movieViewModel.searchMovies(query)
-                .flatMapIterable(movieResponse -> movieResponse.getMovies()).distinct(movies -> movies.getTitle()).toList().toObservable();
+        return movieViewModel.searchMovies(query)
+                .flatMapIterable(movieResponse -> movieResponse.getMovies()).distinct(
+                        movies -> movies.getTitle()).toList().toObservable();
     }
 
     private Observable<String> instantiateSearchQuery(SearchView view) {
@@ -263,7 +265,8 @@ public class DiscoverMoviesFragment extends BaseFragment {
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.movies_menu, menu);
 
-        SearchManager manager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager manager = (SearchManager) getActivity().getSystemService(
+                Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);

@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.ReviewsAdapter;
@@ -19,8 +22,11 @@ import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.model.Reviews;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
+
 import io.reactivex.disposables.CompositeDisposable;
+
 import java.util.List;
+
 import javax.inject.Inject;
 
 public class ReviewsFragment extends BaseFragment {
@@ -35,7 +41,6 @@ public class ReviewsFragment extends BaseFragment {
     ShowsViewModel showsViewModel;
 
     private OnTheAir onTheAir;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public static ReviewsFragment newInstance(OnTheAir onTheAir) {
@@ -60,7 +65,8 @@ public class ReviewsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.show_details_reviews_fragment_container, container, false);
+        View view = inflater.inflate(R.layout.show_details_reviews_fragment_container, container,
+                false);
         ButterKnife.bind(this, view);
         return view;
     }

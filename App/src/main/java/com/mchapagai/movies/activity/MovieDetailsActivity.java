@@ -13,13 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,11 +53,14 @@ import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
+
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import javax.inject.Inject;
 
 public class MovieDetailsActivity extends BaseActivity {
@@ -125,18 +131,12 @@ public class MovieDetailsActivity extends BaseActivity {
     FloatingActionButton favoriteActionButton;
 
     private Movies movies;
-
     private VideosAdapter videosAdapter;
-
     private List<Videos> videoItems = new ArrayList<>();
-
     private List<Genres> genreItems = new ArrayList<>();
-
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
     private List<CastCredit> castCredits = new ArrayList<>();
-
     private List<CrewCredits> crewCredits = new ArrayList<>();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Inject
@@ -163,16 +163,20 @@ public class MovieDetailsActivity extends BaseActivity {
     @TargetApi(VERSION_CODES.M)
     private void initViews() {
         // Fullscreen - hide the status bar
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setSupportActionBar(movieDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_close);
-        movieDetailsToolbar.getNavigationIcon().setTint(getResources().getColor(R.color.darkThemePrimaryDark));
-        movieDetailsToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), Mode.DARKEN);
+        movieDetailsToolbar.getNavigationIcon().setTint(
+                getResources().getColor(R.color.darkThemePrimaryDark));
+        movieDetailsToolbar.getNavigationIcon().setColorFilter(
+                getResources().getColor(R.color.white), Mode.DARKEN);
         setTitle("");
 
-        // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when collapsed
+        // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when
+        // collapsed
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = true;
 
@@ -205,20 +209,22 @@ public class MovieDetailsActivity extends BaseActivity {
         Uri backdropUri = MovieUtils.getMovieBackdropPathUri(movies);
 
         movieGenreRecyclerView.setLayoutManager(
-                new LinearLayoutManager(MovieDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                new LinearLayoutManager(MovieDetailsActivity.this, LinearLayoutManager.HORIZONTAL,
+                        false));
         final GenresAdapter genresAdapter = new GenresAdapter(genreItems);
         movieGenreRecyclerView.setAdapter(genresAdapter);
         Picasso.get().load(backdropUri).into(detailsBackdrop);
 
         favoriteActionButton.setOnClickListener(
                 v -> LibraryUtils
-                        .showSnackBar(MovieDetailsActivity.this, v, getString(R.string.prompt_to_login_message)));
+                        .showSnackBar(this, v,
+                                getString(R.string.prompt_to_login_message)));
     }
 
     private void loadMoreMovies() {
         compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
                 .subscribe(this::movieDetailsResponseItems,
-                        throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
+                        throwable -> MaterialDialogUtils.showDialog(this,
                                 getResources().getString(R.string.service_error_title),
                                 throwable.getMessage(),
                                 getResources().getString(R.string.material_dialog_ok))
@@ -228,7 +234,8 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private void movieDetailsResponseItems(MovieDetailsResponse response) {
         movieGenreRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        movieGenreRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        movieGenreRecyclerView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         genreItems = response.getGenres();
         if (response.getTagline() != null && !response.getTagline().equals("")) {
             movieTagline.setText(response.getTagline());
@@ -239,8 +246,10 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void populateMovieTrailer() {
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        movieVideoRecyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.margin_4dp));
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
+                false);
+        movieVideoRecyclerView.addItemDecoration(
+                new ItemOffsetDecoration(this, R.dimen.margin_4dp));
         movieVideoRecyclerView.setLayoutManager(manager);
         movieVideoRecyclerView.setHasFixedSize(true);
         movieVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -260,7 +269,8 @@ public class MovieDetailsActivity extends BaseActivity {
     private void creditResponseItems(CreditResponse response) {
         movieCreditsrecyclerView.setItemAnimator(new DefaultItemAnimator());
         movieCreditsrecyclerView
-                .setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                .setLayoutManager(
+                        new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         castCredits = response.getCast();
         crewCredits = response.getCrew();
         final CreditsAdapter adapter = new CreditsAdapter(combinedCreditsResponse());
@@ -306,35 +316,38 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private void loadMovieCredit() {
 
-        Observable<CreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(movies.getId());
-        Observable<VideoResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(movies.getId());
+        Observable<CreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(
+                movies.getId());
+        Observable<VideoResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(
+                movies.getId());
 
-        compositeDisposable.add(Observable.merge(movieCreditObservable, movieVideoObservable).subscribe(response -> {
+        compositeDisposable.add(
+                Observable.merge(movieCreditObservable, movieVideoObservable).subscribe(
+                        response -> {
 
-            if (response instanceof CreditResponse) {
-                creditResponseItems((CreditResponse) response);
-            } else {
-                VideoResponse videoResponse = (VideoResponse) response;
-                if (videoResponse.getVideos().isEmpty() || videoResponse.getVideos().size() == 0) {
-                    showVideoError();
-                } else {
-                    hideVideoError();
-                    videosAdapter.setMovieVideos(videoResponse.getVideos());
-                }
-            }
-        }));
+                            if (response instanceof CreditResponse) {
+                                creditResponseItems((CreditResponse) response);
+                            } else {
+                                VideoResponse videoResponse = (VideoResponse) response;
+                                if (videoResponse.getVideos().isEmpty()
+                                        || videoResponse.getVideos().size() == 0) {
+                                    showVideoError();
+                                } else {
+                                    hideVideoError();
+                                    videosAdapter.setMovieVideos(videoResponse.getVideos());
+                                }
+                            }
+                        }));
     }
 
     private void loadMovieReviews() {
         compositeDisposable.add(movieViewModel.getMovieReviewsById(movies.getId())
                 .subscribe(
-                        response -> MovieDetailsActivity.this.reviewsResponseItems(response),
-                        throwable -> MaterialDialogUtils.showDialog(MovieDetailsActivity.this,
-                                MovieDetailsActivity.this.getResources()
-                                        .getString(R.string.service_error_title),
+                        response -> reviewsResponseItems(response),
+                        throwable -> MaterialDialogUtils.showDialog(this,
+                                getResources().getString(R.string.service_error_title),
                                 throwable.getMessage(),
-                                MovieDetailsActivity.this.getResources()
-                                        .getString(R.string.material_dialog_ok))
+                                getResources().getString(R.string.material_dialog_ok))
                 ));
     }
 

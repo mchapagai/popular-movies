@@ -2,7 +2,6 @@ package com.mchapagai.movies.service;
 
 import android.util.Log;
 
-
 import com.mchapagai.movies.BuildConfig;
 import com.mchapagai.movies.common.Constants;
 
@@ -59,13 +58,15 @@ public class ServiceFactory {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .header("Accept", "application/json")
                         .url(url);
 
                 Request request = requestBuilder.build();
 
                 Response response = chain.proceed(request);
-                String rawJson = response.body().string();
+                String rawJson = null;
+                if (response.body() != null) {
+                    rawJson = response.body().string();
+                }
 
                 try {
                     Object object = new JSONTokener(rawJson).nextValue();
@@ -79,7 +80,9 @@ public class ServiceFactory {
 
                 // Re-create the response before returning it because body can be read only once
                 return response.newBuilder()
-                        .body(ResponseBody.create(response.body().contentType(), rawJson)).build();
+                        .body(ResponseBody.create(
+                                response.body() != null ? response.body().contentType() : null,
+                                rawJson)).build();
             });
 
             if (BuildConfig.DEBUG) {

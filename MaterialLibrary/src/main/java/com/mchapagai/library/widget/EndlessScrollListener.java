@@ -1,6 +1,7 @@
 package com.mchapagai.library.widget;
 
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,11 +45,6 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
             loading = true;
         }
 
-       /* boolean endHasBeenReached = lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount;
-        if (!loading && totalItemCount > 0 && endHasBeenReached) {
-            loading = true;
-            onLoadMore(currentPage, totalItemCount, recyclerView);
-        }*/
     }
 
     public abstract void onLoadMore(int currentPage, int totalItemCount, View view);
