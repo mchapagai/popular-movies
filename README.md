@@ -21,9 +21,14 @@ API, that I will be using in this app [**MovieDB**](https://www.themoviedb.org/)
 #### Configuration
 To set the API key, please refer to gradle.properties file and add the key in MOVIES_API_KEY placeholder which is configured in build.gradle to be used on the project.
 
+To be able to build and run the app use the following branch instead of master:
+ - MVVM using Retrofit, RxJava and Dagger: https://github.com/mchapagai/popular-movies/tree/mvvm-without-android-arch-components
+ - MVVM using Retrofit, RxJava, Dagger, Android Architecture Component, DataBinding: https://github.com/mchapagai/popular-movies/tree/mvvm-android-arch-components-databinding-livedate
+
 #### Configuration
 To set the API key, please refer to `gradle.properties` file and add the key in `API_KEY`
-placeholder which is configured in `build.gradle` to be used on the project.
+placeholder which is configured in `build.gradle` to be used on the project. Please signup to get the API key.
+Signup link: https://www.themoviedb.org/
 
 ##### Libraries
 - [x] Retrofit 2 (service calls)
