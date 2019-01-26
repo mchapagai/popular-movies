@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.library.views.MaterialCircleImageView;
@@ -17,37 +17,34 @@ import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
 import com.squareup.picasso.Picasso;
-import io.reactivex.disposables.CompositeDisposable;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ProfileActivity extends BaseActivity {
 
     @BindView(R.id.circle_image_view)
     MaterialCircleImageView circleImageView;
-
     @BindView(R.id.about_toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbar;
-
     @BindView(R.id.profile_name)
     MaterialTextView profileName;
+    @BindView(R.id.profile_movie_nav)
+    LinearLayout profileMovieLaunch;
+    @BindView(R.id.profile_show_nav)
+    LinearLayout profileShowLaunch;
+    @BindView(R.id.button_signout)
+    MaterialButton signoutButton;
 
     @Inject
     LoginViewModel loginViewModel;
 
     private PreferencesHelper preferencesHelper;
-
-    @BindView(R.id.profile_movie_nav)
-    LinearLayout profileMovieLaunch;
-
-    @BindView(R.id.profile_show_nav)
-    LinearLayout profileShowLaunch;
-
-    @BindView(R.id.button_signout)
-    MaterialButton signoutButton;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
@@ -72,8 +69,10 @@ public class ProfileActivity extends BaseActivity {
 
     private void initViews() {
         getAccountSignInDetails();
-        profileMovieLaunch.setOnClickListener(view -> startActivity(new Intent(this, DiscoverMoviesActivity.class)));
-        profileShowLaunch.setOnClickListener(view -> startActivity(new Intent(this, DiscoverOnTheAirActivity.class)));
+        profileMovieLaunch.setOnClickListener(
+                view -> startActivity(new Intent(this, DiscoverMoviesActivity.class)));
+        profileShowLaunch.setOnClickListener(
+                view -> startActivity(new Intent(this, DiscoverOnTheAirActivity.class)));
         signoutButton.setOnClickListener(view -> {
             preferencesHelper.setSignedOut();
             Intent i = new Intent(view.getContext(), LandingActivity.class);

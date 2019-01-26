@@ -40,31 +40,22 @@ public class ShowDetailsActivity extends BaseActivity {
 
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
-
     @BindView(R.id.show_details_backdrop)
     MaterialImageView showDetailsBackdrop;
-
     @BindView(R.id.shows_appbar)
     AppBarLayout showsAppbar;
-
     @BindView(R.id.shows_collapsing_toolbar)
     CollapsingToolbarLayout showsCollapsingToolbar;
-
     @BindView(R.id.shows_favorite)
     FloatingActionButton showsFavorite;
-
     @BindView(R.id.shows_tab_layout)
     TabLayout showsTabLayout;
-
     @BindView(R.id.shows_title)
     MaterialTextView showsTitle;
-
     @BindView(R.id.shows_info)
     MaterialTextView showsInfo;
-
     @BindView(R.id.shows_toolbar)
     Toolbar showsToolbar;
-
     @BindView(R.id.shows_viewpager)
     ViewPager showsViewpager;
 
@@ -99,7 +90,8 @@ public class ShowDetailsActivity extends BaseActivity {
         setTitle("");
 
         showsTitle.setText(onTheAir.getName());
-        Picasso.get().load(Constants.SECURE_BASE_URL + onTheAir.getBackdropPath()).into(showDetailsBackdrop);
+        Picasso.get().load(Constants.SECURE_BASE_URL + onTheAir.getBackdropPath()).into(
+                showDetailsBackdrop);
 
         showsFavorite.setOnClickListener(
                 v -> LibraryUtils
@@ -111,8 +103,10 @@ public class ShowDetailsActivity extends BaseActivity {
         showsViewpager.setOffscreenPageLimit(2);
         showsViewpager.setAdapter(new ShowDetailsAdapter(getSupportFragmentManager(), onTheAir));
 
-        showsViewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(showsTabLayout));
-        showsTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(showsViewpager));
+        showsViewpager.addOnPageChangeListener(
+                new TabLayout.TabLayoutOnPageChangeListener(showsTabLayout));
+        showsTabLayout.addOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(showsViewpager));
         // Give the TabLayout the ViewPager
         showsTabLayout.setupWithViewPager(showsViewpager);
 
@@ -145,13 +139,16 @@ public class ShowDetailsActivity extends BaseActivity {
                                         showsDetailsResponse.getNumberOfSeasons(),
                                         showsDetailsResponse.getNumberOfEpisodes(),
                                         showsDetailsResponse.getPopularity(),
-                                        DateTimeUtils.getNameOfMonth(showsDetailsResponse.getFirstAirDate()),
+                                        DateTimeUtils.getNameOfMonth(
+                                                showsDetailsResponse.getFirstAirDate()),
                                         showsDetailsResponse.getVoteAverage(),
-                                        DateTimeUtils.getNameOfMonth(showsDetailsResponse.getLastAirDate()),
+                                        DateTimeUtils.getNameOfMonth(
+                                                showsDetailsResponse.getLastAirDate()),
                                         showsDetailsResponse.getStatus());
                                 // Make sure setSelected is specified for marqueee to work
                                 showsInfo.setSelected(true);
-                                showsInfo.setTextColor(getResources().getColor(R.color.darkThemePrimary));
+                                showsInfo.setTextColor(
+                                        getResources().getColor(R.color.darkThemePrimary));
                                 showsInfo.setText(info);
                             } else {
                                 showsInfo.setVisibility(View.GONE);

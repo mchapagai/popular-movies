@@ -2,16 +2,20 @@ package com.mchapagai.movies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.fragment.DiscoverMoviesFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DiscoverMoviesActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)     Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

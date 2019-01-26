@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.mchapagai.library.utils.MaterialDialogUtils;
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.library.views.MaterialTextView;
@@ -19,15 +21,11 @@ import com.mchapagai.movies.view_model.LoginViewModel;
 
 import javax.inject.Inject;
 
-import androidx.appcompat.widget.Toolbar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class LoginActivity extends BaseActivity {
-
-    public static final String TAG = LoginActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

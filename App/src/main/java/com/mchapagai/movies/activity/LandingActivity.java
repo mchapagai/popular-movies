@@ -29,13 +29,10 @@ public class LandingActivity extends AppCompatActivity {
 
     @BindView(R.id.landing_popular_movies)
     MaterialTextView launchPopularMovies;
-
     @BindView(R.id.landing_popular_shows)
     MaterialTextView launchPopularShows;
-
     @BindView(R.id.landing_about_page_layout)
     ConstraintLayout launchInfoScreen;
-
     @BindView(R.id.landing_user_profile)
     MaterialCircleImageView launchProfileScreen;
 

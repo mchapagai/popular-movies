@@ -20,9 +20,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,14 +51,16 @@ import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MovieDetailsActivity extends BaseActivity {
 
@@ -69,64 +68,44 @@ public class MovieDetailsActivity extends BaseActivity {
 
     @BindView(R.id.details_backdrop)
     MaterialImageView detailsBackdrop;
-
     @BindView(R.id.movie_details_toolbar)
     Toolbar movieDetailsToolbar;
-
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
-
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-
     @BindView(R.id.original_title)
     TextView detailsOriginalTitle;
-
     @BindView(R.id.movie_tagline)
     MaterialTextView movieTagline;
-
     @BindView(R.id.release_date)
     MaterialTextView detailsReleaseDate;
-
     @BindView(R.id.ratings)
     MaterialTextView detailsRatings;
-
     @BindView(R.id.details_over_view)
     MaterialTextView detailsOverView;
-
     @BindView(R.id.movie_genre_recycler_view)
     RecyclerView movieGenreRecyclerView;
-
     @BindView(R.id.movie_creditsrecycler_view)
     RecyclerView movieCreditsrecyclerView;
-
     @BindView(R.id.video_divider)
     View videoDivider;
-
     @BindView(R.id.videos_title)
     TextView videosTitle;
-
     @BindView(R.id.movie_video_recycler_view)
     RecyclerView movieVideoRecyclerView;
-
     @BindView(R.id.videos_error_text)
     MaterialTextView videosErrorText;
-
     @BindView(R.id.details_empty_video)
     MaterialImageView detailsEmptyVideo;
-
     @BindView(R.id.video_layout)
     ConstraintLayout videoLayout;
-
     @BindView(R.id.reviews_divider)
     View reviewsDivider;
-
     @BindView(R.id.detail_review_header)
     TextView detailReviewHeader;
-
     @BindView(R.id.reviews_recycler_view)
     RecyclerView reviewsRecyclerView;
-
     @BindView(R.id.details_favorite)
     FloatingActionButton favoriteActionButton;
 

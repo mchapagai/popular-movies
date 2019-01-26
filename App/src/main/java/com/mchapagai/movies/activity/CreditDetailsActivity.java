@@ -69,37 +69,26 @@ public class CreditDetailsActivity extends BaseActivity {
 
     @BindView(R.id.credit_toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.app_bar_layout)
     AppBarLayout appbarLayout;
-
     @BindView(R.id.birth_date)
     MaterialTextView birthDate;
-
     @BindView(R.id.credit_image_view)
     MaterialCircleImageView profileImageView;
-
     @BindView(R.id.credit_collapsing_toolbar_layout)
     CollapsingToolbarLayout creditCollapsingToolbarLayout;
-
     @BindView(R.id.credit_details_child_layout)
     LinearLayout creditDetailsChildLayout;
-
     @BindView(R.id.credits_biography)
     MaterialTextView creditsBiography;
-
     @BindView(R.id.credits_person_name)
     TextView creditsPersonName;
-
     @BindView(R.id.movies_cast_recycler_view)
     RecyclerView moviesCastRecyclerView;
-
     @BindView(R.id.movies_crew_recycler_view)
     RecyclerView moviesCrewRecyclerView;
-
     @BindView(R.id.cast_credit_title)
     MaterialTextView castCreditTitle;
-
     @BindView(R.id.crew_credit_title)
     MaterialTextView crewCreditTitle;
 
