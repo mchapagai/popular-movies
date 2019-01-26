@@ -10,16 +10,18 @@ import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.utils.PreferencesHelper;
 
+import javax.inject.Inject;
+
 public class SplashActivity extends BaseActivity {
 
-    private PreferencesHelper preferencesHelper;
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity_container);
 
-        preferencesHelper = new PreferencesHelper(this);
         // Fullscreen
         this.getWindow()
                 .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

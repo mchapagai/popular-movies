@@ -1,7 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: '../jacoco.gradle'
 
 def getVersionName = { ->
@@ -89,14 +86,6 @@ dependencies {
     implementation "androidx.palette:palette:$versions.androidx_palette"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
-    testImplementation "junit:junit:$versions.junit_version"
-    androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
-    testImplementation "org.robolectric:robolectric:$versions.robolectric"
-    testImplementation "org.robolectric:shadows-multidex:$versions.robolectric"
-    testImplementation "org.robolectric:shadows-supportv4:$versions.robolectric"
-    testAnnotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
-
     //Guava
     implementation "org.apache.commons:commons-lang3:$versions.apache_commons"
 
@@ -119,23 +108,14 @@ dependencies {
 
     //Dagger2
     implementation "com.google.dagger:dagger:$versions.dagger"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation "com.google.dagger:dagger-android:$versions.dagger"
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
-    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     // ButterKnife
     implementation "com.jakewharton:butterknife:$versions.butterknife"
-    kapt "com.jakewharton:butterknife-compiler:$versions.butterknife"
-
-    // ViweModel & LoveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.arch_lifecycle_ext"
-    implementation "androidx.lifecycle:lifecycle-runtime:$versions.arch_lifecycle"
-    kapt "androidx.lifecycle:lifecycle-compiler:$versions.arch_lifecycle"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
 
     implementation "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin"
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 }

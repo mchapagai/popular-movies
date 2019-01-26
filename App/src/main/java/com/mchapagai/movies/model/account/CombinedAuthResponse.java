@@ -2,19 +2,24 @@ package com.mchapagai.movies.model.account;
 
 public class CombinedAuthResponse {
 
-    private AuthToken authToken;
-    private AuthSession authSession;
+    String sessionId;
 
-    public AuthToken getAuthToken() {
-        return authToken;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public AuthSession getAuthSession() {
-        return authSession;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public CombinedAuthResponse(AuthToken authToken, AuthSession authSession) {
-        this.authToken = authToken;
-        this.authSession = authSession;
+    public String getTokenRequest() {
+        return tokenRequest;
     }
+
+    public void setTokenRequest(String tokenRequest) {
+        this.tokenRequest = tokenRequest;
+    }
+
+    String tokenRequest;
+
 }

@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
 import com.mchapagai.library.dialog.MaterialDialogFragment;
 import com.mchapagai.library.dialog.MovieDialogBuilder;
@@ -21,6 +22,8 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.utils.PreferencesHelper;
 
 import java.io.Serializable;
+
+import javax.inject.Inject;
 
 public class LandingActivity extends AppCompatActivity {
 
@@ -36,16 +39,15 @@ public class LandingActivity extends AppCompatActivity {
     @BindView(R.id.landing_user_profile)
     MaterialCircleImageView launchProfileScreen;
 
-    private PreferencesHelper preferencesHelper;
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidInjection.inject(this);
         setContentView(R.layout.landing_activity_layout_container);
-
         ButterKnife.bind(this);
-
-        preferencesHelper = new PreferencesHelper(this);
 
         launchPopularMovies.setOnClickListener(
                 view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));

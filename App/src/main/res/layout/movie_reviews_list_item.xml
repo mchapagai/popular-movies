@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/review_constraint_layout"
@@ -15,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.00"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/app_name" />
+        tools:text="@string/app_name"/>
 
     <com.mchapagai.library.views.MaterialImageView
         android:id="@+id/review_icon"
@@ -26,7 +27,7 @@
         android:src="@drawable/graphics_chevron_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.mchapagai.library.views.ExpandableTextView
         android:id="@+id/review_content"
@@ -35,10 +36,10 @@
         android:layout_marginTop="@dimen/margin_16dp"
         android:ellipsize="end"
         android:maxLines="4"
-        android:paddingBottom="@dimen/margin_16dp"
         android:paddingEnd="@dimen/margin_16dp"
+        android:paddingBottom="@dimen/margin_16dp"
         app:animationDuration="750"
         app:layout_constraintTop_toBottomOf="@id/review_icon"
-        tools:text="@string/lorem_placeholder" />
+        tools:text="@string/lorem_placeholder"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

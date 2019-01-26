@@ -29,7 +29,7 @@ public class LoginAPIImpl implements LoginAPI {
     }
 
     @Override
-    public Single<AuthSession> getSessionID(String requestToken) {
+    public Single<AuthSession> getSessionId(String requestToken) {
         return loginService.get().getSessionID(requestToken);
     }
 

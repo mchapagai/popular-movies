@@ -57,10 +57,6 @@ dependencies {
 
     implementation "com.squareup.picasso:picasso:$versions.picasso"
 
-    testImplementation "junit:junit:$versions.junit_version"
-    androidTestImplementation "com.android.support.test:runner:$versions.test_runner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.expresso_core"
-
     implementation "org.apache.commons:commons-lang3:$versions.apache_commons"
     implementation("com.google.code.findbugs:jsr305:$versions.findbugs")
 }

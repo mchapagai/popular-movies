@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.mchapagai.library.views.ItemOffsetDecoration;
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.library.views.MaterialTextView;
@@ -23,13 +23,16 @@ import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.model.Videos;
-import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class TrailerFragment extends BaseFragment {
 
@@ -46,11 +49,8 @@ public class TrailerFragment extends BaseFragment {
     TextView showsVideosTitle;
 
     private OnTheAir onTheAir;
-
     private VideosAdapter videosAdapter;
-
     private List<Videos> videoItems = new ArrayList<>();
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
@@ -78,7 +78,8 @@ public class TrailerFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.show_details_video_fragment_container, container, false);
+        View view = inflater.inflate(R.layout.show_details_video_fragment_container, container,
+                false);
         ButterKnife.bind(this, view);
 
         populateMovieTrailer();
@@ -94,7 +95,8 @@ public class TrailerFragment extends BaseFragment {
                                 showVideoError();
                             } else {
                                 hideVideoError();
-                                videosAdapter.setMovieVideos(showsDetailsResponse.getVideos().getVideos());
+                                videosAdapter.setMovieVideos(
+                                        showsDetailsResponse.getVideos().getVideos());
                             }
                         }, throwable -> {
 
@@ -105,7 +107,8 @@ public class TrailerFragment extends BaseFragment {
 
     private void populateMovieTrailer() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        showsVideoRecyclerView.addItemDecoration(new ItemOffsetDecoration(getContext(), R.dimen.margin_4dp));
+        showsVideoRecyclerView.addItemDecoration(
+                new ItemOffsetDecoration(getContext(), R.dimen.margin_4dp));
         showsVideoRecyclerView.setLayoutManager(manager);
         showsVideoRecyclerView.setHasFixedSize(true);
         showsVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());

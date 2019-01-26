@@ -7,11 +7,11 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,13 +26,15 @@ import com.mchapagai.movies.adapter.ShowDetailsAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
-import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 import com.mchapagai.movies.widget.AppBarStateChangeListener;
 import com.squareup.picasso.Picasso;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ShowDetailsActivity extends BaseActivity {
 
@@ -67,7 +69,6 @@ public class ShowDetailsActivity extends BaseActivity {
     ViewPager showsViewpager;
 
     private OnTheAir onTheAir;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
@@ -102,7 +103,7 @@ public class ShowDetailsActivity extends BaseActivity {
 
         showsFavorite.setOnClickListener(
                 v -> LibraryUtils
-                        .showSnackBar(ShowDetailsActivity.this, v, getString(R.string.prompt_to_login_message)));
+                        .showSnackBar(this, v, getString(R.string.prompt_to_login_message)));
     }
 
     private void setupTablayout() {
@@ -155,7 +156,7 @@ public class ShowDetailsActivity extends BaseActivity {
                             } else {
                                 showsInfo.setVisibility(View.GONE);
                             }
-                        }, throwable -> MaterialDialogUtils.showDialog(ShowDetailsActivity.this,
+                        }, throwable -> MaterialDialogUtils.showDialog(this,
                                 getResources().getString(R.string.service_error_title),
                                 throwable.getMessage(),
                                 getResources().getString(R.string.material_dialog_ok))
