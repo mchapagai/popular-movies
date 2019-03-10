@@ -17,12 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.mchapagai.library.views.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -69,7 +69,7 @@ public class WelcomeActivity extends BaseActivity {
         nextButton.setOnClickListener(v -> {
             // checking for last page
             // if last page home screen will be launched
-            int current = getItem(+1);
+            int current = getItem();
             if (current < layouts.length) {
                 // move to next screen
                 viewPager.setCurrentItem(current);
@@ -99,8 +99,8 @@ public class WelcomeActivity extends BaseActivity {
         }
     }
 
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+    private int getItem() {
+        return viewPager.getCurrentItem() + 1;
     }
 
     private void launchHomeScreen() {

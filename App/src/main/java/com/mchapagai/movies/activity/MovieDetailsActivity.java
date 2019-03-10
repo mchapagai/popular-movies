@@ -147,7 +147,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
         setSupportActionBar(movieDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_close);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_arrow_white);
         movieDetailsToolbar.getNavigationIcon().setTint(
                 getResources().getColor(R.color.darkThemePrimaryDark));
         movieDetailsToolbar.getNavigationIcon().setColorFilter(

@@ -12,9 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.mchapagai.library.views.MaterialImageView;
 import com.mchapagai.library.widget.RoundedTransformation;
 import com.mchapagai.movies.R;
@@ -24,6 +21,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MoviesGridAdapter extends
         RecyclerView.Adapter<MoviesGridAdapter.MoviesViewHolder> implements
@@ -68,6 +68,7 @@ public class MoviesGridAdapter extends
             @Override
             protected void publishResults(final CharSequence constraint,
                     final FilterResults results) {
+                //noinspection unchecked
                 movieItemsFilterable = (List<Movies>) results.values;
                 notifyDataSetChanged();
             }
