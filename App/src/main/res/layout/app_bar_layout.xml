@@ -27,7 +27,7 @@
             android:gravity="center"
             app:layout_collapseMode="parallax">
 
-            <com.mchapagai.library.views.MaterialImageView
+            <com.mchapagai.movies.views.MaterialImageView
                 android:id="@+id/hero_template"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -37,7 +37,7 @@
                 android:src="?attr/darkPrimaryColor"
                 app:layout_collapseMode="parallax" />
 
-            <com.mchapagai.library.views.MaterialCircleImageView
+            <com.mchapagai.movies.views.MaterialCircleImageView
                 android:id="@+id/circle_image_view"
                 android:layout_width="@dimen/margin_96dp"
                 android:layout_height="@dimen/margin_96dp"
@@ -49,7 +49,7 @@
                 app:borderWidth="@dimen/margin_1dp"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/about_app_version"
                 android:layout_width="match_parent"
                 android:visibility="gone"

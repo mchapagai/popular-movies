@@ -4,17 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.mchapagai.library.utils.DateTimeUtils;
-import com.mchapagai.library.views.MaterialTextView;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
+import com.mchapagai.movies.utils.DateTimeUtils;
+import com.mchapagai.movies.views.MaterialTextView;
+
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class InfoFragment extends BaseFragment {
 

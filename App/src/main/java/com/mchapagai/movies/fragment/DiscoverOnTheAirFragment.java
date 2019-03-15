@@ -12,11 +12,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import com.mchapagai.library.utils.MaterialDialogUtils;
-import com.mchapagai.library.views.PageLoader;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.ShowDetailsActivity;
 import com.mchapagai.movies.adapter.ShowsGridAdapter;
@@ -24,13 +19,17 @@ import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.model.binding.OnTheAirResponse;
+import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.view_model.ShowsViewModel;
-
-import io.reactivex.disposables.CompositeDisposable;
+import com.mchapagai.movies.views.PageLoader;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class DiscoverOnTheAirFragment extends BaseFragment {
 

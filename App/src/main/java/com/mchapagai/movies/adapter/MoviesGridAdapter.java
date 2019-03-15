@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.widget.RoundedTransformation;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.widget.RoundedTransformation;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.utils.MovieUtils;

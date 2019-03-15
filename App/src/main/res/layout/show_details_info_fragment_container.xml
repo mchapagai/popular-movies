@@ -18,7 +18,7 @@
             android:layout_marginTop="@dimen/margin_16dp"
             android:clipToPadding="false">
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/shows_release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/shows_ratings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 app:layout_constraintStart_toEndOf="@+id/shows_release_date"
                 app:layout_constraintTop_toTopOf="@+id/shows_release_date" />
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/shows_etails_over_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

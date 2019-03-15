@@ -14,10 +14,10 @@ import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mchapagai.library.utils.AnimationUtils;
-import com.mchapagai.library.utils.PaletteColorUtils;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.views.MaterialTextView;
+import com.mchapagai.movies.utils.AnimationUtils;
+import com.mchapagai.movies.utils.PaletteColorUtils;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.CombinedCastCredit;

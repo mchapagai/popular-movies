@@ -30,7 +30,7 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
-                <com.mchapagai.library.views.MaterialImageView
+                <com.mchapagai.movies.views.MaterialImageView
                     android:id="@+id/details_backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

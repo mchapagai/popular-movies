@@ -10,14 +10,14 @@ import android.widget.EditText;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.mchapagai.library.utils.MaterialDialogUtils;
-import com.mchapagai.library.views.MaterialButton;
-import com.mchapagai.library.views.MaterialTextView;
-import com.mchapagai.library.views.PageLoader;
+import com.google.android.material.button.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
+import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
+import com.mchapagai.movies.views.MaterialTextView;
+import com.mchapagai.movies.views.PageLoader;
 
 import javax.inject.Inject;
 

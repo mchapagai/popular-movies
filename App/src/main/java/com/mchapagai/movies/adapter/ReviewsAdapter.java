@@ -4,17 +4,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.mchapagai.library.views.ExpandableTextView;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.views.MaterialTextView;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Reviews;
+import com.mchapagai.movies.views.ExpandableTextView;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.views.MaterialTextView;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder> {
 

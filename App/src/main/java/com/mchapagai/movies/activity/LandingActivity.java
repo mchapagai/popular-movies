@@ -10,20 +10,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
-
-import com.mchapagai.library.dialog.MaterialDialogFragment;
-import com.mchapagai.library.dialog.MovieDialogBuilder;
-import com.mchapagai.library.views.MaterialCircleImageView;
-import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
+import com.mchapagai.movies.dialog.MaterialDialogFragment;
+import com.mchapagai.movies.dialog.MovieDialogBuilder;
 import com.mchapagai.movies.utils.PreferencesHelper;
+import com.mchapagai.movies.views.MaterialCircleImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 
 import java.io.Serializable;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
 public class LandingActivity extends AppCompatActivity {
 

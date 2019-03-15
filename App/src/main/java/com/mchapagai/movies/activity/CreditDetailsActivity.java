@@ -26,20 +26,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.mchapagai.library.common.LibraryConstants;
-import com.mchapagai.library.utils.AnimationUtils;
-import com.mchapagai.library.utils.DateTimeUtils;
-import com.mchapagai.library.utils.MaterialDialogUtils;
-import com.mchapagai.library.utils.PaletteColorUtils;
-import com.mchapagai.library.utils.PaletteColorUtils.ColorUtils;
-import com.mchapagai.library.views.MaterialCircleImageView;
-import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.CastAdapter;
 import com.mchapagai.movies.adapter.CrewAdapter;
@@ -49,15 +38,24 @@ import com.mchapagai.movies.model.CombinedCastCredit;
 import com.mchapagai.movies.model.CombinedCrewCredits;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
+import com.mchapagai.movies.utils.AnimationUtils;
+import com.mchapagai.movies.utils.DateTimeUtils;
+import com.mchapagai.movies.utils.MaterialDialogUtils;
+import com.mchapagai.movies.utils.PaletteColorUtils;
+import com.mchapagai.movies.utils.PaletteColorUtils.ColorUtils;
 import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.views.MaterialCircleImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Picasso;
-
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class CreditDetailsActivity extends BaseActivity {
 
@@ -245,7 +243,7 @@ public class CreditDetailsActivity extends BaseActivity {
                 (int) (targetHeight / creditDetailsChildLayout.getContext().getResources()
                         .getDisplayMetrics().density));
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setStartOffset(LibraryConstants.START_OFFSET);
+        animation.setStartOffset(Constants.START_OFFSET);
         creditDetailsChildLayout.startAnimation(animation);
     }
 
@@ -258,10 +256,10 @@ public class CreditDetailsActivity extends BaseActivity {
         Palette.from(bitmap).generate(palette -> {
             boolean isDark;
             @ColorUtils int lightness = PaletteColorUtils.isDark(palette);
-            if (lightness == LibraryConstants.UNKNOWN) {
+            if (lightness == Constants.UNKNOWN) {
                 isDark = PaletteColorUtils.isDark(bitmap, bitmap.getWidth() / 2, 0);
             } else {
-                isDark = lightness == LibraryConstants.DARK_COLOR;
+                isDark = lightness == Constants.DARK_COLOR;
             }
 
             if (!isDark) {

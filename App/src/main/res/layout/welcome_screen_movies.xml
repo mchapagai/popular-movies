@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mchapagai.library.views.MaterialImageView
+    <com.mchapagai.movies.views.MaterialImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/margin_0dp"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
-    <com.mchapagai.library.views.MaterialTextView
+    <com.mchapagai.movies.views.MaterialTextView
         android:id="@+id/details_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

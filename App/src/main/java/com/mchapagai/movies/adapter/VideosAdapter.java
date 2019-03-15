@@ -4,19 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.views.MaterialTextView;
-import com.mchapagai.library.widget.RoundedTransformation;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.Videos;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.widget.OnItemClickListener;
+import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
 

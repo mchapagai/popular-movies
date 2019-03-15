@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
-import com.mchapagai.library.utils.DateTimeUtils;
+import com.mchapagai.movies.utils.DateTimeUtils;
 import java.util.List;
 import java.util.Objects;
 

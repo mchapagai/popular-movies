@@ -7,24 +7,28 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.mchapagai.library.utils.AnimationUtils;
-import com.mchapagai.library.utils.PaletteColorUtils;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.views.MaterialTextView;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.CombinedCrewCredits;
+import com.mchapagai.movies.utils.AnimationUtils;
 import com.mchapagai.movies.utils.MovieUtils;
+import com.mchapagai.movies.utils.PaletteColorUtils;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 

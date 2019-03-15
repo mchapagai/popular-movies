@@ -25,11 +25,6 @@ import androidx.transition.ChangeTransform;
 import androidx.transition.Fade;
 import androidx.transition.TransitionSet;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import com.mchapagai.library.views.PageLoader;
-import com.mchapagai.library.widget.EndlessScrollListener;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.adapter.MoviesGridAdapter;
@@ -39,7 +34,18 @@ import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.views.PageLoader;
+import com.mchapagai.movies.widget.EndlessScrollListener;
 
+import org.reactivestreams.Publisher;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -50,14 +56,6 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.subjects.PublishSubject;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
-import org.reactivestreams.Publisher;
-
 import retrofit2.HttpException;
 import retrofit2.Response;
 

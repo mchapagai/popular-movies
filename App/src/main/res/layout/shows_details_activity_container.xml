@@ -33,7 +33,7 @@
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax">
 
-                <com.mchapagai.library.views.MaterialImageView
+                <com.mchapagai.movies.views.MaterialImageView
                     android:id="@+id/show_details_backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -58,7 +58,7 @@
                 android:paddingEnd="@dimen/margin_16dp"
                 android:paddingStart="@dimen/margin_16dp">
 
-                <com.mchapagai.library.views.MaterialTextView
+                <com.mchapagai.movies.views.MaterialTextView
                     android:id="@+id/shows_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                     android:text="@string/app_name"
                     android:textSize="@dimen/text_large" />
 
-                <com.mchapagai.library.views.MaterialTextView
+                <com.mchapagai.v.views.MaterialTextView
                     android:id="@+id/shows_info"
                     style="@style/Subtitle"
                     android:layout_width="wrap_content"

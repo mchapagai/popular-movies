@@ -1,6 +1,5 @@
 package com.mchapagai.movies.view_model.impl;
 
-
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.model.account.AccountDetails;
 import com.mchapagai.movies.model.account.AuthSession;
@@ -23,7 +22,6 @@ public class LoginViewModelImpl implements LoginViewModel {
     public LoginViewModelImpl(LoginAPI loginAPI) {
         this.loginAPI = loginAPI;
     }
-
 
     @Override
     public Single<AccountDetails> getAccountDetails(String sessionId) {

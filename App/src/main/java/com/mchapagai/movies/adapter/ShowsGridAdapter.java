@@ -3,17 +3,21 @@ package com.mchapagai.movies.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.widget.RoundedTransformation;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.ViewHolder> {
 
@@ -49,7 +53,8 @@ public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.View
         Picasso.get().load(posterUrl)
                 .transform(new RoundedTransformation(20, 0))
                 .into(holder.poster);
-        holder.poster.setOnClickListener(v -> onShowClickListener.onItemClick(shows, holder.getAdapterPosition()));
+        holder.poster.setOnClickListener(
+                v -> onShowClickListener.onItemClick(shows, holder.getAdapterPosition()));
     }
 
     @Override
@@ -59,7 +64,8 @@ public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_poster) MaterialImageView poster;
+        @BindView(R.id.movie_poster)
+        MaterialImageView poster;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -9,13 +9,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.mchapagai.library.views.MaterialButton;
-import com.mchapagai.library.views.MaterialCircleImageView;
-import com.mchapagai.library.views.MaterialTextView;
+import com.google.android.material.button.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
+import com.mchapagai.movies.views.MaterialCircleImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;

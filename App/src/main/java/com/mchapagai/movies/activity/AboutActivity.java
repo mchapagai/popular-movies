@@ -12,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.mchapagai.library.views.MaterialTextView;
 import com.mchapagai.movies.BuildConfig;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
+import com.mchapagai.movies.views.MaterialTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +39,7 @@ public class AboutActivity extends BaseActivity {
     LinearLayout licensesLayout;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity_container);
         ButterKnife.bind(this);

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/darkThemePrimary"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:importantForAccessibility="yes">
+
+    <com.mchapagai.movies.views.MaterialTextView
+        android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:text="@string/app_name"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <com.mchapagai.movies.views.MaterialTextView
+        android:id="@+id/dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_title"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:text="@string/app_name"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_40dp"
+        android:layout_below="@id/dialog_message"
+        android:layout_marginTop="@dimen/margin_20dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/negative_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_40dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:minWidth="@dimen/margin_60dp"
+            android:text="@string/material_dialog_cancel"
+            android:textAlignment="gravity"
+            android:textColor="@color/linkColor"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/positive_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:minWidth="@dimen/margin_60dp"
+            android:textAlignment="gravity"
+            android:textColor="@color/linkColor"
+            android:visibility="gone"
+            tools:text="@string/material_dialog_ok"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.mchapagai.library.views.MaterialTagView;
+import com.mchapagai.movies.views.MaterialTagView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.model.Genres;
 import java.util.List;

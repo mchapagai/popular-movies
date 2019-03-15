@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:fontFamily">@font/montserrat</item>
-        <item name="actionBarItemBackground">@color/darkThemePrimary</item>
-    </style>
-</resources>

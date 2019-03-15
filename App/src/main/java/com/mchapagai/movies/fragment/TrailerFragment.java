@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mchapagai.library.views.ItemOffsetDecoration;
-import com.mchapagai.library.views.MaterialImageView;
-import com.mchapagai.library.views.MaterialTextView;
+import com.mchapagai.movies.views.ItemOffsetDecoration;
+import com.mchapagai.movies.views.MaterialImageView;
+import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseFragment;

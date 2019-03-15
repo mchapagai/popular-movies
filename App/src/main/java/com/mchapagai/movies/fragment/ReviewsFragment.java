@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import com.mchapagai.library.utils.MaterialDialogUtils;
+import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.ReviewsAdapter;
 import com.mchapagai.movies.common.BaseFragment;

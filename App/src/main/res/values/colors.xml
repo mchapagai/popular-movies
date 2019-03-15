@@ -38,5 +38,8 @@
     </array>
 
     <color name="animate_background">#424242</color>
+    <color name="linkColor">#FCC428</color>
+    <color name="tagViewBackgroundColor">#e0e0e0</color>
+    <color name="actionColor">#1CA8F4</color>
 
 </resources>

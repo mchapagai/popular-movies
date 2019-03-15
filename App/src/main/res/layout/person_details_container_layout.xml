@@ -32,7 +32,7 @@
                 android:gravity="center"
                 app:layout_collapseMode="parallax">
 
-                <com.mchapagai.library.views.MaterialImageView
+                <com.mchapagai.movies.views.MaterialImageView
                     android:id="@+id/credit_hero_template"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                     android:importantForAccessibility="no"
                     app:layout_collapseMode="parallax" />
 
-                <com.mchapagai.library.views.MaterialCircleImageView
+                <com.mchapagai.movies.views.MaterialCircleImageView
                     android:id="@+id/credit_image_view"
                     android:layout_width="@dimen/margin_96dp"
                     android:layout_height="@dimen/margin_96dp"
@@ -92,7 +92,7 @@
                 android:textSize="@dimen/text_medium"
                 android:textStyle="bold" />
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/birth_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 android:gravity="center"
                 android:text="@string/date_placeholder" />
 
-            <com.mchapagai.library.views.MaterialTextView
+            <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/credits_biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.mchapagai.library.views.MaterialTextView
+                <com.mchapagai.movies.views.MaterialTextView
                     android:id="@+id/cast_credit_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.mchapagai.library.views.MaterialTextView
+                <com.mchapagai.movies.views.MaterialTextView
                     android:id="@+id/crew_credit_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

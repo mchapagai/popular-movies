@@ -25,4 +25,12 @@ public class Constants {
     public static final String SECURE_IMAGE_ENDPOINT = "https://image.tmdb.org/t/p/w500/";
     public static final String SECURE_BASE_URL = "https://image.tmdb.org/t/p/w342";
 
+
+    public static final int LIGHT_COLOR = 0;
+    public static final int DARK_COLOR = 1;
+    public static final int UNKNOWN = 2;
+    public static final long DURATION = 1000L;
+    public static final int START_OFFSET = 500;
+    public static final String EMPTY_STRING = "";
+
 }

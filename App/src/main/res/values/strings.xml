@@ -18,6 +18,8 @@
     <string name="profile_show_details">/Tap to see the shows</string>
     <string name="search_menu">Search</string>
     <string name="search_menu_hint">Select to provide movie name</string>
+    <string name="material_dialog_ok">OK</string>
+    <string name="material_dialog_cancel">Cancel</string>
 
     <!--Resource string with placeholder-->
     <string name="concat_strings_placeholder" translatable="false">%1$s | "%2$s"</string>
@@ -71,7 +73,7 @@
     <string name="prompt_to_login_title">Oh, snap!</string>
     <string name="prompt_to_login_message">In order to access this feature, you must log in!</string>
     <string name="welcome_screen_movie_details">An app to allow users to discover the most popular movies playing. This application demonstrates understanding of the fundamental elements of programming for Android. Application will communicate with the Internet and provide a responsive and delightful user expericence.</string>
-    <string name="welcome_screen_shows_details">Now usee can browse the TV shows.</string>
+    <string name="welcome_screen_shows_details">Now user can browse the TV shows.</string>
 
     <!-- ADA Global -->
     <string name="login_image_ada">Login screen</string>
