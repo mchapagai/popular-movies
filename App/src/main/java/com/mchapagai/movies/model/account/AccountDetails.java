@@ -7,20 +7,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class AccountDetails implements Parcelable {
 
-	@SerializedName("include_adult")
-	private boolean includeAdult;
+    @SerializedName("include_adult")
+    private boolean includeAdult;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("avatar")
-	private Avatar avatar;
+    @SerializedName("avatar")
+    private Avatar avatar;
 
-	@SerializedName("sessionId")
-	private int id;
+    @SerializedName("sessionId")
+    private int id;
 
-	@SerializedName("username")
-	private String username;
+    @SerializedName("username")
+    private String username;
 
     private AccountDetails(Parcel in) {
         includeAdult = in.readByte() != 0;

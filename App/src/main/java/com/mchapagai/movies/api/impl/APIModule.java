@@ -7,10 +7,12 @@ import com.mchapagai.movies.service.LoginService;
 import com.mchapagai.movies.service.MovieService;
 import com.mchapagai.movies.service.ServiceModule;
 import com.mchapagai.movies.service.ShowsService;
-import dagger.Module;
-import dagger.Provides;
+
 import javax.inject.Provider;
 import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 
 @Module(
         includes = ServiceModule.class

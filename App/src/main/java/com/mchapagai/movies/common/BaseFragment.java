@@ -1,8 +1,10 @@
 package com.mchapagai.movies.common;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import dagger.android.support.AndroidSupportInjection;
 
 public class BaseFragment extends Fragment {

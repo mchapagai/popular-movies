@@ -24,7 +24,8 @@ public class LoginAPIImpl implements LoginAPI {
     }
 
     @Override
-    public Single<AuthToken> getRequestAuthenticated(String requestToken, String username, String password) {
+    public Single<AuthToken> getRequestAuthenticated(String requestToken, String username,
+            String password) {
         return loginService.get().getRequestAuthenticated(requestToken, username, password);
     }
 

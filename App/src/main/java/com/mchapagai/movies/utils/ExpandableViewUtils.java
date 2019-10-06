@@ -12,11 +12,13 @@ public class ExpandableViewUtils {
 
         Animation animation = new Animation() {
             @Override
-            protected void applyTransformation(final float interpolatedTime, final Transformation transformation) {
+            protected void applyTransformation(final float interpolatedTime,
+                    final Transformation transformation) {
                 if (interpolatedTime == 1) {
                     view.setVisibility(View.GONE);
                 } else {
-                    view.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
+                    view.getLayoutParams().height =
+                            initialHeight - (int) (initialHeight * interpolatedTime);
                     view.requestLayout();
                 }
             }
@@ -26,7 +28,9 @@ public class ExpandableViewUtils {
                 return true;
             }
         };
-        animation.setDuration((int) (initialHeight / view.getContext().getResources().getDisplayMetrics().density) * 2);
+        animation.setDuration(
+                (int) (initialHeight / view.getContext().getResources().getDisplayMetrics().density)
+                        * 2);
     }
 
     public static void expand(final View view) {
@@ -38,9 +42,11 @@ public class ExpandableViewUtils {
 
         Animation animation = new Animation() {
             @Override
-            protected void applyTransformation(final float interpolatedTime, final Transformation transformation) {
-                view.getLayoutParams().height = interpolatedTime == 1 ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int) (height * interpolatedTime);
+            protected void applyTransformation(final float interpolatedTime,
+                    final Transformation transformation) {
+                view.getLayoutParams().height =
+                        interpolatedTime == 1 ? ViewGroup.LayoutParams.WRAP_CONTENT
+                                : (int) (height * interpolatedTime);
                 view.requestLayout();
             }
 
@@ -49,7 +55,8 @@ public class ExpandableViewUtils {
                 return true;
             }
         };
-        animation.setDuration((int) (height / view.getContext().getResources().getDisplayMetrics().density) * 2);
+        animation.setDuration(
+                (int) (height / view.getContext().getResources().getDisplayMetrics().density) * 2);
     }
 
 }

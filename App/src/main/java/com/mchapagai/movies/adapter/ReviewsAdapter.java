@@ -66,10 +66,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
 
     class ReviewsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.review_author_name)          MaterialTextView reviewAuthor;
-        @BindView(R.id.review_content)              ExpandableTextView reviewContent;
-        @BindView(R.id.review_icon)                 MaterialImageView reviewIcon;
-        @BindView(R.id.review_constraint_layout)    ConstraintLayout reviewsParentLayout;
+        @BindView(R.id.review_author_name)
+        MaterialTextView reviewAuthor;
+        @BindView(R.id.review_content)
+        ExpandableTextView reviewContent;
+        @BindView(R.id.review_icon)
+        MaterialImageView reviewIcon;
+        @BindView(R.id.review_constraint_layout)
+        ConstraintLayout reviewsParentLayout;
 
         ReviewsViewHolder(View itemView) {
             super(itemView);

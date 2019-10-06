@@ -120,8 +120,8 @@ public class PaletteColorUtils {
      */
     public static @ColorInt
     int scrimify(@ColorInt int color,
-                 boolean isDark,
-                 @FloatRange(from = 0f, to = 1f) float lightnessMultiplier) {
+            boolean isDark,
+            @FloatRange(from = 0f, to = 1f) float lightnessMultiplier) {
         float[] hsl = new float[3];
         androidx.core.graphics.ColorUtils.colorToHSL(color, hsl);
 
@@ -143,7 +143,8 @@ public class PaletteColorUtils {
      * @param bottomColor bottom gradient color (dark color)
      * @return gradientDrawable
      */
-    public static GradientDrawable getGradientDrawable(int topColor, int centerColor, int bottomColor) {
+    public static GradientDrawable getGradientDrawable(int topColor, int centerColor,
+            int bottomColor) {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -160,9 +161,12 @@ public class PaletteColorUtils {
      * @return return top color for gradient either muted or vibrant
      */
     public static int topColor(Palette palette) {
-        if (palette.getMutedSwatch() != null || palette.getVibrantSwatch() != null)
-            return palette.getMutedSwatch() != null ? palette.getMutedSwatch().getRgb() : palette.getVibrantSwatch().getRgb();
-        else return Color.RED;
+        if (palette.getMutedSwatch() != null || palette.getVibrantSwatch() != null) {
+            return palette.getMutedSwatch() != null ? palette.getMutedSwatch().getRgb()
+                    : palette.getVibrantSwatch().getRgb();
+        } else {
+            return Color.RED;
+        }
     }
 
     /**
@@ -170,9 +174,12 @@ public class PaletteColorUtils {
      * @return return center light color for gradient either muted or vibrant
      */
     public static int centerLightColor(Palette palette) {
-        if (palette.getLightMutedSwatch() != null || palette.getLightVibrantSwatch() != null)
-            return palette.getLightMutedSwatch() != null ? palette.getLightMutedSwatch().getRgb() : palette.getLightVibrantSwatch().getRgb();
-        else return Color.GREEN;
+        if (palette.getLightMutedSwatch() != null || palette.getLightVibrantSwatch() != null) {
+            return palette.getLightMutedSwatch() != null ? palette.getLightMutedSwatch().getRgb()
+                    : palette.getLightVibrantSwatch().getRgb();
+        } else {
+            return Color.GREEN;
+        }
     }
 
     /**
@@ -180,15 +187,19 @@ public class PaletteColorUtils {
      * @return return bottom dark color for gradient either muted or vibrant
      */
     public static int bottomDarkColor(Palette palette) {
-        if (palette.getDarkMutedSwatch() != null || palette.getDarkVibrantSwatch() != null)
-            return palette.getDarkMutedSwatch() != null ? palette.getDarkMutedSwatch().getRgb() : palette.getDarkVibrantSwatch().getRgb();
-        else return Color.BLUE;
+        if (palette.getDarkMutedSwatch() != null || palette.getDarkVibrantSwatch() != null) {
+            return palette.getDarkMutedSwatch() != null ? palette.getDarkMutedSwatch().getRgb()
+                    : palette.getDarkVibrantSwatch().getRgb();
+        } else {
+            return Color.BLUE;
+        }
     }
 
     public static void setupTextColors(final TextView textView, Palette palette) {
         Palette.Swatch swatch = getMostPopulousSwatch(palette);
         if (swatch != null) {
-            int startColor = ContextCompat.getColor(textView.getContext(), R.color.darkThemeSecondaryText);
+            int startColor = ContextCompat.getColor(textView.getContext(),
+                    R.color.darkThemeSecondaryText);
             int endColor = swatch.getBodyTextColor();
 
             AnimationUtils.animateTextColorChange(textView, startColor, endColor);

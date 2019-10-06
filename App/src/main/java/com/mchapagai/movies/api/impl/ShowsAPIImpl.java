@@ -5,8 +5,10 @@ import com.mchapagai.movies.model.binding.OnTheAirResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.movies.service.ShowsService;
-import io.reactivex.Observable;
+
 import javax.inject.Provider;
+
+import io.reactivex.Observable;
 
 public class ShowsAPIImpl implements ShowsAPI {
 

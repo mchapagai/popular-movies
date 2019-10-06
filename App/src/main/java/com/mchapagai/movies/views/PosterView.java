@@ -44,7 +44,8 @@ public class PosterView extends AppCompatImageView {
 
             if (lockedWidth == 0 && lockedHeight == 0) {
                 throw new IllegalArgumentException(
-                        "Both width and height cannot be zero -- watch out for scrollable containers");
+                        "Both width and height cannot be zero -- watch out for scrollable "
+                                + "containers");
             }
 
             // Get the padding of the border background.

@@ -3,12 +3,15 @@ package com.mchapagai.movies.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.fragment.DiscoverOnTheAirFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DiscoverOnTheAirActivity extends BaseActivity {
 

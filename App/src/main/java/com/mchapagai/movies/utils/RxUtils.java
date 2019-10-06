@@ -20,8 +20,6 @@ public class RxUtils {
 
     /**
      * Transform an existing {@link Observable} to apply appropriate {@link Schedulers}
-     * @param <T>
-     * @return
      */
     public static <T> ObservableTransformer<T, T> applySchedulers() {
         return new ObservableTransformer<T, T>() {

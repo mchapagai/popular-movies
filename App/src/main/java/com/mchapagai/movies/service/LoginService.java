@@ -14,7 +14,8 @@ public interface LoginService {
     Single<AuthToken> getRequestToken();
 
     @GET("authentication/token/validate_with_login")
-    Single<AuthToken> getRequestAuthenticated(@Query("request_token") String requestToken, @Query("username") String username, @Query("password") String password);
+    Single<AuthToken> getRequestAuthenticated(@Query("request_token") String requestToken,
+            @Query("username") String username, @Query("password") String password);
 
     @GET("authentication/session/new")
     Single<AuthSession> getSessionID(@Query("request_token") String requestToken);

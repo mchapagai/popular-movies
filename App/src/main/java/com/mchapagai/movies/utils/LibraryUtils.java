@@ -22,14 +22,16 @@ public class LibraryUtils {
     public static Snackbar showSnackBar(Context context, View view, String message) {
         Snackbar snackbar = Snackbar.make(view, Constants.EMPTY_STRING, Snackbar.LENGTH_LONG);
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        @SuppressLint("InflateParams") View snackView = LayoutInflater.from(context).inflate(R.layout.material_snackbar, null);
+        @SuppressLint("InflateParams") View snackView = LayoutInflater.from(context).inflate(
+                R.layout.material_snackbar, null);
         snackView.setBackgroundColor(ContextCompat.getColor(context, R.color.actionColor));
         layout.addView(snackView, 0);
         MaterialTextView snackMessage = snackView.findViewById(R.id.snackbar_message);
         snackMessage.setText(message);
         snackbar.show();
         snackbar.getView().requestFocus();
-        snackbar.getView().sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED);
+        snackbar.getView().sendAccessibilityEvent(
+                AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED);
         return snackbar;
     }
 }

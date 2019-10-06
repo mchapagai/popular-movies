@@ -22,8 +22,6 @@ public class RoundedTransformation implements Transformation {
      * Transform the source bitmap into a new bitmap. If you create a new bitmap instance, you must
      * call {@link Bitmap#recycle()} on {@code source}. You may return the original
      * if no transformation is required.
-     *
-     * @param source
      */
     @Override
     public Bitmap transform(final Bitmap source) {

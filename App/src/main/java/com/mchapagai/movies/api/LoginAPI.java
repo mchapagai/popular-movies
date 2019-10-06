@@ -10,8 +10,12 @@ import io.reactivex.Single;
 public interface LoginAPI {
 
     Single<AuthToken> getAuthRequestToken();
-    Single<AuthToken> getRequestAuthenticated(String requestToken, String username, String password);
+
+    Single<AuthToken> getRequestAuthenticated(String requestToken, String username,
+            String password);
+
     Single<AuthSession> getSessionId(String requestToken);
+
     Single<AccountDetails> getAccountDetails(String sessionId);
 
 }

@@ -49,7 +49,8 @@ public class InfoFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.show_details_info_fragment_container, container, false);
+        View view = inflater.inflate(R.layout.show_details_info_fragment_container, container,
+                false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -60,12 +61,12 @@ public class InfoFragment extends BaseFragment {
 
         onTheAir = getArguments().getParcelable(Constants.SHOWS_DETAILS);
 
-            showsReleaseDate.setText(DateTimeUtils.getNameOfMonth(onTheAir.getFirstAirDate()));
+        showsReleaseDate.setText(DateTimeUtils.getNameOfMonth(onTheAir.getFirstAirDate()));
 
-            showsRatings.setText(getString(R.string.details_rating_votes_count,
-                    String.format(Locale.US, "%.2f", onTheAir.getVoteAverage()),
-                    String.valueOf(onTheAir.getVoteCount())));
-            showsEtailsOverView.setText(onTheAir.getOverview());
+        showsRatings.setText(getString(R.string.details_rating_votes_count,
+                String.format(Locale.US, "%.2f", onTheAir.getVoteAverage()),
+                String.valueOf(onTheAir.getVoteCount())));
+        showsEtailsOverView.setText(onTheAir.getOverview());
     }
 
 }

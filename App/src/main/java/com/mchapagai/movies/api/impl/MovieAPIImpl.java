@@ -1,8 +1,8 @@
 package com.mchapagai.movies.api.impl;
 
 import com.mchapagai.movies.api.MovieAPI;
-import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
+import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
 import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
@@ -10,9 +10,9 @@ import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.service.MovieService;
 
-import io.reactivex.Flowable;
 import javax.inject.Provider;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 

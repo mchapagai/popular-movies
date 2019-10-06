@@ -6,8 +6,10 @@ import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.movies.utils.RxUtils;
 import com.mchapagai.movies.view_model.ShowsViewModel;
-import io.reactivex.Observable;
+
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 public class ShowsViewModelImpl implements ShowsViewModel {
 

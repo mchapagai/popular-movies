@@ -76,7 +76,8 @@ public class MaterialTagView extends RelativeLayout {
             tagTextView = new TextView(getContext());
         }
 
-        LayoutParams chipTextParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams chipTextParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         chipTextParams.addRule(CENTER_IN_PARENT);
         chipTextParams.setMargins(
                 (int) getResources().getDimension(R.dimen.dimen_12dp),
@@ -102,11 +103,14 @@ public class MaterialTagView extends RelativeLayout {
     }
 
     private void init(AttributeSet attrs) {
-        TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.MaterialTagView, 0, 0);
+        TypedArray ta = getContext().getTheme().obtainStyledAttributes(attrs,
+                R.styleable.MaterialTagView, 0, 0);
 
         tagText = ta.getString(R.styleable.MaterialTagView_tagviewText);
-        backgroundColor = ta.getColor(R.styleable.MaterialTagView_tagviewBackgroundColor, ContextCompat.getColor(getContext(), R.color.tagViewBackgroundColor));
-        textColor = ta.getColor(R.styleable.MaterialTagView_tagviewTextColor, ContextCompat.getColor(getContext(), R.color.darkThemePrimaryText));
+        backgroundColor = ta.getColor(R.styleable.MaterialTagView_tagviewBackgroundColor,
+                ContextCompat.getColor(getContext(), R.color.tagViewBackgroundColor));
+        textColor = ta.getColor(R.styleable.MaterialTagView_tagviewTextColor,
+                ContextCompat.getColor(getContext(), R.color.darkThemePrimaryText));
 
         ta.recycle();
     }

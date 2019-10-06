@@ -86,7 +86,8 @@ public class LandingActivity extends AppCompatActivity {
                             public void onNegativeButtonClicked(String tag) {
                             }
                         });
-            } else if (preferencesHelper.isSignedIn()) {
+            } else {
+                preferencesHelper.isSignedIn();
                 Intent intent = new Intent(view.getContext(), ProfileActivity.class);
                 startActivity(intent);
             }

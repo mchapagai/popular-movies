@@ -55,8 +55,9 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
         final CombinedCrewCredits response = crewItems.get(position);
 
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) viewHolder.profileImage
-                .getLayoutParams();
+        ConstraintLayout.LayoutParams params =
+                (ConstraintLayout.LayoutParams) viewHolder.profileImage
+                        .getLayoutParams();
         params.width = thumbnailWidth;
         viewHolder.profileImage.setLayoutParams(params);
         int calculateImageHeightRatio = 300 / 175;
@@ -74,10 +75,12 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
                     .into(viewHolder.profileImage, new Callback() {
                         @Override
                         public void onSuccess() {
-                            Bitmap bitmap = ((BitmapDrawable) viewHolder.profileImage.getDrawable()).getBitmap();
+                            Bitmap bitmap =
+                                    ((BitmapDrawable) viewHolder.profileImage.getDrawable()).getBitmap();
                             Palette.from(bitmap).generate(palette -> {
                                 setUpInfoBackgroundColor(viewHolder.infoLayout, palette);
-                                PaletteColorUtils.setupTextColors(viewHolder.originalTitle, palette);
+                                PaletteColorUtils.setupTextColors(viewHolder.originalTitle,
+                                        palette);
                                 PaletteColorUtils.setupTextColors(viewHolder.subtitle, palette);
                                 PaletteColorUtils.setupTextColors(viewHolder.caption, palette);
                             });
@@ -118,11 +121,16 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.credit_profile_image)        MaterialImageView profileImage;
-        @BindView(R.id.credit_profile_title)        MaterialTextView originalTitle;
-        @BindView(R.id.credit_profile_subtitle)     MaterialTextView subtitle;
-        @BindView(R.id.credit_profile_caption)      MaterialTextView caption;
-        @BindView(R.id.credit_details_layout)       ConstraintLayout infoLayout;
+        @BindView(R.id.credit_profile_image)
+        MaterialImageView profileImage;
+        @BindView(R.id.credit_profile_title)
+        MaterialTextView originalTitle;
+        @BindView(R.id.credit_profile_subtitle)
+        MaterialTextView subtitle;
+        @BindView(R.id.credit_profile_caption)
+        MaterialTextView caption;
+        @BindView(R.id.credit_details_layout)
+        ConstraintLayout infoLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

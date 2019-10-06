@@ -7,6 +7,7 @@ import io.reactivex.Single;
 public interface LoginViewModel {
 
     Single<AccountDetails> getRequestAuthenticated(String username, String password);
+
     Single<AccountDetails> getAccountDetails(String sessionId);
 
 }

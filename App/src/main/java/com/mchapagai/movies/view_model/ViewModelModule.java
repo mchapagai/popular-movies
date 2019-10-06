@@ -7,6 +7,7 @@ import com.mchapagai.movies.api.impl.APIModule;
 import com.mchapagai.movies.view_model.impl.LoginViewModelImpl;
 import com.mchapagai.movies.view_model.impl.MovieViewModelImpl;
 import com.mchapagai.movies.view_model.impl.ShowsViewModelImpl;
+
 import dagger.Module;
 import dagger.Provides;
 

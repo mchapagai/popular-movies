@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.mchapagai.movies.common.Constants;
 
-
 public class PreferencesHelper {
 
     private final String POPULAR_MOVIES_SHARED_PREF = "popularMoviesSharedPreferences";
@@ -17,7 +16,8 @@ public class PreferencesHelper {
     private boolean firstTime;
 
     public PreferencesHelper(Context context) {
-        sharedPreferences = context.getSharedPreferences(POPULAR_MOVIES_SHARED_PREF, Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(POPULAR_MOVIES_SHARED_PREF,
+                Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
@@ -78,7 +78,8 @@ public class PreferencesHelper {
 
     /**
      * Checks if the user is opening the app for the first time.
-     * Note that this method should be placed inside an activity and it can be called multiple times.
+     * Note that this method should be placed inside an activity and it can be called multiple
+     * times.
      *
      * @return boolean
      */

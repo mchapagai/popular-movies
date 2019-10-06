@@ -3,6 +3,7 @@ package com.mchapagai.movies.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.mchapagai.movies.fragment.InfoFragment;
 import com.mchapagai.movies.fragment.ReviewsFragment;
 import com.mchapagai.movies.fragment.TrailerFragment;
@@ -32,7 +33,7 @@ public class ShowDetailsAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment=null;
+        Fragment fragment = null;
         switch (position) {
             case 0:
                 fragment = InfoFragment.newInstance(onTheAir);

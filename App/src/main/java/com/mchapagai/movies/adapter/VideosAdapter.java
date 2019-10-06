@@ -65,8 +65,10 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
     public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.movie_video_thumbnail)           MaterialImageView videoThumbnail;
-        @BindView(R.id.movie_video_thumbnail_title)     MaterialTextView videoThumbnailTitle;
+        @BindView(R.id.movie_video_thumbnail)
+        MaterialImageView videoThumbnail;
+        @BindView(R.id.movie_video_thumbnail_title)
+        MaterialTextView videoThumbnailTitle;
 
         public VideoViewHolder(View itemView) {
             super(itemView);

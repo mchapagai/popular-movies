@@ -32,19 +32,23 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_details_credit_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.movie_details_credit_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final CombinedCreditsResponse combinedCreditsResponse = combinedCreditsResponseList.get(position);
+        final CombinedCreditsResponse combinedCreditsResponse = combinedCreditsResponseList.get(
+                position);
 
         holder.textName.setText(combinedCreditsResponse.getName());
         holder.textInfo.setText(combinedCreditsResponse.getDescription());
-        Picasso.get().load(Constants.SECURE_IMAGE_ENDPOINT + combinedCreditsResponse.getProfileImagePath()).into(holder.profileImage);
+        Picasso.get().load(Constants.SECURE_IMAGE_ENDPOINT
+                + combinedCreditsResponse.getProfileImagePath()).into(holder.profileImage);
 
-        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(combinedCreditsResponse));
+        holder.itemView.setOnClickListener(
+                v -> onItemClickListener.onItemClick(combinedCreditsResponse));
     }
 
     @Override

@@ -2,10 +2,10 @@ package com.mchapagai.movies.injection;
 
 import com.mchapagai.movies.common.BaseApplication;
 
-import dagger.android.AndroidInjectionModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 

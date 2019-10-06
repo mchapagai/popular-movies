@@ -9,8 +9,10 @@ import java.util.TimeZone;
 
 public class DateTimeUtils {
 
-    private static SimpleDateFormat simpleDateMonthNameFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    private static SimpleDateFormat simpleDateMonthNameFormat = new SimpleDateFormat("yyyy-MM-dd",
+            Locale.US);
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd",
+            Locale.US);
 
     /**
      * Helper method for date utilities

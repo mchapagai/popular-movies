@@ -38,10 +38,12 @@ public class MaterialDialogFragment extends DialogFragment {
         return fragment;
     }
 
-    public static MaterialDialogFragment showDialog(MovieDialogBuilder movieDialogBuilder, AppCompatActivity activity) {
+    public static MaterialDialogFragment showDialog(MovieDialogBuilder movieDialogBuilder,
+            AppCompatActivity activity) {
         FragmentManager manager = activity.getSupportFragmentManager();
         String tag = movieDialogBuilder.getTag();
-        MaterialDialogFragment fragment = MaterialDialogFragment.buildAlertDialog(movieDialogBuilder);
+        MaterialDialogFragment fragment = MaterialDialogFragment.buildAlertDialog(
+                movieDialogBuilder);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(fragment, tag);
         transaction.commitAllowingStateLoss();
@@ -118,12 +120,14 @@ public class MaterialDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    private void setButtons(final MovieDialogBuilder builder, final AlertDialog.Builder dialogBuilder) {
+    private void setButtons(final MovieDialogBuilder builder,
+            final AlertDialog.Builder dialogBuilder) {
         if (builder.getPositiveButtonText() != null) {
             dialogBuilder.setPositiveButton(builder.getPositiveButtonText(),
                     ((dialog, which) -> {
                         if (onDialogClickListener != null) {
-                            onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(), builder.getTag());
+                            onDialogClickListener.onPositiveButtonClicked(
+                                    builder.getPositiveButtonData(), builder.getTag());
                         }
                     }));
             dialogBuilder.setNegativeButton(builder.getNegativeButtonText(),
@@ -136,7 +140,8 @@ public class MaterialDialogFragment extends DialogFragment {
         }
     }
 
-    private void setCustomDialog(final MovieDialogBuilder builder, final Dialog dialog, View containerView) {
+    private void setCustomDialog(final MovieDialogBuilder builder, final Dialog dialog,
+            View containerView) {
         if (containerView == null) {
             return;
         }
@@ -153,7 +158,8 @@ public class MaterialDialogFragment extends DialogFragment {
             positiveButton.setVisibility(View.VISIBLE);
             positiveButton.setOnClickListener(view -> {
                 if (onDialogClickListener != null) {
-                    onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(), builder.getTag());
+                    onDialogClickListener.onPositiveButtonClicked(builder.getPositiveButtonData(),
+                            builder.getTag());
                 }
                 dialog.dismiss();
             });

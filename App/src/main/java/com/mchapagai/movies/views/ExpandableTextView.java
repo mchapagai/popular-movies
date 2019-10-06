@@ -46,12 +46,14 @@ public class ExpandableTextView extends AppCompatTextView {
         this(context, attrs, 0);
     }
 
-    public ExpandableTextView(final Context context, @Nullable final AttributeSet attrs, final int defStyle) {
+    public ExpandableTextView(final Context context, @Nullable final AttributeSet attrs,
+            final int defStyle) {
         super(context, attrs, defStyle);
 
         final TypedArray attributes = context
                 .obtainStyledAttributes(attrs, R.styleable.ExpandableTextView, defStyle, 0);
-        this.animationDuration = attributes.getInt(R.styleable.ExpandableTextView_animationDuration, 750);
+        this.animationDuration = attributes.getInt(R.styleable.ExpandableTextView_animationDuration,
+                750);
         attributes.recycle();
 
         // keep the original value of maxLines
@@ -97,7 +99,8 @@ public class ExpandableTextView extends AppCompatTextView {
             // measure collapsed height
             this.measure
                     (
-                            MeasureSpec.makeMeasureSpec(this.getMeasuredWidth(), MeasureSpec.EXACTLY),
+                            MeasureSpec.makeMeasureSpec(this.getMeasuredWidth(),
+                                    MeasureSpec.EXACTLY),
                             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
                     );
 
@@ -112,16 +115,19 @@ public class ExpandableTextView extends AppCompatTextView {
             // measure expanded height
             this.measure
                     (
-                            MeasureSpec.makeMeasureSpec(this.getMeasuredWidth(), MeasureSpec.EXACTLY),
+                            MeasureSpec.makeMeasureSpec(this.getMeasuredWidth(),
+                                    MeasureSpec.EXACTLY),
                             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
                     );
 
             final int expandedHeight = this.getMeasuredHeight();
 
             // animate from collapsed height to expanded height
-            final ValueAnimator valueAnimator = ValueAnimator.ofInt(this.collapsedHeight, expandedHeight);
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(this.collapsedHeight,
+                    expandedHeight);
             valueAnimator.addUpdateListener(
-                    animation -> ExpandableTextView.this.setHeight((int) animation.getAnimatedValue()));
+                    animation -> ExpandableTextView.this.setHeight(
+                            (int) animation.getAnimatedValue()));
 
             // wait for the animation to end
             valueAnimator.addListener(new AnimatorListenerAdapter() {
@@ -131,9 +137,11 @@ public class ExpandableTextView extends AppCompatTextView {
                     ExpandableTextView.this.setMaxHeight(Integer.MAX_VALUE);
                     ExpandableTextView.this.setMinHeight(0);
 
-                    // if fully expanded, set height to WRAP_CONTENT, because when rotating the device
+                    // if fully expanded, set height to WRAP_CONTENT, because when rotating the
+                    // device
                     // the height calculated with this ValueAnimator isn't correct anymore
-                    final ViewGroup.LayoutParams layoutParams = ExpandableTextView.this.getLayoutParams();
+                    final ViewGroup.LayoutParams layoutParams =
+                            ExpandableTextView.this.getLayoutParams();
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     ExpandableTextView.this.setLayoutParams(layoutParams);
 
@@ -174,9 +182,11 @@ public class ExpandableTextView extends AppCompatTextView {
             this.animating = true;
 
             // animate from expanded height to collapsed height
-            final ValueAnimator valueAnimator = ValueAnimator.ofInt(expandedHeight, this.collapsedHeight);
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(expandedHeight,
+                    this.collapsedHeight);
             valueAnimator.addUpdateListener(
-                    animation -> ExpandableTextView.this.setHeight((int) animation.getAnimatedValue()));
+                    animation -> ExpandableTextView.this.setHeight(
+                            (int) animation.getAnimatedValue()));
 
             // wait for the animation to end
             valueAnimator.addListener(new AnimatorListenerAdapter() {
@@ -189,9 +199,12 @@ public class ExpandableTextView extends AppCompatTextView {
                     // set maxLines back to original value
                     ExpandableTextView.this.setMaxLines(ExpandableTextView.this.maxLines);
 
-                    // if fully collapsed, set height back to WRAP_CONTENT, because when rotating the device
-                    // the height previously calculated with this ValueAnimator isn't correct anymore
-                    final ViewGroup.LayoutParams layoutParams = ExpandableTextView.this.getLayoutParams();
+                    // if fully collapsed, set height back to WRAP_CONTENT, because when rotating
+                    // the device
+                    // the height previously calculated with this ValueAnimator isn't correct
+                    // anymore
+                    final ViewGroup.LayoutParams layoutParams =
+                            ExpandableTextView.this.getLayoutParams();
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     ExpandableTextView.this.setLayoutParams(layoutParams);
                 }

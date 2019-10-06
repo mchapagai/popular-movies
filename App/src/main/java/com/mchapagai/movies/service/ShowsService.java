@@ -3,6 +3,7 @@ package com.mchapagai.movies.service;
 import com.mchapagai.movies.model.binding.OnTheAirResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

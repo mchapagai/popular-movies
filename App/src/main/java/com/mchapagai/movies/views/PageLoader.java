@@ -30,12 +30,14 @@ public class PageLoader extends RelativeLayout {
     }
 
     private void setupAttributes(AttributeSet attrs) {
-        TypedArray attributes = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.PageLoader, 0, 0);
+        TypedArray attributes = getContext().getTheme().obtainStyledAttributes(attrs,
+                R.styleable.PageLoader, 0, 0);
 
         try {
             String headerText = attributes.getString(R.styleable.PageLoader_loaderHeaderText);
             String primaryText = attributes.getString(R.styleable.PageLoader_loaderPrimaryText);
-            boolean shouldShowAnimation = attributes.getBoolean(R.styleable.PageLoader_showShowAnimationView, false);
+            boolean shouldShowAnimation = attributes.getBoolean(
+                    R.styleable.PageLoader_showShowAnimationView, false);
 
             if (StringUtils.isNotEmpty(headerText)) {
                 headerTextView.setText(headerText);

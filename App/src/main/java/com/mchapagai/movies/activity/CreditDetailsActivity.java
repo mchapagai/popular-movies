@@ -203,7 +203,7 @@ public class CreditDetailsActivity extends BaseActivity {
 
     private void castResponseItems(CombinedPersonResponse response) {
         List<CombinedCastCredit> castCredit = response.getCast();
-        if (!castCredit.isEmpty() && castCredit.size() > 0) {
+        if (!castCredit.isEmpty()) {
             moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
             LinearLayoutManager castLayout = new LinearLayoutManager(this,
                     LinearLayoutManager.HORIZONTAL, false);
@@ -215,7 +215,7 @@ public class CreditDetailsActivity extends BaseActivity {
     }
 
     private void crewResponseItems(List<CombinedCrewCredits> crewCredits) {
-        if (!crewCredits.isEmpty() && crewCredits.size() > 0) {
+        if (!crewCredits.isEmpty()) {
             moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
             LinearLayoutManager crewLayout = new LinearLayoutManager(this,
                     LinearLayoutManager.HORIZONTAL, false);
@@ -282,9 +282,6 @@ public class CreditDetailsActivity extends BaseActivity {
                 statusBarColor = PaletteColorUtils.scrimify(topColor.getRgb(), true,
                         Constants.SCRIM_ADJUSTMENT);
                 // set a light status bar
-                if (!isDark) {
-                    AnimationUtils.setLightStatusBar(getWindow().getDecorView());
-                }
             }
 
             if (statusBarColor != getWindow().getStatusBarColor()) {

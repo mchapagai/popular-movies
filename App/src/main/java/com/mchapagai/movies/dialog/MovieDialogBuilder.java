@@ -5,10 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
 
-import java.io.Serializable;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
+
+import java.io.Serializable;
 
 public class MovieDialogBuilder implements Parcelable {
 
@@ -31,7 +31,8 @@ public class MovieDialogBuilder implements Parcelable {
     @DrawableRes
     int drawableResId;
 
-    public MovieDialogBuilder() {}
+    public MovieDialogBuilder() {
+    }
 
 
     public MovieDialogBuilder(Parcel in) {

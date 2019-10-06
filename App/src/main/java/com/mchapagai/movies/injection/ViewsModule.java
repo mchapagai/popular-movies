@@ -18,6 +18,7 @@ import com.mchapagai.movies.fragment.DiscoverOnTheAirFragment;
 import com.mchapagai.movies.fragment.InfoFragment;
 import com.mchapagai.movies.fragment.ReviewsFragment;
 import com.mchapagai.movies.fragment.TrailerFragment;
+
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
