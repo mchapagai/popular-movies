@@ -1,6 +1,5 @@
 package com.mchapagai.movies.api;
 
-
 import com.mchapagai.movies.model.account.AccountDetails;
 import com.mchapagai.movies.model.account.AuthSession;
 import com.mchapagai.movies.model.account.AuthToken;

@@ -79,6 +79,7 @@ public class ServiceFactory {
                 }
 
                 // Re-create the response before returning it because body can be read only once
+                assert rawJson != null;
                 return response.newBuilder()
                         .body(ResponseBody.create(
                                 response.body() != null ? response.body().contentType() : null,
