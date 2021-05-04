@@ -8,7 +8,7 @@
         android:id="@+id/layout_app_bar"
         layout="@layout/app_bar_layout" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,14 +31,14 @@
         android:showDividers="middle"
         app:layout_constraintTop_toBottomOf="@+id/profile_name">
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <com.mchapagai.klutter.views.MaterialTextView
             android:id="@+id/navigate_to_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/movies"
             android:textSize="@dimen/text_medium" />
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <com.mchapagai.klutter.views.MaterialTextView
             android:id="@+id/navigate_to_movies_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,14 +59,14 @@
         android:showDividers="middle"
         app:layout_constraintTop_toBottomOf="@+id/profile_movie_nav">
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <com.mchapagai.klutter.views.MaterialTextView
             android:id="@+id/navigate_to_shows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/landing_shows"
             android:textSize="@dimen/text_medium" />
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <com.mchapagai.klutter.views.MaterialTextView
             android:id="@+id/navigate_to_shows_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:textSize="@dimen/text_x_small" />
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/button_signout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

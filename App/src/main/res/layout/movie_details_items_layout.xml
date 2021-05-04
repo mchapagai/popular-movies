@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/movie_tagline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/original_title"
         app:layout_constraintTop_toBottomOf="@+id/original_title" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/release_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         app:layout_constraintStart_toEndOf="@+id/release_date"
         app:layout_constraintTop_toTopOf="@+id/release_date" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/details_over_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
             tools:layout_height="@dimen/margin_126dp"
             tools:listitem="@layout/movie_details_video_items" />
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <com.mchapagai.klutter.views.MaterialTextView
             android:id="@+id/videos_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/details_empty_video" />
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <com.mchapagai.klutter.views.MaterialImageView
             android:id="@+id/details_empty_video"
             android:layout_width="@dimen/margin_96dp"
             android:layout_height="@dimen/margin_96dp"
@@ -231,7 +231,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviews_layout" />
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <com.mchapagai.klutter.views.MaterialImageView
         android:id="@+id/tmdb_logo"
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_32dp"

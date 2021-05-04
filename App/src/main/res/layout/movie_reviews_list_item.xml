@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground">
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <com.mchapagai.klutter.views.MaterialTextView
         android:id="@+id/review_author_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/app_name"/>
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <com.mchapagai.klutter.views.MaterialImageView
         android:id="@+id/review_icon"
         android:layout_width="@dimen/margin_24dp"
         android:layout_height="@dimen/margin_24dp"
@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.mchapagai.movies.views.ExpandableTextView
+    <com.mchapagai.klutter.views.ExpandableTextView
         android:id="@+id/review_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

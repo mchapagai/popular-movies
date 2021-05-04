@@ -1,4 +1,8 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
 apply from: '../jacoco.gradle'
 
 def getVersionName = { ->
@@ -19,7 +23,7 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
     defaultConfig {
-        applicationId "com.example.mchapagai"
+        applicationId "com.mchapagai.klutter"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
@@ -52,6 +56,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
@@ -77,13 +86,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    implementation "androidx.core:core-ktx:$versions.kotlin_core"
 
-    implementation "androidx.appcompat:appcompat:$versions.androidx_core"
-    implementation "com.google.android.material:material:$versions.androidx_design"
-    implementation "androidx.annotation:annotation:$versions.androidx_annotation"
-    implementation "androidx.palette:palette:$versions.androidx_palette"
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.annotation:annotation:$versions.android_annotation"
+    implementation "com.google.android.material:material:$versions.material_design"
+    implementation "androidx.palette:palette-ktx:$versions.androidx_palette"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
 
     //Guava
     implementation "org.apache.commons:commons-lang3:$versions.apache_commons"
@@ -117,4 +128,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$versions.butterknife"
 
     implementation "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin"
+
+    // Unit testing
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "androidx.test.ext:junit:$versions.junit_ext"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
 }

@@ -50,6 +50,7 @@
     <!-- Service Error messages -->
     <string name="service_error_title">Oops, something went bad!</string>
     <string name="service_error_404">The resource you requested could not be found.</string>
+    <string name="service_error_message_401">Invalid API key: You must be granted a valid key.</string>
 
     <!-- Action menu -->
     <string name="menu_sort">Sorting</string>

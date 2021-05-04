@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <com.mchapagai.klutter.views.MaterialImageView
             android:id="@+id/credit_profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/credit_profile_image">
 
-            <com.mchapagai.movies.views.MaterialTextView
+            <com.mchapagai.klutter.views.MaterialTextView
                 android:id="@+id/credit_profile_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/credit_profile_subtitle"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <com.mchapagai.movies.views.MaterialTextView
+            <com.mchapagai.klutter.views.MaterialTextView
                 android:id="@+id/credit_profile_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/credit_profile_caption"
                 app:layout_constraintStart_toStartOf="@+id/credit_profile_title" />
 
-            <com.mchapagai.movies.views.MaterialTextView
+            <com.mchapagai.klutter.views.MaterialTextView
                 android:id="@+id/credit_profile_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
