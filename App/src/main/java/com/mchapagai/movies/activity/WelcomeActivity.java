@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,9 +32,9 @@ public class WelcomeActivity extends BaseActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     @BindView(R.id.skip_button)
-    MaterialButton skipButton;
+    Button skipButton;
     @BindView(R.id.next_button)
-    MaterialButton nextButton;
+    Button nextButton;
     @BindView(R.id.layout_dots)
     LinearLayout dotsLayout;
 
