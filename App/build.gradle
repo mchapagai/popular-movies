@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../jacoco.gradle'
+//apply from: '../jacoco.gradle'
 
 def getVersionName = { ->
     try {
@@ -19,7 +19,7 @@ android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
     defaultConfig {
-        applicationId "com.example.mchapagai"
+        applicationId "com.mchapagai"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
