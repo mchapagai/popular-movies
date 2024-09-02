@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mchapagai.movies">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".common.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:exported="true"
+            android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:exported="true"
+            android:name=".activity.AboutActivity"
+            android:label="@string/title_about_activity" />
+        <activity
+            android:exported="true"
+            android:name=".activity.DiscoverMoviesActivity"
+            android:label="@string/app_name"/>
+        <activity
+            android:exported="true"
+            android:name=".activity.LoginActivity"
+            android:label="@string/activity_login" />
+        <activity
+            android:exported="true"
+            android:name=".activity.MovieDetailsActivity"
+            android:label="@null" />
+        <activity
+            android:exported="true"
+            android:name=".activity.CreditDetailsActivity"
+            android:label="@null" />
+        <activity
+            android:exported="true"
+            android:name=".activity.LandingActivity"
+            android:label="@null" />
+        <activity
+            android:exported="true"
+            android:name=".activity.WelcomeActivity"
+            android:label="@null" />
+        <activity
+            android:exported="true"
+            android:name=".activity.DiscoverOnTheAirActivity"
+            android:label="@string/landing_shows" />
+        <activity
+            android:exported="true"
+            android:name=".activity.ShowDetailsActivity"
+            android:label="@null" />
+        <activity
+            android:exported="true"
+            android:name=".activity.ProfileActivity"
+            android:label="@string/title_profile" />
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:exported="true"
+            android:icon="@mipmap/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:taskAffinity="com.squareup.leakcanary.${applicationId}"
+            android:theme="@style/leak_canary_LeakCanary.Base">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="*/*" />
+                <data android:host="*" />
+
+                <data android:pathPattern=".*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\..*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.hprof" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.hprof" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

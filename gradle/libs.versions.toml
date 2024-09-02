@@ -1,0 +1,96 @@
+[versions]
+agp = "8.5.2"
+androidx-core = "1.7.0"
+androidx-annotation = "1.8.2"
+androidx-palette = "1.0.0"
+androidx-constraintlayout = "2.1.4"
+composeBomVersion = "2024.08.00"
+material = "1.12.0"
+apache-commons = "3.1"
+firebase-crashlytics-buildtools = "3.0.2"
+leakcanary = "1.6.2"
+retrofit = "2.11.0"
+okhttp = "4.12.0"
+rxandroid = "2.1.1"
+rxjava = "2.2.21"
+picasso = "2.71828"
+dagger = "2.16"
+composeGradlePlugin = "2.0.0"
+kotlin = "2.0.20"
+activityCompose = "1.9.1"
+composeBom = "2024.08.00"
+coreKtxVersion = "1.13.1"
+junitJunit = "4.13.2"
+androidxJunit = "1.2.1"
+espressoCoreVersion = "3.6.1"
+lifecycleRuntimeKtxVersion = "2.8.4"
+coil = "2.7.0"
+navigationCompose = "2.7.7"
+navigationCommonKtx = "2.7.7"
+navigationRuntimeKtx = "2.7.7"
+lifecycleViewmodelAndroid = "2.8.4"
+lifecycleLivedataCoreKtx = "2.8.4"
+runtimeLivedata = "1.6.8"
+butterknife = "10.0.0"
+uiTextGoogleFonts = "1.6.8"
+
+[libraries]
+androidx-compose-bom-v20240401 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
+androidx-core = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-core" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-palette = { group = "androidx.palette", name = "palette", version.ref = "androidx-palette" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+apache-commons = { group = "org.apache.commons", name = "commons-lang3", version.ref = "apache-commons" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebase-crashlytics-buildtools" }
+leakcanary-android = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+material3 = { module = "androidx.compose.material3:material3" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
+picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+dagger-android = { group = "com.google.dagger", name = "dagger-android", version.ref = "dagger" }
+dagger-android-support = { group = "com.google.dagger", name = "dagger-android-support", version.ref = "dagger" }
+dagger-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-navigation-common-ktx = { group = "androidx.navigation", name = "navigation-common-ktx", version.ref = "navigationCommonKtx" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+androidx-lifecycle-livedata-core-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-core-ktx", version.ref = "lifecycleLivedataCoreKtx" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+jakewharton-butterknife = { group = "com.jakewharton", name = "butterknife", version.ref = "butterknife" }
+jakewharton-butterknife-compiler = { group = "com.jakewharton", name = "butterknife-compiler", version.ref = "butterknife" }
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-gradle-plugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composeGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
