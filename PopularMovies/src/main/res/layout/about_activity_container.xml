@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -83,7 +84,8 @@
                 android:id="@+id/about_divider"
                 style="@style/HorizontalDivider"
                 app:layout_constraintBottom_toTopOf="@id/about_license_header"
-                app:layout_constraintTop_toBottomOf="@id/about_android_trademark" />
+                app:layout_constraintTop_toBottomOf="@id/about_android_trademark"
+                tools:ignore="MissingConstraints" />
 
             <com.mchapagai.movies.views.MaterialTextView
                 android:id="@+id/about_license_header"

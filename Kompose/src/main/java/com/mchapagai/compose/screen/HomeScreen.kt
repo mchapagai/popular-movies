@@ -39,6 +39,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Light
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mchapagai.compose.movies.MovieGrid
+import com.mchapagai.compose.shows.ShowGrid
 import com.mchapagai.compose.utils.MediaType
 
 @Composable
@@ -57,34 +59,13 @@ fun HomeScreen(
                 selectedMediaType = type
             }
         )
-        // Conditionally render ScreenA or ScreenB
+        // Conditionally render screes
         if (selectedMediaType == MediaType.MOVIE) {
-            ScreenA(
-                name = "Movies"
-            )
+            MovieGrid()
         } else {
-            ScreenB(
-                name = "Tv Shows"
-            )
+            ShowGrid()
         }
     }
-}
-
-@Composable
-fun ScreenA(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-
-@Composable
-fun ScreenB(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "SCREENB $name!",
-        modifier = modifier
-    )
 }
 
 @Composable

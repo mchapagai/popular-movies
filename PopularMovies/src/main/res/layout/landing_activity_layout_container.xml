@@ -19,7 +19,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/icon_settings" />
+            app:srcCompat="@drawable/icon_settings"
+            tools:ignore="MissingConstraints" />
 
         <com.mchapagai.movies.views.MaterialCircleImageView
             android:id="@+id/landing_user_profile_copy"
@@ -33,7 +34,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/icon_user" />
+            app:srcCompat="@drawable/icon_user"
+            tools:ignore="MissingConstraints" />
 
         <com.mchapagai.movies.views.MaterialImageView
             android:id="@+id/landing_about_page"
@@ -110,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_profile"
-                app:layout_constraintTop_toBottomOf="@+id/landing_user_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/landing_user_profile"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,7 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_in_theaters"
-                app:layout_constraintTop_toBottomOf="@+id/landing_now_playing" />
+                app:layout_constraintTop_toBottomOf="@+id/landing_now_playing"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +170,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_about_activity"
-                app:layout_constraintTop_toBottomOf="@+id/landing_about_page_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/landing_about_page_icon"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -17,3 +17,4 @@ rootProject.name = "Movies"
 include(":Kovies")
 include(":PopularMovies")
 include(":Kompose")
+include(":Core")

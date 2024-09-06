@@ -1,10 +1,10 @@
 package com.mchapagai.movies.api.impl;
 
+import com.mchapagai.core.response.movies.MovieListResponse;
 import com.mchapagai.movies.api.MovieAPI;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
@@ -25,7 +25,7 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Flowable<MovieResponse> discoverMovies(int page, String sortBy) {
+    public Flowable<MovieListResponse> discoverMovies(int page, String sortBy) {
         return movieService.get().discoverMovies(page, sortBy);
     }
 
@@ -60,7 +60,7 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Observable<MovieResponse> searchMovies(String query) {
+    public Observable<MovieListResponse> searchMovies(String query) {
         return movieService.get().searchMovies(query);
     }
 }

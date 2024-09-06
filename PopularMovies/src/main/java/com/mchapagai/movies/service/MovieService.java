@@ -1,9 +1,9 @@
 package com.mchapagai.movies.service;
 
+import com.mchapagai.core.response.movies.MovieListResponse;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
@@ -18,8 +18,8 @@ import retrofit2.http.Query;
 public interface MovieService {
 
     @GET("discover/movie")
-    Flowable<MovieResponse> discoverMovies(@Query("page") int page,
-            @Query("sort_by") String sortBy);
+    Flowable<MovieListResponse> discoverMovies(@Query("page") int page,
+                                               @Query("sort_by") String sortBy);
 
     @GET("movie/{id}/videos")
     Observable<VideoResponse> getMovieVideosbyId(@Path("id") int movieId);
@@ -40,6 +40,6 @@ public interface MovieService {
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(@Path("personId") int personId);
 
     @GET("search/movie")
-    Observable<MovieResponse> searchMovies(@Query("query") String q);
+    Observable<MovieListResponse> searchMovies(@Query("query") String q);
 
 }

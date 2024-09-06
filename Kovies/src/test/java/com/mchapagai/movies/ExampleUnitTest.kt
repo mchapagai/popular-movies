@@ -1,4 +1,4 @@
-package com.mchapagai.k_movies
+package com.mchapagai.movies
 
 import org.junit.Test
 

@@ -25,14 +25,14 @@ import androidx.transition.ChangeTransform;
 import androidx.transition.Fade;
 import androidx.transition.TransitionSet;
 
+import com.mchapagai.core.response.movies.MovieListResponse;
+import com.mchapagai.core.response.movies.MovieResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.MovieDetailsActivity;
 import com.mchapagai.movies.adapter.MoviesGridAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.Sort;
-import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.mchapagai.movies.views.PageLoader;
 import com.mchapagai.movies.widget.EndlessScrollListener;
@@ -44,8 +44,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -72,10 +70,8 @@ public class DiscoverMoviesFragment extends BaseFragment {
     private boolean isMenuSortChanged = true;
     private int pageNumber = 1;
 
-    @BindView(R.id.common_recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.common_page_loader)
     PageLoader pageLoader;
 
     @Inject
@@ -95,7 +91,9 @@ public class DiscoverMoviesFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.common_fragment_container, container, false);
-        ButterKnife.bind(this, view);
+
+        recyclerView = view.findViewById(R.id.common_recycler_view);
+        pageLoader = view.findViewById(R.id.common_page_loader);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), COLUMN_COUNT);
         recyclerView.setHasFixedSize(true);
@@ -114,7 +112,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
         return view;
     }
 
-    private Flowable<MovieResponse> movieResponseItems(int page, String sort) {
+    private Flowable<MovieListResponse> movieResponseItems(int page, String sort) {
         return movieViewModel.discoverMovies(page, sort);
     }
 
@@ -122,7 +120,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
 
         pageLoader.setVisibility(View.VISIBLE);
         Disposable disposable = pagination.doFinally(() -> pageLoader.setVisibility(View.GONE))
-                .concatMap(new Function<Integer, Publisher<MovieResponse>>() {
+                .concatMap(new Function<Integer, Publisher<MovieListResponse>>() {
                     /**
                      * Apply some calculation to the input value and return some other value.`
                      *
@@ -130,18 +128,18 @@ public class DiscoverMoviesFragment extends BaseFragment {
                      * @return the output value
                      */
                     @Override
-                    public Publisher<MovieResponse> apply(Integer page) {
+                    public Publisher<MovieListResponse> apply(Integer page) {
                         return movieResponseItems(page, sort.toString());
                     }
                 }).doOnSubscribe(s -> isLoading = true)
-                .doOnNext(new Consumer<MovieResponse>() {
+                .doOnNext(new Consumer<MovieListResponse>() {
                     /**
                      * Consume the given value.
                      *
                      * @param movieResponse the value
                      */
                     @Override
-                    public void accept(MovieResponse movieResponse) {
+                    public void accept(MovieListResponse movieResponse) {
                         if (isMenuSortChanged) {
                             moviesGridAdapter = new MoviesGridAdapter(movieResponse.getMovies());
                             recyclerView.setAdapter(moviesGridAdapter);
@@ -188,11 +186,11 @@ public class DiscoverMoviesFragment extends BaseFragment {
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .filter(s -> !s.isEmpty())
                 .switchMap(
-                        (Function<String, ObservableSource<List<Movies>>>) s -> searchResponse(s))
+                        (Function<String, ObservableSource<List<MovieResponse>>>) s -> searchResponse(s))
                 .subscribe(
-                        new DisposableObserver<List<Movies>>() {
+                        new DisposableObserver<List<MovieResponse>>() {
                             @Override
-                            public void onNext(List<Movies> moviesList) {
+                            public void onNext(List<MovieResponse> moviesList) {
                                 moviesGridAdapter = new MoviesGridAdapter(moviesList);
                                 recyclerView.setAdapter(moviesGridAdapter);
                             }
@@ -211,7 +209,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
     }
 
 
-    private Observable<List<Movies>> searchResponse(String query) {
+    private Observable<List<MovieResponse>> searchResponse(String query) {
         return movieViewModel.searchMovies(query)
                 .flatMapIterable(movieResponse -> movieResponse.getMovies()).distinct(
                         movies -> movies.getTitle()).toList().toObservable();
@@ -297,7 +295,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            getActivity().finish();
+            requireActivity().finish();
             return true;
         }
 

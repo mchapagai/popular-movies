@@ -1,9 +1,9 @@
 package com.mchapagai.movies.view_model;
 
+import com.mchapagai.core.response.movies.MovieListResponse;
 import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.MovieDetailsResponse;
-import com.mchapagai.movies.model.binding.MovieResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.VideoResponse;
@@ -14,7 +14,7 @@ import io.reactivex.Single;
 
 public interface MovieViewModel {
 
-    Flowable<MovieResponse> discoverMovies(int page, String sortBy);
+    Flowable<MovieListResponse> discoverMovies(int page, String sortBy);
 
     Observable<VideoResponse> getMovieVideosbyId(int movieId);
 
@@ -28,6 +28,6 @@ public interface MovieViewModel {
 
     Observable<CombinedPersonResponse> getPersonCombinedDetailsById(int personId);
 
-    Observable<MovieResponse> searchMovies(String query);
+    Observable<MovieListResponse> searchMovies(String query);
 
 }

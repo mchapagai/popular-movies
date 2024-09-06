@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.00"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/app_name"/>
+        tools:text="@string/app_name"
+        tools:ignore="MissingConstraints" />
 
     <com.mchapagai.movies.views.MaterialImageView
         android:id="@+id/review_icon"
@@ -27,7 +28,8 @@
         android:src="@drawable/graphics_chevron_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <com.mchapagai.movies.views.ExpandableTextView
         android:id="@+id/review_content"
@@ -40,6 +42,7 @@
         android:paddingBottom="@dimen/margin_16dp"
         app:animationDuration="750"
         app:layout_constraintTop_toBottomOf="@id/review_icon"
-        tools:text="@string/lorem_placeholder"/>
+        tools:text="@string/lorem_placeholder"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

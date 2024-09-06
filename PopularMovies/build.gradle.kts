@@ -116,12 +116,8 @@ android {
 }
 
 dependencies {
-    // Compose
-//    implementation(libs.androidx.material3)
-    // Android Studio Preview support
-//    implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.navigation.compose)
-//    debugImplementation(libs.androidx.ui.tooling)
+    // Modules
+    implementation(project(":Core"))
     implementation(libs.androidx.core)
     implementation(libs.material)
     implementation(libs.androidx.annotation)
@@ -141,7 +137,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.rxandroid)
-    implementation(libs.rxjava) // Assuming this is a custom alias for RxJava 2.x
+    implementation(libs.rxjava)
     implementation(libs.picasso)
 
     // Dagger2

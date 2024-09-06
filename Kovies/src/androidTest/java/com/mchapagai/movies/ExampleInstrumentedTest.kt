@@ -1,4 +1,4 @@
-package com.mchapagai.k_movies
+package com.mchapagai.movies
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

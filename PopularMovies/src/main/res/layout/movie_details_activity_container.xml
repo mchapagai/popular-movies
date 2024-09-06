@@ -69,6 +69,7 @@
         android:backgroundTint="?attr/actionColor"
         android:clickable="true"
         android:focusable="true"
+        android:importantForAccessibility="no"
         android:src="@drawable/icon_favorite"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />

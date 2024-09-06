@@ -34,12 +34,10 @@ import io.reactivex.disposables.CompositeDisposable;
 public class DiscoverOnTheAirFragment extends BaseFragment {
 
     private static final int COLUMN_COUNT = 2;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    @BindView(R.id.common_recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.common_page_loader)
     PageLoader pageLoader;
 
     @Inject
@@ -55,7 +53,8 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
             @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.common_fragment_container, container, false);
 
-        ButterKnife.bind(this, view);
+        recyclerView = view.findViewById(R.id.common_recycler_view);
+        pageLoader = view.findViewById(R.id.common_page_loader);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), COLUMN_COUNT);
         recyclerView.setHasFixedSize(true);

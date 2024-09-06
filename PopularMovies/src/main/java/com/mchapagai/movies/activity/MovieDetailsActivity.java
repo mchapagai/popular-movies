@@ -6,7 +6,6 @@ import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -23,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mchapagai.movies.utils.DateTimeUtils;
+import com.mchapagai.core.response.movies.MovieResponse;
 import com.mchapagai.movies.utils.LibraryUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.views.ItemOffsetDecoration;
@@ -39,7 +38,6 @@ import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.CastCredit;
 import com.mchapagai.movies.model.CrewCredits;
 import com.mchapagai.movies.model.Genres;
-import com.mchapagai.movies.model.Movies;
 import com.mchapagai.movies.model.Reviews;
 import com.mchapagai.movies.model.Videos;
 import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
@@ -54,6 +52,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -63,8 +62,6 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MovieDetailsActivity extends BaseActivity {
-
-    private final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     @BindView(R.id.details_backdrop)
     MaterialImageView detailsBackdrop;
@@ -109,13 +106,13 @@ public class MovieDetailsActivity extends BaseActivity {
     @BindView(R.id.details_favorite)
     FloatingActionButton favoriteActionButton;
 
-    private Movies movies;
+    private MovieResponse movies;
     private VideosAdapter videosAdapter;
-    private List<Videos> videoItems = new ArrayList<>();
+    private final List<Videos> videoItems = new ArrayList<>();
     private List<Genres> genreItems = new ArrayList<>();
     private List<CastCredit> castCredits = new ArrayList<>();
     private List<CrewCredits> crewCredits = new ArrayList<>();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     @Inject
@@ -146,9 +143,9 @@ public class MovieDetailsActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setSupportActionBar(movieDetailsToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_arrow_white);
-        movieDetailsToolbar.getNavigationIcon().setTint(
+        Objects.requireNonNull(movieDetailsToolbar.getNavigationIcon()).setTint(
                 getResources().getColor(R.color.darkThemePrimaryDark));
         movieDetailsToolbar.getNavigationIcon().setColorFilter(
                 getResources().getColor(R.color.white), Mode.DARKEN);
@@ -179,9 +176,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
         detailsOriginalTitle.setText(movies.getTitle());
         detailsOverView.setText(movies.getOverview());
-        if (!TextUtils.isEmpty(movies.getReleaseDate())) {
-            detailsReleaseDate.setText(DateTimeUtils.getNameOfMonth(movies.getReleaseDate()));
-        }
+        detailsReleaseDate.setText(movies.getFormattedReleaseDate());
         detailsRatings.setText(getString(R.string.details_rating_votes_count,
                 String.format(Locale.US, "%.2f", movies.getVoteAverage()),
                 String.valueOf(movies.getVoteCount())));
@@ -368,6 +363,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Intent intent = new Intent(this, DiscoverMoviesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

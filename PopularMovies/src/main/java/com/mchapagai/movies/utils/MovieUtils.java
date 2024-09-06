@@ -7,8 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.mchapagai.core.response.movies.MovieResponse;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.Movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,11 +29,7 @@ public class MovieUtils {
                 .build();
     }
 
-    public static Uri getMoviePosterPathUri(Movies movies) {
-        return getPosterUriFromPath(movies.getPosterPath());
-    }
-
-    public static Uri getMovieBackdropPathUri(Movies movies) {
+    public static Uri getMovieBackdropPathUri(MovieResponse movies) {
         return getPosterUriFromPath(movies.getBackdropPath());
     }
 

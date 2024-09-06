@@ -1,45 +1,53 @@
 [versions]
 agp = "8.5.2"
+adapterRxjava2 = "2.11.0"
 androidx-core = "1.7.0"
 androidx-annotation = "1.8.2"
 androidx-palette = "1.0.0"
 androidx-constraintlayout = "2.1.4"
-composeBomVersion = "2024.08.00"
+composeBomVersion = "2024.09.00"
 material = "1.12.0"
 apache-commons = "3.1"
 firebase-crashlytics-buildtools = "3.0.2"
 leakcanary = "1.6.2"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
+runtime = "1.7.0"
+runtimeRxjava2 = "1.7.0"
 rxandroid = "2.1.1"
 rxjava = "2.2.21"
 picasso = "2.71828"
 dagger = "2.16"
 composeGradlePlugin = "2.0.0"
 kotlin = "2.0.20"
-activityCompose = "1.9.1"
-composeBom = "2024.08.00"
+activityCompose = "1.9.2"
+composeBom = "2024.09.00"
 coreKtxVersion = "1.13.1"
 junitJunit = "4.13.2"
 androidxJunit = "1.2.1"
 espressoCoreVersion = "3.6.1"
-lifecycleRuntimeKtxVersion = "2.8.4"
+lifecycleRuntimeKtxVersion = "2.8.5"
 coil = "2.7.0"
-navigationCompose = "2.7.7"
-navigationCommonKtx = "2.7.7"
-navigationRuntimeKtx = "2.7.7"
-lifecycleViewmodelAndroid = "2.8.4"
-lifecycleLivedataCoreKtx = "2.8.4"
-runtimeLivedata = "1.6.8"
+navigationCompose = "2.8.0"
+navigationCommonKtx = "2.8.0"
+navigationRuntimeKtx = "2.8.0"
+lifecycleViewmodelAndroid = "2.8.5"
+lifecycleLivedataCoreKtx = "2.8.5"
+runtimeLivedata = "1.7.0"
 butterknife = "10.0.0"
-uiTextGoogleFonts = "1.6.8"
+uiTextGoogleFonts = "1.7.0"
+navigationRuntime = "2.8.0"
+navigationCommon = "2.8.0"
 
 [libraries]
+adapter-rxjava2-v230 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "adapterRxjava2" }
 androidx-compose-bom-v20240401 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
 androidx-core = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-core" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 androidx-palette = { group = "androidx.palette", name = "palette", version.ref = "androidx-palette" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "runtime" }
+androidx-runtime-rxjava2 = { module = "androidx.compose.runtime:runtime-rxjava2", version.ref = "runtimeRxjava2" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -88,6 +96,8 @@ ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 jakewharton-butterknife = { group = "com.jakewharton", name = "butterknife", version.ref = "butterknife" }
 jakewharton-butterknife-compiler = { group = "com.jakewharton", name = "butterknife-compiler", version.ref = "butterknife" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
+androidx-navigation-common = { group = "androidx.navigation", name = "navigation-common", version.ref = "navigationCommon" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

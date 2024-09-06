@@ -21,7 +21,7 @@ public class LibraryUtils {
 
     public static Snackbar showSnackBar(Context context, View view, String message) {
         Snackbar snackbar = Snackbar.make(view, Constants.EMPTY_STRING, Snackbar.LENGTH_LONG);
-        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        @SuppressLint("RestrictedApi") Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
         @SuppressLint("InflateParams") View snackView = LayoutInflater.from(context).inflate(
                 R.layout.material_snackbar, null);
         snackView.setBackgroundColor(ContextCompat.getColor(context, R.color.actionColor));

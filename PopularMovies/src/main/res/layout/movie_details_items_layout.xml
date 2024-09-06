@@ -136,7 +136,8 @@
             android:layout_height="wrap_content"
             android:text="@string/movie_details_trailer_placeholder"
             android:textSize="@dimen/text_medium"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_video_recycler_view"
@@ -158,7 +159,8 @@
             android:text="@string/details_empty_video_message"
             android:textAlignment="center"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/details_empty_video" />
+            app:layout_constraintBottom_toTopOf="@+id/details_empty_video"
+            tools:ignore="MissingConstraints" />
 
         <com.mchapagai.movies.views.MaterialImageView
             android:id="@+id/details_empty_video"
@@ -201,7 +203,8 @@
             android:layout_height="wrap_content"
             android:text="@string/reviews_header"
             android:textSize="@dimen/text_medium"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviews_recycler_view"

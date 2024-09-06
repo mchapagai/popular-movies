@@ -1,11 +1,11 @@
 package com.mchapagai.movies.view_model.impl;
 
+import com.mchapagai.core.utils.RxUtils;
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.model.account.AccountDetails;
 import com.mchapagai.movies.model.account.AuthSession;
 import com.mchapagai.movies.model.account.AuthToken;
 import com.mchapagai.movies.model.account.CombinedAuthResponse;
-import com.mchapagai.movies.utils.RxUtils;
 import com.mchapagai.movies.view_model.LoginViewModel;
 
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ public class LoginViewModelImpl implements LoginViewModel {
 
     @Override
     public Single<AccountDetails> getAccountDetails(String sessionId) {
-        return loginAPI.getAccountDetails(sessionId).compose(RxUtils.applySingleSchedulers());
+        return loginAPI.getAccountDetails(sessionId).compose(RxUtils.INSTANCE.applySingleSchedulers());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LoginViewModelImpl implements LoginViewModel {
                 }).doOnError(throwable -> Observable.just(throwable))
                 .flatMap(combinedAuthResponse -> loginAPI.getAccountDetails(
                         combinedAuthResponse.getSessionId()))
-                .compose(RxUtils.applySingleSchedulers());
+                .compose(RxUtils.INSTANCE.applySingleSchedulers());
     }
 
 }

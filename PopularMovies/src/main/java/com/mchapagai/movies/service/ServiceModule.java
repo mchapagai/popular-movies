@@ -1,5 +1,7 @@
 package com.mchapagai.movies.service;
 
+import com.mchapagai.core.common.RetrofitClient;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -8,17 +10,17 @@ public class ServiceModule {
 
     @Provides
     MovieService provideMovieService() {
-        return ServiceFactory.createService(MovieService.class);
+        return RetrofitClient.INSTANCE.createService(MovieService.class);
     }
 
     @Provides
     LoginService provideLoginService() {
-        return ServiceFactory.createService(LoginService.class);
+        return RetrofitClient.INSTANCE.createService(LoginService.class);
     }
 
     @Provides
     ShowsService provideTvService() {
-        return ServiceFactory.createService(ShowsService.class);
+        return RetrofitClient.INSTANCE.createService(ShowsService.class);
     }
 
 }
