@@ -1,5 +1,6 @@
 package com.mchapagai.compose.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,16 +13,20 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mchapagai.compose.R
+import com.mchapagai.core.response.movies.MovieResponse
 
 @Composable
-fun GridItem(image: String?) {
+fun GridItem(movie: MovieResponse, onMovieClick: (Int) -> Unit) {
     Box(
-        Modifier
+        modifier = Modifier
             .padding(2.dp)
+            .clickable {
+                onMovieClick(movie.id)
+            }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(image)
+                .data(movie.getFullPosterPath())
                 .crossfade(true)
                 .build(),
             contentDescription = null,

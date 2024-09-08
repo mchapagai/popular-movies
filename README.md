@@ -1,5 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/503587bf2c5a411e898655382e894589)](https://app.codacy.com/app/mchapagai/popular-movies?utm_source=github.com&utm_medium=referral&utm_content=mchapagai/popular-movies&utm_campaign=Badge_Grade_Settings)
-![Build Status](https://travis-ci.org/mchapagai/popular-movies.svg?branch=master)
+
+[![Android CI](https://github.com/mchapagai/popular-movies/actions/workflows/android.yml/badge.svg)](https://github.com/mchapagai/popular-movies/actions/workflows/android.yml)
 
 An app to allow users to discover the most popular movies playing.
 
@@ -32,16 +33,3 @@ Signup link: https://www.themoviedb.org/
 
 #### Credits
 - Icons are downloaded from [ICONFINDER](https://www.iconfinder.com/). [Creative Commons License](https://creativecommons.org/licenses/by/3.0/legalcode)
-
-### Screenshots
-
-<p align="center">
-    <img src=".github/landing-page.png" width="500"/>&nbsp;
-    <img src=".github/grid-view.png" width="500"/>&nbsp;
-    <img src=".github/movie-details.png" width="500"/>&nbsp;
-    <img src=".github/movie-details-2.png" width="500"/>&nbsp;
-    <img src=".github/person-details.png" width="250"/>&nbsp;
-    <img src=".github/about.png" width="250"/>&nbsp;
-    <img src=".github/about-2.png" width="250"/>&nbsp;
-    <img src=".github/movies.gif" width="500"/>
-</p>

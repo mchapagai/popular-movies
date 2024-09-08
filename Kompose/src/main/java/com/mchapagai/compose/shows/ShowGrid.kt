@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mchapagai.compose.components.GridItem
+import com.mchapagai.compose.components.ShowGridItem
 import com.mchapagai.core.viewModel.ShowViewModel
 
 @Composable
@@ -28,7 +28,7 @@ fun ShowGrid(viewModel: ShowViewModel = viewModel()) {
         state = listState
     ) {
         items(shows) { show ->
-            GridItem(show.getFullPosterPath())
+            ShowGridItem(show.getFullPosterPath())
         }
     }
 

@@ -43,9 +43,11 @@ import com.mchapagai.compose.movies.MovieGrid
 import com.mchapagai.compose.shows.ShowGrid
 import com.mchapagai.compose.utils.MediaType
 
+
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMovieClick: (Int) -> Unit
 ) {
     var selectedMediaType by remember { mutableStateOf(MediaType.MOVIE) }
 
@@ -61,7 +63,7 @@ fun HomeScreen(
         )
         // Conditionally render screes
         if (selectedMediaType == MediaType.MOVIE) {
-            MovieGrid()
+            MovieGrid(onMovieClick = onMovieClick)
         } else {
             ShowGrid()
         }

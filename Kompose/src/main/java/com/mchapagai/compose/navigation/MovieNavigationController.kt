@@ -1,13 +1,12 @@
 package com.mchapagai.compose.navigation
 
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mchapagai.compose.movies.MovieDetailsScreen
 import com.mchapagai.compose.navigation.Routes.MOVIE_ID_ARG
 import com.mchapagai.compose.screen.HomeScreen
 
@@ -25,43 +24,29 @@ import com.mchapagai.compose.screen.HomeScreen
 //Call the Navigation composable at the top level of your UI hierarchy.
 //In MovieScreen, call onMovieClick with the appropriate movie ID when a movie item is clicked. This setup provides a reusable and type-safe way to navigate between your screens using Compose Navigation.
 @Composable
-fun Navigation() {
+fun MovieNavigationController() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Routes.MOVIE_SCREEN) {
         composable(Routes.MOVIE_SCREEN) {
-            HomeScreen()
+            HomeScreen(
+                onMovieClick = { movieId ->
+                    navController.navigate("${Routes.MOVIE_DETAILS_SCREEN}/$movieId")
+                }
+            )
         }
-//        composable(Routes.MOVIE_SCREEN) {
-//            MovieScreen(onMovieClick = { movieId ->
-//                navController.navigate("${Routes.MOVIE_DETAILS_SCREEN}/$movieId")
-//            })
-//        }
         composable(
             route = "${Routes.MOVIE_DETAILS_SCREEN}/{$MOVIE_ID_ARG}",
             arguments = listOf(navArgument(MOVIE_ID_ARG) { type = NavType.IntType })
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getInt(MOVIE_ID_ARG) ?: 0
-            MovieDetailsScreen(movieId)
+            MovieDetailsScreen(movieId, onPressBack = {
+                navController.popBackStack()
+            })
         }
         composable(Routes.SHOWS_SCREEN) { ShowsScreen() }
         composable(Routes.PEOPLE_SCREEN) { PeopleScreen() }
         composable(Routes.ABOUT_SCREEN) { AboutScreen() }
     }
-}
-
-// Example usage of MovieScreen
-@Composable
-fun MovieScreen(onMovieClick: (Int) -> Unit) {
-    // ... your MovieScreen content
-    Button(onClick = { onMovieClick(123) }) { // Example movie ID
-        Text("Go to Movie Details")
-    }
-}
-
-// Example usage of MovieDetailsScreen
-@Composable
-fun MovieDetailsScreen(movieId: Int) {
-    // ... your MovieDetailsScreen content, using movieId
 }
 
 // Other screens (ShowsScreen, PeopleScreen, AboutScreen) remain the same

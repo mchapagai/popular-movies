@@ -2,37 +2,13 @@ package com.mchapagai.movies.utils;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.mchapagai.core.response.movies.MovieResponse;
-import com.mchapagai.movies.common.Constants;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MovieUtils {
-
-    /**
-     * Helper methods to build Movie poster path using Poster Endpoint
-     */
-
-    private static final Uri MOVIE_POSTER_URI = Uri.parse(Constants.SECURE_IMAGE_ENDPOINT)
-            .buildUpon()
-            .build();
-
-    private static Uri getPosterUriFromPath(String path) {
-        return MOVIE_POSTER_URI
-                .buildUpon()
-                .appendEncodedPath(path)
-                .build();
-    }
-
-    public static Uri getMovieBackdropPathUri(MovieResponse movies) {
-        return getPosterUriFromPath(movies.getBackdropPath());
-    }
-
     /**
      * Method to calculate the width of the given image view
      *

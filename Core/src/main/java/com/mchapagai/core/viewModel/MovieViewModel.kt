@@ -1,12 +1,17 @@
 package com.mchapagai.core.viewModel
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mchapagai.core.api.MovieAPI
 import com.mchapagai.core.api.MoviesAPIImpl
 import com.mchapagai.core.common.RetrofitClient
+import com.mchapagai.core.response.movies.MovieDetailsResponse
 import com.mchapagai.core.response.movies.MovieResponse
 import com.mchapagai.core.service.MovieService
 import io.reactivex.disposables.CompositeDisposable
@@ -18,9 +23,21 @@ class MovieViewModel : ViewModel() {
         RetrofitClient.createService(MovieService::class.java)
     )
 
-    private val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable: CompositeDisposable by lazy {
+        CompositeDisposable()
+    }
     private val _movies = mutableStateListOf<MovieResponse>()
     val movies: List<MovieResponse> get() = _movies
+
+    private val _movieDetails = mutableStateOf<MovieDetailsResponse?>(null)
+    val movieDetails: MutableState<MovieDetailsResponse?> get() = _movieDetails
+
+//    private val _isLoading = MutableLiveData<Boolean>()
+//    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _error = MutableLiveData<Throwable>()
+    val error: LiveData<Throwable> = _error
+
 
     private var currentPage = 1
     private var isLoading = false
@@ -45,6 +62,22 @@ class MovieViewModel : ViewModel() {
                 }).let(compositeDisposable::add)
         }
 
+    }
+
+    fun fetchMovieDetails(movieId: Int) {
+//        _isLoading.value = true
+        compositeDisposable.add(
+            movieAPI.fetchMovieDetailsByMovieId(movieId)
+                .subscribe(
+                    { response ->
+                        _movieDetails.value = response
+//                        _isLoading.value = false
+                    },
+                    { error ->
+                        _error.value = error
+//                        _isLoading.value = false
+                    })
+        )
     }
 
     override fun onCleared() {

@@ -3,8 +3,8 @@ package com.mchapagai.movies.model.binding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
-import com.mchapagai.movies.model.Genres;
-import com.mchapagai.movies.model.ProductionCompanies;
+import com.mchapagai.core.response.movies.GenresResponse;
+import com.mchapagai.core.response.movies.ProductionCompaniesResponse;
 import com.mchapagai.movies.model.LastEpisodeToAir;
 import com.mchapagai.movies.model.NextEpisodeToAir;
 import com.mchapagai.movies.model.ShowsCreatedBy;
@@ -33,7 +33,7 @@ public class ShowsDetailsResponse implements Parcelable {
 	private String backdropPath;
 
 	@SerializedName("genres")
-	private List<Genres> genres;
+	private List<GenresResponse> genres;
 
 	@SerializedName("popularity")
 	private double popularity;
@@ -72,7 +72,7 @@ public class ShowsDetailsResponse implements Parcelable {
 	private List<String> originCountry;
 
 	@SerializedName("production_companies")
-	private List<ProductionCompanies> productionCompanies;
+	private List<ProductionCompaniesResponse> productionCompanies;
 
 	@SerializedName("original_name")
 	private String originalName;
@@ -189,7 +189,7 @@ public class ShowsDetailsResponse implements Parcelable {
 		return backdropPath;
 	}
 
-	public List<Genres> getGenres() {
+	public List<GenresResponse> getGenres() {
 		return genres;
 	}
 
@@ -241,7 +241,7 @@ public class ShowsDetailsResponse implements Parcelable {
 		return originCountry;
 	}
 
-	public List<ProductionCompanies> getProductionCompanies() {
+	public List<ProductionCompaniesResponse> getProductionCompanies() {
 		return productionCompanies;
 	}
 

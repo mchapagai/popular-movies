@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.movies.GenresResponse;
 import com.mchapagai.movies.views.MaterialTagView;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.model.Genres;
 
 import java.util.List;
 
 public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewHolder> {
 
-    private List<Genres> genreItems;
+    private List<GenresResponse> genreItems;
 
-    public GenresAdapter(List<Genres> genreItems) {
+    public GenresAdapter(List<GenresResponse> genreItems) {
         this.genreItems = genreItems;
     }
 
@@ -31,7 +31,7 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenreViewH
 
     @Override
     public void onBindViewHolder(@NonNull GenreViewHolder holder, int position) {
-        final Genres movies = genreItems.get(position);
+        final GenresResponse movies = genreItems.get(position);
         holder.genreTextView.setUseRandomColor(true);
         holder.genreTextView.setTagText(movies.getName());
     }

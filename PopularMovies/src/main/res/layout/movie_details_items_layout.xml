@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <TextView
         android:id="@+id/movie_tagline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/original_title"
         app:layout_constraintTop_toBottomOf="@+id/original_title" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <TextView
         android:id="@+id/release_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,16 +45,16 @@
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:drawablePadding="@dimen/margin_8dp"
-        android:drawableStart="@drawable/icon_calendar"
         android:gravity="center_vertical"
         android:text="@string/date_placeholder"
         android:textColor="?attr/darkTextSecondaryColor"
         android:textStyle="italic"
+        app:drawableStartCompat="@drawable/icon_calendar"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <TextView
         android:id="@+id/ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,16 +62,16 @@
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin_0dp"
         android:drawablePadding="@dimen/margin_8dp"
-        android:drawableStart="@drawable/icon_ratings_star"
         android:gravity="center_vertical"
         android:text="@string/rating_placeholder"
         android:textColor="?attr/darkTextSecondaryColor"
         android:textStyle="italic"
+        app:drawableStartCompat="@drawable/icon_ratings_star"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/release_date"
         app:layout_constraintTop_toTopOf="@+id/release_date" />
 
-    <com.mchapagai.movies.views.MaterialTextView
+    <TextView
         android:id="@+id/details_over_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
             tools:layout_height="@dimen/margin_126dp"
             tools:listitem="@layout/movie_details_video_items" />
 
-        <com.mchapagai.movies.views.MaterialTextView
+        <TextView
             android:id="@+id/videos_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,12 +162,13 @@
             app:layout_constraintBottom_toTopOf="@+id/details_empty_video"
             tools:ignore="MissingConstraints" />
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <ImageView
             android:id="@+id/details_empty_video"
             android:layout_width="@dimen/margin_96dp"
             android:layout_height="@dimen/margin_96dp"
             android:layout_marginTop="@dimen/margin_16dp"
             android:alpha="0.3"
+            android:contentDescription="@null"
             android:src="@drawable/icon_sad_face"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/videos_error_text"
@@ -234,7 +235,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviews_layout" />
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/tmdb_logo"
         android:layout_width="0dp"
         android:layout_height="@dimen/margin_32dp"
@@ -246,8 +247,8 @@
         android:alpha="0.4"
         android:importantForAccessibility="no"
         android:src="@drawable/icon_tmdb_logo"
-        android:tint="?attr/darkLinkColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tmdb_attribution" />
+        app:layout_constraintTop_toBottomOf="@+id/tmdb_attribution"
+        app:tint="?attr/darkLinkColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

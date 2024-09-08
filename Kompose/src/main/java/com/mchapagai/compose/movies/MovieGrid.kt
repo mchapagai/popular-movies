@@ -17,7 +17,10 @@ import com.mchapagai.compose.components.GridItem
 import com.mchapagai.core.viewModel.MovieViewModel
 
 @Composable
-fun MovieGrid(viewModel: MovieViewModel = viewModel()) {
+fun MovieGrid(
+    viewModel: MovieViewModel = viewModel(),
+    onMovieClick: (Int) -> Unit
+) {
     val listState = rememberLazyGridState()
     val movies by remember { derivedStateOf { viewModel.movies } }
 
@@ -28,7 +31,10 @@ fun MovieGrid(viewModel: MovieViewModel = viewModel()) {
         state = listState
     ) {
         items(movies) { movie ->
-            GridItem(movie.getFullPosterPath())
+            GridItem(
+                movie = movie,
+                onMovieClick = onMovieClick
+            )
         }
     }
 

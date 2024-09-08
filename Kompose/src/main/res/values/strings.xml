@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">K-Movies</string>
+    <string name="details_rating_votes_count" translatable="false">%s/10 (%s)</string>
 </resources>

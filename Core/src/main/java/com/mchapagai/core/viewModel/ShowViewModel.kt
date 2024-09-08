@@ -33,13 +33,10 @@ class ShowViewModel : ViewModel() {
         isLoading = true
         showAPI.discoverShows(currentPage, "popularity.desc")
             .subscribe({ response ->
-                Log.d("MovieViewModel", "Response received: $response")
-                Log.d("MovieViewModel", "Response received: ${response.shows[0].getFullPosterPath()}")
                 _shows.addAll(response.shows)
                 currentPage++
                 isLoading = false
             }, { error ->
-                Log.d("MovieViewModel", "Response received: $error")
                 isLoading = false
             }).let(compositeDisposable::add)
     }

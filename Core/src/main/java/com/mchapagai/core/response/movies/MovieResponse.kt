@@ -9,9 +9,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class MovieResponse(
     @SerializedName("adult") var adult: Boolean? = null,
-    @SerializedName("backdrop_path") var backdropPath: String? = null,
+    @SerializedName("backdrop_path") var backdropPath: String = "",
     @SerializedName("genre_ids") var genreIds: ArrayList<Int> = arrayListOf(),
-    @SerializedName("id") var id: Int? = null,
+    @SerializedName("id") var id: Int = 0,
     @SerializedName("original_language") var originalLanguage: String? = null,
     @SerializedName("original_title") var originalTitle: String? = null,
     @SerializedName("overview") var overview: String? = null,
@@ -25,6 +25,10 @@ data class MovieResponse(
 ) : Parcelable {
     fun getFullPosterPath() =
         if (posterPath.isBlank()) null else Constants.SECURE_IMAGE_ENDPOINT.plus(posterPath)
+
+    fun getFullBackdropPath(): String {
+        return Constants.SECURE_IMAGE_ENDPOINT.plus(backdropPath)
+    }
 
     fun getFormattedReleaseDate(): String {
         return DateTimeUtils.getNameOfMonth(releaseDate)
