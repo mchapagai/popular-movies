@@ -1,5 +1,8 @@
 package com.mchapagai.core.service
 
+import com.mchapagai.core.response.common.ReviewListResponse
+import com.mchapagai.core.response.common.VideoListResponse
+import com.mchapagai.core.response.movies.MovieCreditResponse
 import com.mchapagai.core.response.movies.MovieDetailsResponse
 import com.mchapagai.core.response.movies.MovieListResponse
 import io.reactivex.Flowable
@@ -21,4 +24,19 @@ interface MovieService {
     fun fetchMovieDetailsByMovieId(
         @Path("movieId") movieId: Int
     ): Observable<MovieDetailsResponse>
+
+    @GET("movie/{movieId}/credits")
+    fun getMovieCreditDetailsByCreditId(
+        @Path("movieId") movieId: Int
+    ): Observable<MovieCreditResponse>
+
+    @GET("movie/{movieId}/videos")
+    fun getMovieVideosById(
+        @Path("movieId") movieId: Int
+    ): Observable<VideoListResponse>
+
+    @GET("movie/{movieId}/reviews")
+    fun getMovieReviewsById(
+        @Path("movieId") movieId: Int
+    ): Observable<ReviewListResponse>
 }

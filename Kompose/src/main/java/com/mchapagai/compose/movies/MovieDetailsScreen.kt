@@ -27,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -58,20 +59,30 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.mchapagai.compose.R
+import com.mchapagai.core.model.MovieCombinedCreditModel
+import com.mchapagai.core.response.common.ReviewResponse
+import com.mchapagai.core.response.common.VideoResponse
 import com.mchapagai.core.response.movies.MovieDetailsResponse
 import com.mchapagai.core.viewModel.MovieViewModel
 import java.util.Locale
 
 @Composable
 fun MovieDetailsScreen(
-    movieId: Int, viewModel: MovieViewModel = viewModel(),
+    movieId: Int,
+    viewModel: MovieViewModel = viewModel(),
     onPressBack: () -> Unit
 ) {
 
     val movies by remember { derivedStateOf { viewModel.movieDetails } }
+    val creditDetails by remember { derivedStateOf { viewModel.combinedCredits } }
+    val videos by remember { derivedStateOf { viewModel.videoList } }
+    val reviews by remember { derivedStateOf { viewModel.reviewList } }
 
     LaunchedEffect(key1 = movieId) {
         viewModel.fetchMovieDetails(movieId = movieId)
+        viewModel.fetchMovieCreditDetailsByCreditId(movieId = movieId)
+        viewModel.fetchMovieVideos(movieId = movieId)
+        viewModel.fetchMovieReviews(movieId = movieId)
     }
 
     val scrollState = rememberScrollState()
@@ -105,6 +116,9 @@ fun MovieDetailsScreen(
                     }
                 },
                 movie = it,
+                creditDetails,
+                videos = videos?.videoList ?: emptyList(),
+                reviews = reviews?.reviewList ?: emptyList(),
                 contentAlpha = { contentAlpha.value }
             )
         }
@@ -209,10 +223,14 @@ private fun DetailsContent(
     scrollState: ScrollState,
     onNamePosition: (Float) -> Unit,
     movie: MovieDetailsResponse,
+    creditModel: List<MovieCombinedCreditModel>,
+    videos: List<VideoResponse>,
+    reviews: List<ReviewResponse>,
     contentAlpha: () -> Float,
 ) {
     Column(
-        modifier = Modifier.verticalScroll(scrollState)
+        modifier = Modifier
+            .verticalScroll(scrollState)
             .padding(start = 16.dp, end = 16.dp)
     ) {
         Box(
@@ -267,31 +285,16 @@ private fun DetailsContent(
             text = movie.overview,
             style = MaterialTheme.typography.bodyMedium
         )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = movie.overview,
-            fontSize = 18.sp,
-        )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = movie.overview,
-            fontSize = 18.sp,
-        )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = movie.overview,
-            fontSize = 18.sp,
-        )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = movie.overview,
-            fontSize = 18.sp,
-        )
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = movie.overview,
-            fontSize = 18.sp,
-        )
+        GenreView(movie.genres)
+        HorizontalDivider(thickness = 2.dp)
+        Spacer(modifier = Modifier.height(16.dp))
+        CreditsView(credits = creditModel, onClick = {})
+        HorizontalDivider(thickness = 2.dp)
+        Spacer(modifier = Modifier.height(16.dp))
+        TrailerView(videos = videos)
+        HorizontalDivider(thickness = 2.dp)
+        Spacer(modifier = Modifier.height(16.dp))
+        ReviewScreen(review = reviews)
     }
 }
 

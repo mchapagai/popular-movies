@@ -1,8 +1,8 @@
 package com.mchapagai.movies.api.impl;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
 import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.model.binding.OnTheAirResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.movies.service.ShowsService;
 
@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 
 public class ShowsAPIImpl implements ShowsAPI {
 
-    private Provider<ShowsService> showsService;
+    private final Provider<ShowsService> showsService;
 
     public ShowsAPIImpl(Provider<ShowsService> service) {
         this.showsService = service;
@@ -29,7 +29,7 @@ public class ShowsAPIImpl implements ShowsAPI {
     }
 
     @Override
-    public Observable<ReviewsResponse> getReviewsById(final int movieId) {
+    public Observable<ReviewListResponse> getReviewsById(final int movieId) {
         return showsService.get().getReviewsById(movieId);
     }
 }

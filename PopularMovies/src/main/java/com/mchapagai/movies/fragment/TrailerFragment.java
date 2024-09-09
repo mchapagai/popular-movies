@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,15 +15,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.common.VideoResponse;
 import com.mchapagai.movies.views.ItemOffsetDecoration;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
-import com.mchapagai.movies.model.Videos;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 
 import java.util.ArrayList;
@@ -30,28 +30,22 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class TrailerFragment extends BaseFragment {
 
-    @BindView(R.id._shows_details_empty_video)
-    MaterialImageView showsDetailsEmptyVideo;
+    ImageView showsDetailsEmptyVideo;
 
-    @BindView(R.id.show_videos_error_text)
     MaterialTextView showVideosErrorText;
 
-    @BindView(R.id.shows_video_recycler_view)
     RecyclerView showsVideoRecyclerView;
 
-    @BindView(R.id.shows_videos_title)
     TextView showsVideosTitle;
 
     private OnTheAir onTheAir;
     private VideosAdapter videosAdapter;
-    private List<Videos> videoItems = new ArrayList<>();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final List<VideoResponse> videoItems = new ArrayList<>();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     ShowsViewModel showsViewModel;
@@ -80,7 +74,10 @@ public class TrailerFragment extends BaseFragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_details_video_fragment_container, container,
                 false);
-        ButterKnife.bind(this, view);
+        showsDetailsEmptyVideo = view.findViewById(R.id._shows_details_empty_video);
+        showVideosErrorText = view.findViewById(R.id.show_videos_error_text);
+        showsVideoRecyclerView = view.findViewById(R.id.shows_video_recycler_view);
+        showsVideosTitle = view.findViewById(R.id.shows_videos_title);
 
         populateMovieTrailer();
         return view;
@@ -91,12 +88,12 @@ public class TrailerFragment extends BaseFragment {
         compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
                 .subscribe(
                         showsDetailsResponse -> {
-                            if (showsDetailsResponse.getVideos().getVideos().isEmpty()) {
+                            if (showsDetailsResponse.getVideos().getVideoList().isEmpty()) {
                                 showVideoError();
                             } else {
                                 hideVideoError();
                                 videosAdapter.setMovieVideos(
-                                        showsDetailsResponse.getVideos().getVideos());
+                                        showsDetailsResponse.getVideos().getVideoList());
                             }
                         }, throwable -> {
 
@@ -108,14 +105,14 @@ public class TrailerFragment extends BaseFragment {
     private void populateMovieTrailer() {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         showsVideoRecyclerView.addItemDecoration(
-                new ItemOffsetDecoration(getContext(), R.dimen.margin_4dp));
+                new ItemOffsetDecoration(requireContext(), R.dimen.margin_4dp));
         showsVideoRecyclerView.setLayoutManager(manager);
         showsVideoRecyclerView.setHasFixedSize(true);
         showsVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         videosAdapter = new VideosAdapter(getContext(), videoItems);
         videosAdapter.setOnItemClick((view, position) -> {
-            Videos video = videosAdapter.getItem(position);
+            VideoResponse video = videosAdapter.getItem(position);
             if (video != null && video.isYoutubeVideo()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));

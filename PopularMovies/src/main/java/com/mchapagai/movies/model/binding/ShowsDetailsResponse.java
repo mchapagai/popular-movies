@@ -3,7 +3,8 @@ package com.mchapagai.movies.model.binding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
-import com.mchapagai.core.response.movies.GenresResponse;
+import com.mchapagai.core.response.common.GenresResponse;
+import com.mchapagai.core.response.common.VideoListResponse;
 import com.mchapagai.core.response.movies.ProductionCompaniesResponse;
 import com.mchapagai.movies.model.LastEpisodeToAir;
 import com.mchapagai.movies.model.NextEpisodeToAir;
@@ -21,7 +22,7 @@ public class ShowsDetailsResponse implements Parcelable {
 	private int numberOfEpisodes;
 
 	@SerializedName("videos")
-	private VideoResponse videos;
+	private VideoListResponse videos;
 
 	@SerializedName("networks")
 	private List<ShowsNetwork> networks;
@@ -173,7 +174,7 @@ public class ShowsDetailsResponse implements Parcelable {
 		return numberOfEpisodes;
 	}
 
-	public VideoResponse getVideos() {
+	public VideoListResponse getVideos() {
 		return videos;
 	}
 

@@ -3,7 +3,7 @@
     android:layout_width="@dimen/movie_details_video_width"
     android:layout_height="@dimen/movie_details_video_height">
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/movie_video_thumbnail"
         android:layout_width="@dimen/movie_details_video_width"
         android:layout_height="@dimen/movie_details_video_height"
@@ -11,7 +11,7 @@
         android:importantForAccessibility="yes"
         android:scaleType="centerCrop" />
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/thumbnail_play_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

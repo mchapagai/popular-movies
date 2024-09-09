@@ -1,8 +1,8 @@
 package com.mchapagai.movies.view_model.impl;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
 import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.model.binding.OnTheAirResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
 import com.mchapagai.core.utils.RxUtils;
 import com.mchapagai.movies.view_model.ShowsViewModel;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 
 public class ShowsViewModelImpl implements ShowsViewModel {
 
-    private ShowsAPI showsAPI;
+    private final ShowsAPI showsAPI;
 
     @Inject
     public ShowsViewModelImpl(ShowsAPI showsAPI) {
@@ -31,7 +31,7 @@ public class ShowsViewModelImpl implements ShowsViewModel {
     }
 
     @Override
-    public Observable<ReviewsResponse> getReviewsById(final int movieId) {
+    public Observable<ReviewListResponse> getReviewsById(final int movieId) {
         return showsAPI.getReviewsById(movieId).compose(RxUtils.INSTANCE.applyObservableSchedulers());
     }
 

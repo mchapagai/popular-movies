@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
+import com.mchapagai.core.response.common.ReviewResponse;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.ReviewsAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
-import com.mchapagai.movies.model.Reviews;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -82,8 +82,8 @@ public class ReviewsFragment extends BaseFragment {
                 ));
     }
 
-    private void reviewsResponseItems(ReviewsResponse response) {
-        List<Reviews> reviewItems = response.getReviews();
+    private void reviewsResponseItems(ReviewListResponse response) {
+        List<ReviewResponse> reviewItems = response.getReviewList();
         if (reviewItems.isEmpty()) {
             reviewsRecyclerView.setVisibility(View.GONE);
             detailReviewHeader.setVisibility(View.GONE);

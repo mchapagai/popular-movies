@@ -2,8 +2,10 @@ package com.mchapagai.core.viewModel
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +13,9 @@ import androidx.lifecycle.viewModelScope
 import com.mchapagai.core.api.MovieAPI
 import com.mchapagai.core.api.MoviesAPIImpl
 import com.mchapagai.core.common.RetrofitClient
+import com.mchapagai.core.model.MovieCombinedCreditModel
+import com.mchapagai.core.response.common.ReviewListResponse
+import com.mchapagai.core.response.common.VideoListResponse
 import com.mchapagai.core.response.movies.MovieDetailsResponse
 import com.mchapagai.core.response.movies.MovieResponse
 import com.mchapagai.core.service.MovieService
@@ -32,8 +37,15 @@ class MovieViewModel : ViewModel() {
     private val _movieDetails = mutableStateOf<MovieDetailsResponse?>(null)
     val movieDetails: MutableState<MovieDetailsResponse?> get() = _movieDetails
 
-//    private val _isLoading = MutableLiveData<Boolean>()
-//    val isLoading: LiveData<Boolean> = _isLoading
+    var combinedCredits by mutableStateOf<List<MovieCombinedCreditModel>>(emptyList())
+        private set
+
+    var videoList by mutableStateOf<VideoListResponse?>(null)
+        private set
+    var reviewList by mutableStateOf<ReviewListResponse?>(null)
+        private set
+//    var isLoading by mutableStateOf(false)
+//        private set
 
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error
@@ -77,6 +89,67 @@ class MovieViewModel : ViewModel() {
                         _error.value = error
 //                        _isLoading.value = false
                     })
+        )
+    }
+
+    fun fetchMovieCreditDetailsByCreditId(movieId: Int) {
+        isLoading = true
+        compositeDisposable.add(
+            movieAPI.getMovieCreditDetailsByCreditId(movieId)
+                .map { response ->
+                    MovieCombinedCreditModel(
+                        0, "", "", ""
+                    ).combinedCreditsResponse(
+                        response.cast, response.crew
+                    )
+                }
+                .subscribe(
+                    { combinedCredit ->
+                        combinedCredits = combinedCredit
+                        isLoading = false
+                    },
+                    { error ->
+                        combinedCredits = emptyList()
+                        _error.value = error
+                    }
+                )
+        )
+    }
+
+    fun fetchMovieVideos(movieId: Int) {
+        isLoading = true
+        compositeDisposable.add(
+            movieAPI.getMovieVideosById(movieId)
+                .subscribe(
+                    { response ->
+                        videoList = response
+                        isLoading = false
+                    },
+                    { error ->
+                        // Handle error
+                        videoList = null
+                        isLoading = false
+                    }
+                )
+        )
+    }
+
+    fun fetchMovieReviews(movieId: Int) {
+        isLoading = true
+        compositeDisposable.add(
+            movieAPI.getMovieReviewsById(movieId)
+                .take(3)
+                .subscribe(
+                    { response ->
+                        reviewList = response
+                        isLoading = false
+                    },
+                    { error ->
+                        // Handle error
+                        reviewList = null
+                        isLoading = false
+                    }
+                )
         )
     }
 

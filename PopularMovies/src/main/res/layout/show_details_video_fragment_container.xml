@@ -40,12 +40,13 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/shows_video_recycler_view" />
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/_shows_details_empty_video"
         android:layout_width="@dimen/margin_96dp"
         android:layout_height="@dimen/margin_96dp"
         android:layout_marginTop="@dimen/margin_16dp"
         android:alpha="0.3"
+        android:contentDescription="@null"
         android:src="@drawable/icon_sad_face"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/show_videos_error_text"

@@ -1,12 +1,12 @@
 package com.mchapagai.movies.view_model;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
+import com.mchapagai.core.response.common.VideoListResponse;
+import com.mchapagai.core.response.movies.MovieCreditResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
 import com.mchapagai.core.response.movies.MovieListResponse;
-import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
-import com.mchapagai.movies.model.binding.VideoResponse;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -16,13 +16,13 @@ public interface MovieViewModel {
 
     Flowable<MovieListResponse> discoverMovies(int page, String sortBy);
 
-    Observable<VideoResponse> getMovieVideosbyId(int movieId);
+    Observable<VideoListResponse> getMovieVideosbyId(int movieId);
 
-    Observable<ReviewsResponse> getMovieReviewsById(int movieId);
+    Observable<ReviewListResponse> getMovieReviewsById(int movieId);
 
     Observable<MovieDetailsResponse> getMovieDetails(int movieId);
 
-    Observable<CreditResponse> getMovieCreditDetails(int movieId);
+    Observable<MovieCreditResponse> getMovieCreditDetails(int movieId);
 
     Single<PersonResponse> getPersonDetailsById(int personId);
 

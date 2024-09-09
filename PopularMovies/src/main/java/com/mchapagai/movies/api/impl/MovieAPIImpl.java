@@ -1,13 +1,13 @@
 package com.mchapagai.movies.api.impl;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
+import com.mchapagai.core.response.common.VideoListResponse;
+import com.mchapagai.core.response.movies.MovieCreditResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
 import com.mchapagai.core.response.movies.MovieListResponse;
 import com.mchapagai.movies.api.MovieAPI;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
-import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.service.MovieService;
 
 import javax.inject.Provider;
@@ -18,7 +18,7 @@ import io.reactivex.Single;
 
 public class MovieAPIImpl implements MovieAPI {
 
-    private Provider<MovieService> movieService;
+    private final Provider<MovieService> movieService;
 
     public MovieAPIImpl(Provider<MovieService> service) {
         this.movieService = service;
@@ -30,12 +30,12 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Observable<VideoResponse> getMovieVideosbyId(int movieId) {
-        return movieService.get().getMovieVideosbyId(movieId);
+    public Observable<VideoListResponse> getMovieVideosbyId(int movieId) {
+        return movieService.get().getMovieVideosById(movieId);
     }
 
     @Override
-    public Observable<ReviewsResponse> getMovieReviewsById(int movieId) {
+    public Observable<ReviewListResponse> getMovieReviewsById(int movieId) {
         return movieService.get().getMovieReviewsById(movieId);
     }
 
@@ -45,8 +45,8 @@ public class MovieAPIImpl implements MovieAPI {
     }
 
     @Override
-    public Observable<CreditResponse> getMovieCreditDetails(int movieId) {
-        return movieService.get().getMovieCreditDetails(movieId);
+    public Observable<MovieCreditResponse> getMovieCreditDetails(int movieId) {
+        return movieService.get().getMovieCreditDetailsByCreditId(movieId);
     }
 
     @Override

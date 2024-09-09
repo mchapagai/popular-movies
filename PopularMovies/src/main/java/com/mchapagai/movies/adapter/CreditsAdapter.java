@@ -8,9 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.model.MovieCombinedCreditModel;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
 import com.mchapagai.movies.views.MaterialCircleImageView;
 import com.squareup.picasso.Picasso;
 
@@ -18,10 +18,10 @@ import java.util.List;
 
 public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHolder> {
 
-    private List<CombinedCreditsResponse> combinedCreditsResponseList;
+    private List<MovieCombinedCreditModel> combinedCreditsResponseList;
     private OnPersonClickListener onItemClickListener;
 
-    public CreditsAdapter(List<CombinedCreditsResponse> combinedCreditsResponseList) {
+    public CreditsAdapter(List<MovieCombinedCreditModel> combinedCreditsResponseList) {
         this.combinedCreditsResponseList = combinedCreditsResponseList;
     }
 
@@ -39,7 +39,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final CombinedCreditsResponse combinedCreditsResponse = combinedCreditsResponseList.get(
+        final MovieCombinedCreditModel combinedCreditsResponse = combinedCreditsResponseList.get(
                 position);
 
         holder.textName.setText(combinedCreditsResponse.getName());
@@ -71,7 +71,7 @@ public class CreditsAdapter extends RecyclerView.Adapter<CreditsAdapter.ViewHold
     }
 
     public interface OnPersonClickListener {
-        void onItemClick(CombinedCreditsResponse combinedCreditsResponse);
+        void onItemClick(MovieCombinedCreditModel combinedCreditsResponse);
     }
 
 }

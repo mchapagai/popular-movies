@@ -1,7 +1,5 @@
 package com.mchapagai.compose.movies
 
-
-
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.ScrollState
 import androidx.compose.ui.unit.Density

@@ -19,12 +19,13 @@
         tools:text="@string/app_name"
         tools:ignore="MissingConstraints" />
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/review_icon"
         android:layout_width="@dimen/margin_24dp"
         android:layout_height="@dimen/margin_24dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
         android:src="@drawable/graphics_chevron_down"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -39,6 +40,7 @@
         android:ellipsize="end"
         android:maxLines="4"
         android:paddingStart="@dimen/margin_16dp"
+        android:paddingEnd="@dimen/margin_16dp"
         android:paddingBottom="@dimen/margin_16dp"
         app:animationDuration="750"
         app:layout_constraintTop_toBottomOf="@id/review_icon"

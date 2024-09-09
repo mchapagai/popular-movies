@@ -4,27 +4,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.common.ReviewResponse;
 import com.mchapagai.movies.R;
-import com.mchapagai.movies.model.Reviews;
 import com.mchapagai.movies.views.ExpandableTextView;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsViewHolder> {
 
-    private List<Reviews> reviewItems;
+    private final List<ReviewResponse> reviewItems;
 
-    public ReviewsAdapter(List<Reviews> reviewItems) {
+    public ReviewsAdapter(List<ReviewResponse> reviewItems) {
         this.reviewItems = reviewItems;
     }
 
@@ -38,7 +35,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position) {
-        final Reviews reviews = reviewItems.get(position);
+        final ReviewResponse reviews = reviewItems.get(position);
 
         holder.reviewAuthor.setText(reviews.getAuthor());
         holder.reviewContent.setInterpolator(new OvershootInterpolator());
@@ -66,18 +63,17 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
 
     class ReviewsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.review_author_name)
         MaterialTextView reviewAuthor;
-        @BindView(R.id.review_content)
         ExpandableTextView reviewContent;
-        @BindView(R.id.review_icon)
-        MaterialImageView reviewIcon;
-        @BindView(R.id.review_constraint_layout)
+        ImageView reviewIcon;
         ConstraintLayout reviewsParentLayout;
 
         ReviewsViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            reviewAuthor = itemView.findViewById(R.id.review_author_name);
+            reviewContent = itemView.findViewById(R.id.review_content);
+            reviewIcon = itemView.findViewById(R.id.review_icon);
+            reviewsParentLayout = itemView.findViewById(R.id.review_constraint_layout);
         }
     }
 }

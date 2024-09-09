@@ -2,6 +2,7 @@ package com.mchapagai.core.response.movies
 
 import com.google.gson.annotations.SerializedName
 import com.mchapagai.core.common.Constants
+import com.mchapagai.core.response.common.GenresResponse
 import com.mchapagai.core.utils.DateTimeUtils
 
 data class MovieDetailsResponse(

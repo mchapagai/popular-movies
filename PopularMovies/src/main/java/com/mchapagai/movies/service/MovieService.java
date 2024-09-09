@@ -1,12 +1,12 @@
 package com.mchapagai.movies.service;
 
+import com.mchapagai.core.response.common.ReviewListResponse;
+import com.mchapagai.core.response.common.VideoListResponse;
+import com.mchapagai.core.response.movies.MovieCreditResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
 import com.mchapagai.core.response.movies.MovieListResponse;
 import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.CreditResponse;
 import com.mchapagai.movies.model.binding.PersonResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
-import com.mchapagai.movies.model.binding.VideoResponse;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -22,16 +22,16 @@ public interface MovieService {
                                                @Query("sort_by") String sortBy);
 
     @GET("movie/{id}/videos")
-    Observable<VideoResponse> getMovieVideosbyId(@Path("id") int movieId);
+    Observable<VideoListResponse> getMovieVideosById(@Path("id") int movieId);
 
     @GET("movie/{id}/reviews")
-    Observable<ReviewsResponse> getMovieReviewsById(@Path("id") int movieId);
+    Observable<ReviewListResponse> getMovieReviewsById(@Path("id") int movieId);
 
     @GET("movie/{id}")
     Observable<MovieDetailsResponse> getMovieDetails(@Path("id") int movieId);
 
     @GET("movie/{id}/credits")
-    Observable<CreditResponse> getMovieCreditDetails(@Path("id") int movieId);
+    Observable<MovieCreditResponse> getMovieCreditDetailsByCreditId(@Path("id") int movieId);
 
     @GET("person/{personId}")
     Single<PersonResponse> getPersonDetailsById(@Path("personId") int id);

@@ -23,9 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.mchapagai.core.response.movies.GenresResponse;
+import com.mchapagai.core.model.MovieCombinedCreditModel;
+import com.mchapagai.core.response.common.GenresResponse;
+import com.mchapagai.core.response.common.ReviewListResponse;
+import com.mchapagai.core.response.common.ReviewResponse;
+import com.mchapagai.core.response.common.VideoListResponse;
+import com.mchapagai.core.response.common.VideoResponse;
+import com.mchapagai.core.response.movies.MovieCastResponse;
+import com.mchapagai.core.response.movies.MovieCreditResponse;
+import com.mchapagai.core.response.movies.MovieCrewResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
-import com.mchapagai.core.response.movies.MovieResponse;
 import com.mchapagai.movies.utils.LibraryUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.views.ItemOffsetDecoration;
@@ -36,14 +43,6 @@ import com.mchapagai.movies.adapter.ReviewsAdapter;
 import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CastCredit;
-import com.mchapagai.movies.model.CrewCredits;
-import com.mchapagai.movies.model.Reviews;
-import com.mchapagai.movies.model.Videos;
-import com.mchapagai.movies.model.binding.CombinedCreditsResponse;
-import com.mchapagai.movies.model.binding.CreditResponse;
-import com.mchapagai.movies.model.binding.ReviewsResponse;
-import com.mchapagai.movies.model.binding.VideoResponse;
 import com.mchapagai.movies.view_model.MovieViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -81,12 +80,12 @@ public class MovieDetailsActivity extends BaseActivity {
     RecyclerView reviewsRecyclerView;
     FloatingActionButton favoriteActionButton;
 
-    private MovieResponse movies;
+    private int movieId;
     private VideosAdapter videosAdapter;
-    private final List<Videos> videoItems = new ArrayList<>();
+    private final List<VideoResponse> videoItems = new ArrayList<>();
     private List<GenresResponse> genreItems = new ArrayList<>();
-    private List<CastCredit> castCredits = new ArrayList<>();
-    private List<CrewCredits> crewCredits = new ArrayList<>();
+    private List<MovieCastResponse> castCredits = new ArrayList<>();
+    private List<MovieCrewResponse> crewCredits = new ArrayList<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -98,7 +97,7 @@ public class MovieDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details_activity_container);
 
-        movies = getIntent().getParcelableExtra(Constants.MOVIE_DETAILS);
+        movieId = getIntent().getIntExtra(Constants.MOVIE_DETAILS, -1);
 
         detailsBackdrop = findViewById(R.id.details_backdrop);
         movieDetailsToolbar = findViewById(R.id.movie_details_toolbar);
@@ -127,13 +126,14 @@ public class MovieDetailsActivity extends BaseActivity {
         getWindow().setEnterTransition(slide);
         postponeEnterTransition();
 
-        initViews();
+//        initViews();
         populateMovieTrailer();
         populateMovieReviews();
+        loadMoreMovies();
     }
 
     @TargetApi(VERSION_CODES.M)
-    private void initViews() {
+    private void initViews(MovieDetailsResponse movies) {
         // Fullscreen - hide the status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -192,7 +192,7 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void loadMoreMovies() {
-        compositeDisposable.add(movieViewModel.getMovieDetails(movies.getId())
+        compositeDisposable.add(movieViewModel.getMovieDetails(movieId)
                 .subscribe(this::movieDetailsResponseItems,
                         throwable -> MaterialDialogUtils.showDialog(this,
                                 getResources().getString(R.string.service_error_title),
@@ -203,6 +203,7 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void movieDetailsResponseItems(MovieDetailsResponse response) {
+        initViews(response);
         movieGenreRecyclerView.setItemAnimator(new DefaultItemAnimator());
         movieGenreRecyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -226,7 +227,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
         videosAdapter = new VideosAdapter(this, videoItems);
         videosAdapter.setOnItemClick((view, position) -> {
-            Videos video = videosAdapter.getItem(position);
+            VideoResponse video = videosAdapter.getItem(position);
             if (video != null && video.isYoutubeVideo()) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));
@@ -236,7 +237,7 @@ public class MovieDetailsActivity extends BaseActivity {
         movieVideoRecyclerView.setAdapter(videosAdapter);
     }
 
-    private void creditResponseItems(CreditResponse response) {
+    private void creditResponseItems(MovieCreditResponse response) {
         movieCreditsrecyclerView.setItemAnimator(new DefaultItemAnimator());
         movieCreditsrecyclerView
                 .setLayoutManager(
@@ -249,28 +250,30 @@ public class MovieDetailsActivity extends BaseActivity {
         adapter.setOnItemClickListener(combinedCreditsResponse -> {
             Intent intent = new Intent();
             intent.setClass(getApplicationContext(), CreditDetailsActivity.class);
-            intent.putExtra(Constants.PERSON_ID_INTENT, combinedCreditsResponse.getId());
+            intent.putExtra(Constants.PERSON_ID_INTENT, combinedCreditsResponse.getCreditId());
             startActivity(intent);
         });
     }
 
-    private ArrayList<CombinedCreditsResponse> combinedCreditsResponse() {
-        ArrayList<CombinedCreditsResponse> combinedCreditsResponseList = new ArrayList<>();
-        for (CastCredit castCredit : castCredits) {
-            CombinedCreditsResponse combinedCreditsResponse = new CombinedCreditsResponse();
-            combinedCreditsResponse.setName(castCredit.getName());
-            combinedCreditsResponse.setDescription(castCredit.getCharacter());
-            combinedCreditsResponse.setProfileImagePath(castCredit.getProfilePath());
-            combinedCreditsResponse.setId(castCredit.getId());
+    private ArrayList<MovieCombinedCreditModel> combinedCreditsResponse() {
+        ArrayList<MovieCombinedCreditModel> combinedCreditsResponseList = new ArrayList<>();
+        for (MovieCastResponse castCredit : castCredits) {
+            MovieCombinedCreditModel combinedCreditsResponse = new MovieCombinedCreditModel(
+                    castCredit.getId(),
+                    Objects.requireNonNull(castCredit.getName()),
+                    Objects.requireNonNull(castCredit.getCharacter()),
+                    castCredit.getProfilePath()
+            );
             combinedCreditsResponseList.add(combinedCreditsResponse);
         }
 
-        for (CrewCredits crewCredit : crewCredits) {
-            CombinedCreditsResponse combinedCreditsResponse = new CombinedCreditsResponse();
-            combinedCreditsResponse.setName(crewCredit.getName());
-            combinedCreditsResponse.setDescription(crewCredit.getJob());
-            combinedCreditsResponse.setProfileImagePath(crewCredit.getProfilePath());
-            combinedCreditsResponse.setId(crewCredit.getId());
+        for (MovieCrewResponse crewCredit : crewCredits) {
+            MovieCombinedCreditModel combinedCreditsResponse = new MovieCombinedCreditModel(
+                    crewCredit.getId(),
+                    Objects.requireNonNull(crewCredit.getName()),
+                    Objects.requireNonNull(crewCredit.getJob()),
+                    crewCredit.getProfilePath()
+            );
             combinedCreditsResponseList.add(combinedCreditsResponse);
         }
 
@@ -286,32 +289,32 @@ public class MovieDetailsActivity extends BaseActivity {
 
     private void loadMovieCredit() {
 
-        Observable<CreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(
-                movies.getId());
-        Observable<VideoResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(
-                movies.getId());
+        Observable<MovieCreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(
+                movieId);
+        Observable<VideoListResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(
+                movieId);
 
         compositeDisposable.add(
                 Observable.merge(movieCreditObservable, movieVideoObservable).subscribe(
                         response -> {
 
-                            if (response instanceof CreditResponse) {
-                                creditResponseItems((CreditResponse) response);
+                            if (response instanceof MovieCreditResponse) {
+                                creditResponseItems((MovieCreditResponse) response);
                             } else {
-                                VideoResponse videoResponse = (VideoResponse) response;
-                                if (videoResponse.getVideos().isEmpty()
-                                        || videoResponse.getVideos().size() == 0) {
+                                VideoListResponse videoResponse = (VideoListResponse) response;
+                                if (videoResponse.getVideoList().isEmpty()
+                                        || videoResponse.getVideoList().size() == 0) {
                                     showVideoError();
                                 } else {
                                     hideVideoError();
-                                    videosAdapter.setMovieVideos(videoResponse.getVideos());
+                                    videosAdapter.setMovieVideos(videoResponse.getVideoList());
                                 }
                             }
                         }));
     }
 
     private void loadMovieReviews() {
-        compositeDisposable.add(movieViewModel.getMovieReviewsById(movies.getId())
+        compositeDisposable.add(movieViewModel.getMovieReviewsById(movieId)
                 .subscribe(
                         response -> reviewsResponseItems(response),
                         throwable -> MaterialDialogUtils.showDialog(this,
@@ -321,8 +324,8 @@ public class MovieDetailsActivity extends BaseActivity {
                 ));
     }
 
-    private void reviewsResponseItems(ReviewsResponse response) {
-        List<Reviews> reviewItems = response.getReviews();
+    private void reviewsResponseItems(ReviewListResponse response) {
+        List<ReviewResponse> reviewItems = response.getReviewList();
         if (reviewItems.isEmpty()) {
             reviewsRecyclerView.setVisibility(View.GONE);
             reviewsDivider.setVisibility(View.GONE);

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.common.VideoResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.Videos;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.widget.OnItemClickListener;
 import com.mchapagai.movies.widget.RoundedTransformation;
@@ -19,17 +19,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewHolder> {
 
-    private final Context context;
-    private List<Videos> videoItems;
+    private List<VideoResponse> videoItems;
     private OnItemClickListener onItemClick;
 
-    public VideosAdapter(Context context, List<Videos> videoItems) {
-        this.context = context;
+    public VideosAdapter(Context context, List<VideoResponse> videoItems) {
         this.videoItems = videoItems;
     }
 
@@ -43,7 +38,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
     @Override
     public void onBindViewHolder(@NonNull final VideoViewHolder holder, int position) {
-        final Videos videos = videoItems.get(position);
+        final VideoResponse videos = videoItems.get(position);
 
         if (videos.isYoutubeVideo()) {
             Picasso.get()
@@ -65,14 +60,13 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
 
     public class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.movie_video_thumbnail)
-        MaterialImageView videoThumbnail;
-        @BindView(R.id.movie_video_thumbnail_title)
+        ImageView videoThumbnail;
         MaterialTextView videoThumbnailTitle;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            videoThumbnail = itemView.findViewById(R.id.movie_video_thumbnail);
+            videoThumbnailTitle = itemView.findViewById(R.id.movie_video_thumbnail_title);
             itemView.setOnClickListener(this);
         }
 
@@ -82,13 +76,13 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoViewH
         }
     }
 
-    public void setMovieVideos(List<Videos> items) {
+    public void setMovieVideos(List<VideoResponse> items) {
         videoItems.clear();
         videoItems = items;
         notifyDataSetChanged();
     }
 
-    public Videos getItem(int position) {
+    public VideoResponse getItem(int position) {
         if (videoItems == null || position < 0 || position > videoItems.size()) {
             return null;
         }

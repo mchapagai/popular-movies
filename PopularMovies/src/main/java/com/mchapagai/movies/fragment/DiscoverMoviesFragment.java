@@ -61,10 +61,10 @@ public class DiscoverMoviesFragment extends BaseFragment {
 
     private static final String TAG = DiscoverMoviesFragment.class.getSimpleName();
     private static final int COLUMN_COUNT = 2;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Sort sort = Sort.MOST_POPULAR;
     private MoviesGridAdapter moviesGridAdapter;
-    private PublishProcessor<Integer> pagination = PublishProcessor.create();
+    private final PublishProcessor<Integer> pagination = PublishProcessor.create();
     private SearchView searchView;
     private boolean isLoading = false;
     private boolean isMenuSortChanged = true;
@@ -147,7 +147,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
                             moviesGridAdapter.notifyDataChange(movieResponse.getMovies());
                         }
 
-                        moviesGridAdapter.setOnItemClickListener((movies, position) -> {
+                        moviesGridAdapter.setOnItemClickListener((movieId, position) -> {
                             Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
                             setSharedElementEnterTransition(
                                     new TransitionSet().addTransition(new ChangeBounds())
@@ -159,7 +159,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
                                     new TransitionSet().addTransition(new ChangeBounds())
                                             .addTransition(new ChangeImageTransform())
                                             .addTransition(new ChangeTransform()));
-                            intent.putExtra(Constants.MOVIE_DETAILS, movies);
+                            intent.putExtra(Constants.MOVIE_DETAILS, movieId);
                             startActivity(intent);
                         });
 

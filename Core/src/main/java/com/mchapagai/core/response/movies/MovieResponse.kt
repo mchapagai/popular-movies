@@ -1,12 +1,9 @@
 package com.mchapagai.core.response.movies
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.mchapagai.core.common.Constants
 import com.mchapagai.core.utils.DateTimeUtils
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class MovieResponse(
     @SerializedName("adult") var adult: Boolean? = null,
     @SerializedName("backdrop_path") var backdropPath: String = "",
@@ -22,7 +19,7 @@ data class MovieResponse(
     @SerializedName("video") var video: Boolean? = null,
     @SerializedName("vote_average") var voteAverage: Double? = null,
     @SerializedName("vote_count") var voteCount: Int? = null
-) : Parcelable {
+) {
     fun getFullPosterPath() =
         if (posterPath.isBlank()) null else Constants.SECURE_IMAGE_ENDPOINT.plus(posterPath)
 

@@ -99,7 +99,7 @@ public class MoviesGridAdapter extends
                 String.valueOf(R.string.movies_poster_transition));
 
         holder.poster.setOnClickListener(
-                v -> onItemClickListener.onClickItem(movies, holder.getAdapterPosition()));
+                v -> onItemClickListener.onClickItem(movies.getId(), holder.getAdapterPosition()));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class MoviesGridAdapter extends
     }
 
     public interface OnItemClickListener {
-        void onClickItem(MovieResponse movies, int position);
+        void onClickItem(int movidId, int position);
     }
 
 }
