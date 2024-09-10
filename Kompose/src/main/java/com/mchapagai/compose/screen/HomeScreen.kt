@@ -47,7 +47,8 @@ import com.mchapagai.compose.utils.MediaType
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onMovieClick: (Int) -> Unit
+    onMovieClick: (Int) -> Unit,
+    onClickSearch: () -> Unit
 ) {
     var selectedMediaType by remember { mutableStateOf(MediaType.MOVIE) }
 
@@ -59,7 +60,8 @@ fun HomeScreen(
             selectedMediaType = selectedMediaType,
             onMediaTypeSelected = { type ->
                 selectedMediaType = type
-            }
+            },
+            onClickSearch = onClickSearch
         )
         // Conditionally render screes
         if (selectedMediaType == MediaType.MOVIE) {
@@ -73,7 +75,8 @@ fun HomeScreen(
 @Composable
 fun HomeScreenTopBar(
     selectedMediaType: MediaType,
-    onMediaTypeSelected: (MediaType) -> Unit
+    onMediaTypeSelected: (MediaType) -> Unit,
+    onClickSearch: () -> Unit
 ) {
 
     Row(
@@ -147,7 +150,9 @@ fun HomeScreenTopBar(
         }
 
         IconButton(
-            onClick = { }
+            onClick = {
+                onClickSearch()
+            }
         ) {
             Icon(
                 Icons.Filled.Search,

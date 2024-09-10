@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mchapagai.compose.movies.MovieDetailsScreen
+import com.mchapagai.compose.movies.SearchScreen
 import com.mchapagai.compose.navigation.Routes.CREDIT_ID_ARGUMENT
 import com.mchapagai.compose.navigation.Routes.MOVIE_ID_ARGUMENT
 import com.mchapagai.compose.people.PersonDetailsScreen
@@ -33,6 +34,9 @@ fun MovieNavigationController() {
             HomeScreen(
                 onMovieClick = { movieId ->
                     navController.navigate("${Routes.MOVIE_DETAILS_SCREEN}/$movieId")
+                },
+                onClickSearch = {
+                    navController.navigate(Routes.SEARCH_SCREEN)
                 }
             )
         }
@@ -41,7 +45,6 @@ fun MovieNavigationController() {
             arguments = listOf(navArgument(MOVIE_ID_ARGUMENT) { type = NavType.IntType })
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getInt(MOVIE_ID_ARGUMENT) ?: 0
-//            val creditId = backStackEntry.arguments?.getInt(MOVIE_ID_ARGUMENT) ?: -1
             MovieDetailsScreen(
                 movieId,
                 onPressBack = {
@@ -60,6 +63,14 @@ fun MovieNavigationController() {
             PersonDetailsScreen(
                 creditId,
                 onClickToolbar = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Routes.SEARCH_SCREEN) {
+            SearchScreen(
+                onPressBack = {
                     navController.popBackStack()
                 }
             )

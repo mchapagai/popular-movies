@@ -44,8 +44,6 @@ class MovieViewModel : ViewModel() {
         private set
     var reviewList by mutableStateOf<ReviewListResponse?>(null)
         private set
-//    var isLoading by mutableStateOf(false)
-//        private set
 
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> = _error

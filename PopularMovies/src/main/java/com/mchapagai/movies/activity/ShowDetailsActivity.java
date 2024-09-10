@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -25,7 +26,6 @@ import com.mchapagai.movies.utils.DateTimeUtils;
 import com.mchapagai.movies.utils.LibraryUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.view_model.ShowsViewModel;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.widget.AppBarStateChangeListener;
 import com.squareup.picasso.Picasso;
@@ -40,8 +40,7 @@ public class ShowDetailsActivity extends BaseActivity {
 
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.show_details_backdrop)
-    MaterialImageView showDetailsBackdrop;
+    ImageView showDetailsBackdrop;
     @BindView(R.id.shows_appbar)
     AppBarLayout showsAppbar;
     @BindView(R.id.shows_collapsing_toolbar)
@@ -69,8 +68,11 @@ public class ShowDetailsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shows_details_activity_container);
+        showDetailsBackdrop = findViewById(R.id.show_details_backdrop);
+
         ButterKnife.bind(this);
         onTheAir = getIntent().getParcelableExtra(Constants.SHOWS_DETAILS);
+
 
         // Bottom slide animation
         Slide slide = new Slide(Gravity.BOTTOM);

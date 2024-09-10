@@ -11,10 +11,11 @@
         android:layout_marginTop="@dimen/margin_16dp"
         tools:context=".activity.LandingActivity">
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <ImageView
             android:id="@+id/landing_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@null"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.06"
@@ -37,7 +38,7 @@
             app:srcCompat="@drawable/icon_user"
             tools:ignore="MissingConstraints" />
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <ImageView
             android:id="@+id/landing_about_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,10 +127,11 @@
             app:layout_constraintHorizontal_bias="0.06"
             app:layout_constraintStart_toStartOf="parent">
 
-            <com.mchapagai.movies.views.MaterialImageView
+            <ImageView
                 android:id="@+id/landing_now_playing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@null"
                 app:layout_constraintBottom_toTopOf="@+id/now_playing_title"
                 app:layout_constraintEnd_toEndOf="@+id/now_playing_title"
                 app:layout_constraintStart_toStartOf="@+id/now_playing_title"
@@ -156,10 +158,11 @@
             app:layout_constraintHorizontal_bias="0.94"
             app:layout_constraintStart_toStartOf="parent">
 
-            <com.mchapagai.movies.views.MaterialImageView
+            <ImageView
                 android:id="@+id/landing_about_page_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@null"
                 app:layout_constraintBottom_toTopOf="@+id/landing_about_page_text"
                 app:layout_constraintEnd_toEndOf="@+id/landing_about_page_text"
                 app:layout_constraintStart_toStartOf="@+id/landing_about_page_text"

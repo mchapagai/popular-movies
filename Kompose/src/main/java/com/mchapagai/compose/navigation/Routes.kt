@@ -8,4 +8,5 @@ object Routes {
     const val ABOUT_SCREEN = "about_screen"
     const val MOVIE_ID_ARGUMENT = "movieId"
     const val CREDIT_ID_ARGUMENT = "creditId"
+    const val SEARCH_SCREEN = "search_screen"
 }

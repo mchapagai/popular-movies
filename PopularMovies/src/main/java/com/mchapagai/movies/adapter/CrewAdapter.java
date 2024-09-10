@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,15 +21,11 @@ import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.utils.AnimationUtils;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
@@ -121,20 +118,19 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.credit_profile_image)
-        MaterialImageView profileImage;
-        @BindView(R.id.credit_profile_title)
+        ImageView profileImage;
         MaterialTextView originalTitle;
-        @BindView(R.id.credit_profile_subtitle)
         MaterialTextView subtitle;
-        @BindView(R.id.credit_profile_caption)
         MaterialTextView caption;
-        @BindView(R.id.credit_details_layout)
         ConstraintLayout infoLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            profileImage = itemView.findViewById(R.id.credit_profile_image);
+            originalTitle = itemView.findViewById(R.id.credit_profile_title);
+            subtitle = itemView.findViewById(R.id.credit_profile_subtitle);
+            caption = itemView.findViewById(R.id.credit_profile_caption);
+            infoLayout = itemView.findViewById(R.id.credit_details_layout);
         }
     }
 }

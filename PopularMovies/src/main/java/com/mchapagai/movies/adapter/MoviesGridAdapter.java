@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mchapagai.core.response.movies.MovieResponse;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.widget.RoundedTransformation;
 import com.mchapagai.movies.R;
 import com.squareup.picasso.Picasso;
@@ -109,7 +109,7 @@ public class MoviesGridAdapter extends
 
     class MoviesViewHolder extends RecyclerView.ViewHolder {
 
-        MaterialImageView poster;
+        ImageView poster;
 
         MoviesViewHolder(View itemView) {
             super(itemView);

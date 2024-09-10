@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.mchapagai.movies.views.MaterialImageView
+    <ImageView
         android:id="@+id/movie_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

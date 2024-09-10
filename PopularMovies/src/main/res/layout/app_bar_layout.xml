@@ -27,7 +27,7 @@
             android:gravity="center"
             app:layout_collapseMode="parallax">
 
-            <com.mchapagai.movies.views.MaterialImageView
+            <ImageView
                 android:id="@+id/hero_template"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

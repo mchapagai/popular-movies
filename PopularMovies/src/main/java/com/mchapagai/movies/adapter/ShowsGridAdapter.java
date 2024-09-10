@@ -3,6 +3,7 @@ package com.mchapagai.movies.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,14 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
-import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.ViewHolder> {
 
@@ -64,12 +61,11 @@ public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_poster)
-        MaterialImageView poster;
+        ImageView poster;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            poster = itemView.findViewById(R.id.movie_poster);
         }
     }
 

@@ -12,11 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.mchapagai.movies.views.MaterialImageView
+        <ImageView
             android:id="@+id/credit_profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/graphics_gradient_background"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintBottom_toTopOf="@+id/credit_profile_info"
