@@ -14,9 +14,9 @@ import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.people.CrewCreditResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CombinedCrewCredits;
 import com.mchapagai.movies.utils.AnimationUtils;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils;
@@ -32,10 +32,10 @@ import butterknife.ButterKnife;
 
 public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
 
-    private List<CombinedCrewCredits> crewItems;
+    private List<CrewCreditResponse> crewItems;
     private static int thumbnailWidth;
 
-    public CrewAdapter(List<CombinedCrewCredits> crewItems, Context context) {
+    public CrewAdapter(List<CrewCreditResponse> crewItems, Context context) {
         this.crewItems = crewItems;
         int screenWidth = MovieUtils.calculateScreenWidth(context);
         int width = MovieUtils.convertDpToPixel(context, 32);
@@ -53,7 +53,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        final CombinedCrewCredits response = crewItems.get(position);
+        final CrewCreditResponse response = crewItems.get(position);
 
         ConstraintLayout.LayoutParams params =
                 (ConstraintLayout.LayoutParams) viewHolder.profileImage

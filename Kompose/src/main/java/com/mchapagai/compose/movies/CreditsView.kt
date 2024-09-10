@@ -17,12 +17,17 @@ import com.mchapagai.compose.components.CircleImageView
 import com.mchapagai.core.model.MovieCombinedCreditModel
 
 @Composable
-fun CreditsView(credits: List<MovieCombinedCreditModel>, onClick: () -> Unit) {
+fun CreditsView(
+    credits: List<MovieCombinedCreditModel>,
+    onClickCreditItem: (Int) -> Unit
+) {
     val scrollState = rememberScrollState()
     Row(modifier = Modifier.horizontalScroll(scrollState)) {
         if (credits.isNotEmpty()) {
             credits.forEach { credit ->
-                CreditItem(credit = credit, onClick = onClick)
+                CreditItem(credit = credit) { creditId ->
+                    onClickCreditItem(creditId)
+                }
             }
         }
 
@@ -30,13 +35,16 @@ fun CreditsView(credits: List<MovieCombinedCreditModel>, onClick: () -> Unit) {
 }
 
 @Composable
-fun CreditItem(credit: MovieCombinedCreditModel, onClick: () -> Unit) {
+fun CreditItem(
+    credit: MovieCombinedCreditModel,
+    onClickCreditItem: (Int) -> Unit
+) {
     Column {
         if (credit.profileImagePath != null) {
             CircleImageView(
                 image = "https://image.tmdb.org/t/p/w500/" + credit.profileImagePath,
                 modifier = Modifier.clickable {
-                    onClick()
+                    onClickCreditItem(credit.creditId)
                 }
             )
         } else {
@@ -78,5 +86,5 @@ fun CreditsViewPreview() {
         description = "Description",
         profileImagePath = "https://image.tmdb.org/t/p/w500/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg"
     )
-    CreditsView(credits = listOf(response), onClick = {})
+    CreditsView(credits = listOf(response), onClickCreditItem = {})
 }

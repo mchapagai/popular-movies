@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
@@ -29,17 +28,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.mchapagai.core.response.people.CastCreditResponse;
+import com.mchapagai.core.response.people.CombinedPersonResponse;
+import com.mchapagai.core.response.people.CrewCreditResponse;
+import com.mchapagai.core.response.people.PersonResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.CastAdapter;
 import com.mchapagai.movies.adapter.CrewAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CombinedCastCredit;
-import com.mchapagai.movies.model.CombinedCrewCredits;
-import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.PersonResponse;
 import com.mchapagai.movies.utils.AnimationUtils;
-import com.mchapagai.movies.utils.DateTimeUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils.ColorUtils;
@@ -49,45 +47,32 @@ import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class CreditDetailsActivity extends BaseActivity {
 
     private static final String TAG = CreditDetailsActivity.class.getSimpleName();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private PersonResponse personResponse;
     private int statusBarColor;
     private int personId;
 
-    @BindView(R.id.credit_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.app_bar_layout)
     AppBarLayout appbarLayout;
-    @BindView(R.id.birth_date)
     MaterialTextView birthDate;
-    @BindView(R.id.credit_image_view)
     MaterialCircleImageView profileImageView;
-    @BindView(R.id.credit_collapsing_toolbar_layout)
     CollapsingToolbarLayout creditCollapsingToolbarLayout;
-    @BindView(R.id.credit_details_child_layout)
     LinearLayout creditDetailsChildLayout;
-    @BindView(R.id.credits_biography)
     MaterialTextView creditsBiography;
-    @BindView(R.id.credits_person_name)
     TextView creditsPersonName;
-    @BindView(R.id.movies_cast_recycler_view)
     RecyclerView moviesCastRecyclerView;
-    @BindView(R.id.movies_crew_recycler_view)
     RecyclerView moviesCrewRecyclerView;
-    @BindView(R.id.cast_credit_title)
     MaterialTextView castCreditTitle;
-    @BindView(R.id.crew_credit_title)
     MaterialTextView crewCreditTitle;
 
     @Inject
@@ -98,13 +83,25 @@ public class CreditDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.person_details_container_layout);
-        ButterKnife.bind(this);
+
+        toolbar = findViewById(R.id.credit_toolbar);
+        appbarLayout = findViewById(R.id.app_bar_layout);
+        birthDate = findViewById(R.id.birth_date);
+        profileImageView = findViewById(R.id.credit_image_view);
+        creditCollapsingToolbarLayout = findViewById(R.id.credit_collapsing_toolbar_layout);
+        creditDetailsChildLayout = findViewById(R.id.credit_details_child_layout);
+        creditsBiography = findViewById(R.id.credits_biography);
+        creditsPersonName = findViewById(R.id.credits_person_name);
+        moviesCastRecyclerView = findViewById(R.id.movies_cast_recycler_view);
+        moviesCrewRecyclerView = findViewById(R.id.movies_crew_recycler_view);
+        castCreditTitle = findViewById(R.id.cast_credit_title);
+        crewCreditTitle = findViewById(R.id.crew_credit_title);
 
         // Fullscreen - hide the status bar
         getWindow().setFlags(LayoutParams.FLAG_FULLSCREEN, LayoutParams.FLAG_FULLSCREEN);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle("");
         // Implement addOnOffsetChangedListener to show CollapsingToolbarLayout Tile only when
         // collapsed
@@ -133,7 +130,6 @@ public class CreditDetailsActivity extends BaseActivity {
 
         Intent i = getIntent();
         personId = i.getIntExtra(Constants.PERSON_ID_INTENT, 0);
-        Log.i(TAG, "PersonId: " + personId);
 
         loadPersonDetails();
         loadCreditDetails();
@@ -150,16 +146,10 @@ public class CreditDetailsActivity extends BaseActivity {
                                 personResponse = response;
 
                                 displayImage(personResponse.getProfilePath());
-                                creditsPersonName.setText(
-                                        String.format("%s \"%s\"", response.getName(),
-                                                response.getKnownForDepartment()));
+                                creditsPersonName.setText(response.personName());
                                 creditsBiography.setText(response.getBiography());
                                 if (response.getBirthday() != null) {
-                                    String birthDayAndPlace = getString(
-                                            R.string.concat_strings_placeholder,
-                                            DateTimeUtils.getNameOfMonth(response.getBirthday()),
-                                            response.getPlaceOfBirth());
-                                    birthDate.setText(birthDayAndPlace);
+                                    birthDate.setText(response.birthDayAndPlace());
                                 } else {
                                     birthDate.setVisibility(View.GONE);
                                 }
@@ -181,7 +171,7 @@ public class CreditDetailsActivity extends BaseActivity {
     }
 
     private void loadCrewDetails() {
-        Observable<CombinedCrewCredits> distinct = movieViewModel
+        Observable<CrewCreditResponse> distinct = movieViewModel
                 .getPersonCombinedDetailsById(personId)
                 .flatMap(response -> Observable.just(response.getCrew())
                         .flatMapIterable(
@@ -202,7 +192,7 @@ public class CreditDetailsActivity extends BaseActivity {
     }
 
     private void castResponseItems(CombinedPersonResponse response) {
-        List<CombinedCastCredit> castCredit = response.getCast();
+        List<CastCreditResponse> castCredit = response.getCast();
         if (!castCredit.isEmpty()) {
             moviesCastRecyclerView.setItemAnimator(new DefaultItemAnimator());
             LinearLayoutManager castLayout = new LinearLayoutManager(this,
@@ -214,7 +204,7 @@ public class CreditDetailsActivity extends BaseActivity {
         }
     }
 
-    private void crewResponseItems(List<CombinedCrewCredits> crewCredits) {
+    private void crewResponseItems(List<CrewCreditResponse> crewCredits) {
         if (!crewCredits.isEmpty()) {
             moviesCrewRecyclerView.setItemAnimator(new DefaultItemAnimator());
             LinearLayoutManager crewLayout = new LinearLayoutManager(this,

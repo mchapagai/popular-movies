@@ -5,8 +5,8 @@ import com.mchapagai.core.response.common.VideoListResponse;
 import com.mchapagai.core.response.movies.MovieCreditResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
 import com.mchapagai.core.response.movies.MovieListResponse;
-import com.mchapagai.movies.model.binding.CombinedPersonResponse;
-import com.mchapagai.movies.model.binding.PersonResponse;
+import com.mchapagai.core.response.people.CombinedPersonResponse;
+import com.mchapagai.core.response.people.PersonResponse;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;

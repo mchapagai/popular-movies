@@ -7,7 +7,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mchapagai.compose.movies.MovieDetailsScreen
-import com.mchapagai.compose.navigation.Routes.MOVIE_ID_ARG
+import com.mchapagai.compose.navigation.Routes.CREDIT_ID_ARGUMENT
+import com.mchapagai.compose.navigation.Routes.MOVIE_ID_ARGUMENT
+import com.mchapagai.compose.people.PersonDetailsScreen
 import com.mchapagai.compose.screen.HomeScreen
 
 // Explanation:
@@ -35,28 +37,36 @@ fun MovieNavigationController() {
             )
         }
         composable(
-            route = "${Routes.MOVIE_DETAILS_SCREEN}/{$MOVIE_ID_ARG}",
-            arguments = listOf(navArgument(MOVIE_ID_ARG) { type = NavType.IntType })
+            route = "${Routes.MOVIE_DETAILS_SCREEN}/{$MOVIE_ID_ARGUMENT}",
+            arguments = listOf(navArgument(MOVIE_ID_ARGUMENT) { type = NavType.IntType })
         ) { backStackEntry ->
-            val movieId = backStackEntry.arguments?.getInt(MOVIE_ID_ARG) ?: 0
-            MovieDetailsScreen(movieId, onPressBack = {
-                navController.popBackStack()
-            })
+            val movieId = backStackEntry.arguments?.getInt(MOVIE_ID_ARGUMENT) ?: 0
+//            val creditId = backStackEntry.arguments?.getInt(MOVIE_ID_ARGUMENT) ?: -1
+            MovieDetailsScreen(
+                movieId,
+                onPressBack = {
+                    navController.popBackStack()
+                },
+                onClickCreditItem = { creditId ->
+                    navController.navigate("${Routes.PEOPLE_SCREEN}/$creditId")
+                }
+            )
         }
-        composable(Routes.SHOWS_SCREEN) { ShowsScreen() }
-        composable(Routes.PEOPLE_SCREEN) { PeopleScreen() }
+        composable(
+            route = "${Routes.PEOPLE_SCREEN}/{$CREDIT_ID_ARGUMENT}",
+            arguments = listOf(navArgument(CREDIT_ID_ARGUMENT) { type = NavType.IntType })
+        ) { backStackEntry ->
+            val creditId = backStackEntry.arguments?.getInt(CREDIT_ID_ARGUMENT) ?: -1
+            PersonDetailsScreen(
+                creditId,
+                onClickToolbar = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
         composable(Routes.ABOUT_SCREEN) { AboutScreen() }
     }
-}
-
-// Other screens (ShowsScreen, PeopleScreen, AboutScreen) remain the same
-
-@Composable
-fun ShowsScreen() {
-}
-
-@Composable
-fun PeopleScreen() {
 }
 
 @Composable

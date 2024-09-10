@@ -14,13 +14,13 @@ import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.people.CastCreditResponse;
 import com.mchapagai.movies.utils.AnimationUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils;
 import com.mchapagai.movies.views.MaterialImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.CombinedCastCredit;
 import com.mchapagai.movies.utils.MovieUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -32,10 +32,10 @@ import butterknife.ButterKnife;
 
 public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
 
-    private List<CombinedCastCredit> castItems;
+    private List<CastCreditResponse> castItems;
     private static int thumbnailWidth;
 
-    public CastAdapter(List<CombinedCastCredit> castItems, Context context) {
+    public CastAdapter(List<CastCreditResponse> castItems, Context context) {
         this.castItems = castItems;
         int screenWidth = MovieUtils.calculateScreenWidth(context);
         int width = MovieUtils.convertDpToPixel(context, 32);
@@ -53,7 +53,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        final CombinedCastCredit response = castItems.get(position);
+        final CastCreditResponse response = castItems.get(position);
 
         ConstraintLayout.LayoutParams params =
                 (ConstraintLayout.LayoutParams) viewHolder.profileImage

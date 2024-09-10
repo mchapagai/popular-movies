@@ -70,7 +70,8 @@ import java.util.Locale
 fun MovieDetailsScreen(
     movieId: Int,
     viewModel: MovieViewModel = viewModel(),
-    onPressBack: () -> Unit
+    onPressBack: () -> Unit,
+    onClickCreditItem: (Int) -> Unit
 ) {
 
     val movies by remember { derivedStateOf { viewModel.movieDetails } }
@@ -119,6 +120,7 @@ fun MovieDetailsScreen(
                 creditDetails,
                 videos = videos?.videoList ?: emptyList(),
                 reviews = reviews?.reviewList ?: emptyList(),
+                onClickCreditItem = onClickCreditItem,
                 contentAlpha = { contentAlpha.value }
             )
         }
@@ -226,6 +228,7 @@ private fun DetailsContent(
     creditModel: List<MovieCombinedCreditModel>,
     videos: List<VideoResponse>,
     reviews: List<ReviewResponse>,
+    onClickCreditItem: (Int) -> Unit,
     contentAlpha: () -> Float,
 ) {
     Column(
@@ -288,7 +291,7 @@ private fun DetailsContent(
         GenreView(movie.genres)
         HorizontalDivider(thickness = 2.dp)
         Spacer(modifier = Modifier.height(16.dp))
-        CreditsView(credits = creditModel, onClick = {})
+        CreditsView(credits = creditModel, onClickCreditItem = onClickCreditItem)
         HorizontalDivider(thickness = 2.dp)
         Spacer(modifier = Modifier.height(16.dp))
         TrailerView(videos = videos)
