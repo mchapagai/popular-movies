@@ -10,11 +10,9 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.mchapagai.movies.R;
@@ -30,36 +28,19 @@ import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.widget.AppBarStateChangeListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ShowDetailsActivity extends BaseActivity {
 
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
     ImageView showDetailsBackdrop;
-    @BindView(R.id.shows_appbar)
-    AppBarLayout showsAppbar;
-    @BindView(R.id.shows_collapsing_toolbar)
-    CollapsingToolbarLayout showsCollapsingToolbar;
-    @BindView(R.id.shows_favorite)
     FloatingActionButton showsFavorite;
-    @BindView(R.id.shows_tab_layout)
-    TabLayout showsTabLayout;
-    @BindView(R.id.shows_title)
-    MaterialTextView showsTitle;
-    @BindView(R.id.shows_info)
-    MaterialTextView showsInfo;
-    @BindView(R.id.shows_toolbar)
     Toolbar showsToolbar;
-    @BindView(R.id.shows_viewpager)
-    ViewPager showsViewpager;
-
     private OnTheAir onTheAir;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     ShowsViewModel showsViewModel;
@@ -68,11 +49,11 @@ public class ShowDetailsActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shows_details_activity_container);
+
+        showsToolbar = findViewById(R.id.shows_toolbar);
+        showsFavorite = findViewById(R.id.shows_favorite);
         showDetailsBackdrop = findViewById(R.id.show_details_backdrop);
-
-        ButterKnife.bind(this);
         onTheAir = getIntent().getParcelableExtra(Constants.SHOWS_DETAILS);
-
 
         // Bottom slide animation
         Slide slide = new Slide(Gravity.BOTTOM);
@@ -84,11 +65,12 @@ public class ShowDetailsActivity extends BaseActivity {
     }
 
     private void initViews() {
+        MaterialTextView showsTitle = findViewById(R.id.shows_title);
         // Fullscreen - hide the status bar
         getWindow().setFlags(LayoutParams.FLAG_FULLSCREEN, LayoutParams.FLAG_FULLSCREEN);
 
         setSupportActionBar(showsToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         setTitle("");
 
         showsTitle.setText(onTheAir.getName());
@@ -101,6 +83,10 @@ public class ShowDetailsActivity extends BaseActivity {
     }
 
     private void setupTablayout() {
+        AppBarLayout showsAppbar = findViewById(R.id.shows_appbar);
+        TabLayout showsTabLayout = findViewById(R.id.shows_tab_layout);
+        ViewPager showsViewpager = findViewById(R.id.shows_viewpager);
+
         // setup the ViewPager with the sections header (in ideal state
         showsViewpager.setOffscreenPageLimit(2);
         showsViewpager.setAdapter(new ShowDetailsAdapter(getSupportFragmentManager(), onTheAir));
@@ -132,6 +118,7 @@ public class ShowDetailsActivity extends BaseActivity {
     }
 
     private void loadShowDetails() {
+        MaterialTextView showsInfo = findViewById(R.id.shows_info);
         compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
                 .subscribe(
                         showsDetailsResponse -> {

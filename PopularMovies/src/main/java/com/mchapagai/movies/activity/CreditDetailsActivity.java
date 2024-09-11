@@ -41,7 +41,7 @@ import com.mchapagai.movies.utils.AnimationUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils;
 import com.mchapagai.movies.utils.PaletteColorUtils.ColorUtils;
-import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.view_model.SearchViewModel;
 import com.mchapagai.movies.views.MaterialCircleImageView;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.squareup.picasso.Picasso;
@@ -76,7 +76,7 @@ public class CreditDetailsActivity extends BaseActivity {
     MaterialTextView crewCreditTitle;
 
     @Inject
-    MovieViewModel movieViewModel;
+    SearchViewModel viewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class CreditDetailsActivity extends BaseActivity {
 
     private void loadPersonDetails() {
 
-        compositeDisposable.add(movieViewModel.getPersonDetailsById(personId)
+        compositeDisposable.add(viewModel.getPersonDetailsById(personId)
                 .subscribe(
                         response -> {
                             if (response != null) {
@@ -161,7 +161,7 @@ public class CreditDetailsActivity extends BaseActivity {
     }
 
     private void loadCreditDetails() {
-        compositeDisposable.add(movieViewModel.getPersonCombinedDetailsById(personId)
+        compositeDisposable.add(viewModel.getPersonCombinedDetailsById(personId)
                 .subscribe(
                         response -> castResponseItems(response),
                         throwable -> MaterialDialogUtils.showDialog(this,
@@ -171,7 +171,7 @@ public class CreditDetailsActivity extends BaseActivity {
     }
 
     private void loadCrewDetails() {
-        Observable<CrewCreditResponse> distinct = movieViewModel
+        Observable<CrewCreditResponse> distinct = viewModel
                 .getPersonCombinedDetailsById(personId)
                 .flatMap(response -> Observable.just(response.getCrew())
                         .flatMapIterable(

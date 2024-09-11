@@ -7,7 +7,7 @@ import com.mchapagai.core.utils.DateTimeUtils
 
 data class MovieDetailsResponse(
     @SerializedName("id") var movieId: Int = 0,
-    @SerializedName("backdrop_path") var backdropPath: String = "",
+    @SerializedName("backdrop_path") var backdropPath: String? = null,
     @SerializedName("title") var title: String = "",
     @SerializedName("tagline") var tagline: String = "",
     @SerializedName("release_date") var releaseDate: String = "",
@@ -33,8 +33,13 @@ data class MovieDetailsResponse(
     @SerializedName("status") var status: String? = null,
     @SerializedName("video") var video: Boolean? = null
 ) {
-    fun getFullBackdropPath() =
-        if (backdropPath.isBlank()) null else Constants.SECURE_IMAGE_ENDPOINT.plus(backdropPath)
+    fun getFullBackdropPath(): String {
+        return if (backdropPath != null) {
+            Constants.SECURE_IMAGE_ENDPOINT.plus(backdropPath)
+        } else {
+            ""
+        }
+    }
 
     fun getFormattedReleaseDate(): String {
         return DateTimeUtils.getNameOfMonth(releaseDate)

@@ -22,37 +22,33 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.views.MaterialTextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.Objects;
 
 public class AboutActivity extends BaseActivity {
 
-    @BindView(R.id.about_app_version)
     MaterialTextView aboutAppVersion;
-    @BindView(R.id.about_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout collapsingToolbar;
-    @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
-    @BindView(R.id.licenses_layout)
-    LinearLayout licensesLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity_container);
-        ButterKnife.bind(this);
+
+        aboutAppVersion = findViewById(R.id.about_app_version);
+        toolbar = findViewById(R.id.about_toolbar);
+        collapsingToolbar = findViewById(R.id.collapsing_toolbar_layout);
+        appBarLayout = findViewById(R.id.app_bar_layout);
 
         initLicenses();
         initViews();
     }
 
     private void initViews() {
-
         setSupportActionBar(toolbar);
         if (toolbar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
 
@@ -93,6 +89,8 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initLicenses() {
+        LinearLayout licensesLayout = findViewById(R.id.licenses_layout);
+
         LayoutInflater inflater = LayoutInflater.from(this);
 
         String[] softwareList = getResources().getStringArray(R.array.software_list);
@@ -147,6 +145,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Intent intent = new Intent(this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

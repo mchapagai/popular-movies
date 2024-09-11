@@ -17,18 +17,13 @@ import com.mchapagai.movies.views.MaterialTextView;
 
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class InfoFragment extends BaseFragment {
 
-    @BindView(R.id.shows_etails_over_view)
     MaterialTextView showsEtailsOverView;
 
-    @BindView(R.id.shows_ratings)
     MaterialTextView showsRatings;
 
-    @BindView(R.id.shows_release_date)
     MaterialTextView showsReleaseDate;
 
     private OnTheAir onTheAir;
@@ -51,7 +46,11 @@ public class InfoFragment extends BaseFragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_details_info_fragment_container, container,
                 false);
-        ButterKnife.bind(this, view);
+
+        showsEtailsOverView = view.findViewById(R.id.shows_etails_over_view);
+        showsRatings = view.findViewById(R.id.shows_ratings);
+        showsReleaseDate = view.findViewById(R.id.shows_release_date);
+
         return view;
     }
 

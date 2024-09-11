@@ -72,6 +72,9 @@ fun MovieNavigationController() {
             SearchScreen(
                 onPressBack = {
                     navController.popBackStack()
+                },
+                onClickSearchItem = { movieId ->
+                    navController.navigate("${Routes.MOVIE_DETAILS_SCREEN}/$movieId")
                 }
             )
         }

@@ -1,5 +1,6 @@
 package com.mchapagai.compose.movies
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -43,7 +44,8 @@ import com.mchapagai.core.viewModel.SearchViewModel
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = viewModel(),
-    onPressBack: () -> Unit
+    onPressBack: () -> Unit,
+    onClickSearchItem: (Int) -> Unit
 ) {
     val searchState by viewModel.searchState.collectAsState()
     var query by remember { mutableStateOf("") }
@@ -99,7 +101,7 @@ fun SearchScreen(
             is SearchViewModel.SearchState.Success -> {
                 // Display search results
                 val results = (searchState as SearchViewModel.SearchState.Success).results
-                SearchResultsList(results = results)
+                SearchResultsList(results = results, onClickSearchItem)
             }
 
             is SearchViewModel.SearchState.Error -> {
@@ -112,35 +114,44 @@ fun SearchScreen(
 }
 
 @Composable
-fun SearchResultsList(results: List<SearchResultResponse>) {
+fun SearchResultsList(
+    results: List<SearchResultResponse>,
+    onClickSearchItem: (Int) -> Unit
+) {
     LazyColumn {
         items(results) { result ->
-            SearchResultItem(result)
+            SearchResultItem(result, onClickSearchItem)
         }
     }
 }
 
 @Composable
-fun SearchResultItem(result: SearchResultResponse) {
+fun SearchResultItem(
+    result: SearchResultResponse,
+    onClickSearchItem: (Int) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable {
+                onClickSearchItem(result.id)
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = result.title ?: "", fontWeight = FontWeight.Bold)
-                Text(text = result.mediaType ?: "")
-                Text(text = result.overview ?: "")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
             AsyncImage(
                 model = "https://image.tmdb.org/t/p/w500/".plus(result.posterPath),
                 contentDescription = null,
                 modifier = Modifier.size(100.dp),
                 contentScale = ContentScale.Crop
             )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = result.title ?: "", fontWeight = FontWeight.Bold)
+                Text(text = result.mediaType ?: "")
+                Text(text = result.overview ?: "")
+            }
         }
     }
 }

@@ -17,30 +17,14 @@ import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.utils.PreferencesHelper;
 import com.mchapagai.movies.view_model.LoginViewModel;
 import com.mchapagai.movies.views.MaterialTextView;
-import com.mchapagai.movies.views.PageLoader;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class LoginActivity extends BaseActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.login_button)
-    MaterialButton loginButton;
-    @BindView(R.id.username_edit_text)
-    EditText usernameInputFiled;
-    @BindView(R.id.password_edit_text)
-    EditText passwordInputField;
-    @BindView(R.id.progress_page_loader)
-    PageLoader pageLoader;
-    @BindView(R.id.navigate_to_about)
-    MaterialTextView aboutView;
-    @BindView(R.id.navigate_to_tmdb)
-    MaterialTextView tmdbSite;
 
     @Inject
     LoginViewModel loginViewModel;
@@ -48,22 +32,27 @@ public class LoginActivity extends BaseActivity {
     @Inject
     PreferencesHelper preferencesUtils;
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_layout_container);
-        ButterKnife.bind(this);
         preferencesUtils = new PreferencesHelper(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initViews();
 
         setupUserLogin();
     }
 
     private void setupUserLogin() {
+        MaterialButton loginButton = findViewById(R.id.login_button);
+        EditText usernameInputFiled = findViewById(R.id.username_edit_text);
+        EditText passwordInputField = findViewById(R.id.password_edit_text);
+
         loginButton.setOnClickListener(v -> {
             final String username = usernameInputFiled.getText().toString();
             final String password = passwordInputField.getText().toString();
@@ -92,14 +81,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initViews() {
+        MaterialTextView aboutView = findViewById(R.id.navigate_to_about);
+        MaterialTextView tmdbSite = findViewById(R.id.navigate_to_tmdb);
         aboutView.setOnClickListener(navigateToAbout);
         tmdbSite.setOnClickListener(getNavigateToTMDb);
     }
 
-    private View.OnClickListener navigateToAbout = view -> startActivity(
+    private final View.OnClickListener navigateToAbout = view -> startActivity(
             new Intent(view.getContext(), AboutActivity.class));
 
-    private View.OnClickListener getNavigateToTMDb = v -> {
+    private final View.OnClickListener getNavigateToTMDb = v -> {
         String url = "https://www.themoviedb.org/";
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
@@ -117,6 +108,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_8dp">
 
     <com.mchapagai.movies.views.MaterialCircleImageView
-            android:id="@+id/credit_profile_image"
-            android:layout_width="@dimen/margin_80dp"
-            android:layout_height="@dimen/margin_80dp"
-            android:layout_marginLeft="@dimen/margin_8dp"
-            android:layout_marginRight="@dimen/margin_8dp"
-            android:src="@drawable/ic_launcher_background"
-            app:borderColor="@android:color/transparent"
-            app:borderWidth="0dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/credit_profile_image"
+        android:layout_width="@dimen/margin_80dp"
+        android:layout_height="@dimen/margin_80dp"
+        android:layout_marginLeft="@dimen/margin_8dp"
+        android:layout_marginRight="@dimen/margin_8dp"
+        android:src="@drawable/ic_launcher_background"
+        app:borderColor="@android:color/transparent"
+        app:borderWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.mchapagai.movies.views.MaterialTextView
-            android:id="@+id/credit_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_8dp"
-            android:layout_marginRight="@dimen/margin_8dp"
-            android:layout_marginTop="@dimen/margin_4dp"
-            android:ellipsize="end"
-            android:maxEms="6"
-            android:maxLines="1"
-            android:text="@string/title_details_activity"
-            android:textSize="@dimen/text_small"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/credit_profile_image"/>
+    <TextView
+        android:id="@+id/credit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:layout_marginRight="@dimen/margin_8dp"
+        android:ellipsize="end"
+        android:maxEms="6"
+        android:maxLines="1"
+        android:text="@string/title_details_activity"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/credit_profile_image" />
 
-    <com.mchapagai.movies.views.MaterialTextView
-            android:id="@+id/credit_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/credit_name"
-            android:layout_marginLeft="@dimen/margin_4dp"
-            android:layout_marginRight="@dimen/margin_4dp"
-            android:layout_marginTop="@dimen/margin_4dp"
-            android:ellipsize="end"
-            android:maxEms="6"
-            android:maxLines="1"
-            android:text="@string/app_name"
-            android:textColor="?attr/darkTextSecondaryColor"
-            android:textSize="@dimen/text_x_small"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/credit_name"/>
+    <TextView
+        android:id="@+id/credit_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/credit_name"
+        android:layout_marginLeft="@dimen/margin_4dp"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:layout_marginRight="@dimen/margin_4dp"
+        android:ellipsize="end"
+        android:maxEms="6"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="?attr/darkTextSecondaryColor"
+        android:textSize="@dimen/text_x_small"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/credit_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

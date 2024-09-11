@@ -9,20 +9,14 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.fragment.DiscoverMoviesFragment;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class DiscoverMoviesActivity extends BaseActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_activity_container);
 
-        ButterKnife.bind(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

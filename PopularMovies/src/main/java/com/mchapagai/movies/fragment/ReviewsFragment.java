@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import com.mchapagai.core.response.common.ReviewListResponse;
 import com.mchapagai.core.response.common.ReviewResponse;
@@ -31,10 +29,7 @@ import javax.inject.Inject;
 
 public class ReviewsFragment extends BaseFragment {
 
-    @BindView(R.id.show_detail_review_header)
     TextView detailReviewHeader;
-
-    @BindView(R.id.show_reviews_recycler_view)
     RecyclerView reviewsRecyclerView;
 
     @Inject
@@ -67,7 +62,8 @@ public class ReviewsFragment extends BaseFragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.show_details_reviews_fragment_container, container,
                 false);
-        ButterKnife.bind(this, view);
+        detailReviewHeader = view.findViewById(R.id.show_detail_review_header);
+        reviewsRecyclerView = view.findViewById(R.id.show_reviews_recycler_view);
         return view;
     }
 

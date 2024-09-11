@@ -18,24 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.button.MaterialButton;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class WelcomeActivity extends BaseActivity {
 
     private int[] layouts;
 
-    @BindView(R.id.view_pager)
     ViewPager viewPager;
-    @BindView(R.id.skip_button)
     Button skipButton;
-    @BindView(R.id.next_button)
     Button nextButton;
-    @BindView(R.id.layout_dots)
     LinearLayout dotsLayout;
 
     @Override
@@ -48,7 +41,11 @@ public class WelcomeActivity extends BaseActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setContentView(R.layout.welcome_activity_container);
-        ButterKnife.bind(this);
+
+        viewPager = findViewById(R.id.view_pager);
+        skipButton = findViewById(R.id.skip_button);
+        nextButton = findViewById(R.id.next_button);
+        dotsLayout = findViewById(R.id.layout_dots);
 
         layouts = new int[]{
                 R.layout.welcome_screen_movies,

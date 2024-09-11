@@ -99,7 +99,7 @@ public class MoviesGridAdapter extends
                 String.valueOf(R.string.movies_poster_transition));
 
         holder.poster.setOnClickListener(
-                v -> onItemClickListener.onClickItem(movies.getId(), holder.getAdapterPosition()));
+                v -> onItemClickListener.onClickItem(movies.getMovieId(), holder.getAdapterPosition()));
     }
 
     @Override

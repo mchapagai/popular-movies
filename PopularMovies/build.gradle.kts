@@ -21,27 +21,6 @@ fun getVersionName(): String? {
     }
 }
 
-tasks.withType<JavaCompile>().configureEach {
-    options.isFork = true
-    options.forkOptions.jvmArgs?.addAll(
-        listOf(
-            // Essential for ButterKnife
-            "--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
-
-            // If you need Glide or Lombok
-            "--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
-            "--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
-        )
-    )
-}
-
 android {
     namespace = "com.mchapagai.movies"
     compileSdk = 34
@@ -149,7 +128,4 @@ dependencies {
     annotationProcessor(libs.dagger.android.processor)
     kapt(libs.dagger.compiler)
     kapt(libs.dagger.android.processor)
-    // ButterKnife
-    implementation(libs.jakewharton.butterknife)
-    kapt(libs.jakewharton.butterknife.compiler)
 }

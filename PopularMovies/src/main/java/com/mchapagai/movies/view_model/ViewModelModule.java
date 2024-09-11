@@ -1,12 +1,16 @@
 package com.mchapagai.movies.view_model;
 
+import com.mchapagai.core.api.MovieAPI;
 import com.mchapagai.movies.api.LoginAPI;
-import com.mchapagai.movies.api.MovieAPI;
+import com.mchapagai.movies.api.SearchAPI;
 import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.api.impl.APIModule;
 import com.mchapagai.movies.view_model.impl.LoginViewModelImpl;
 import com.mchapagai.movies.view_model.impl.MovieViewModelImpl;
+import com.mchapagai.movies.view_model.impl.SearchViewModelImpl;
 import com.mchapagai.movies.view_model.impl.ShowsViewModelImpl;
+
+import javax.inject.Provider;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,8 +21,13 @@ import dagger.Provides;
 public class ViewModelModule {
 
     @Provides
-    MovieViewModel providesMovieViewModel(MovieAPI movieAPI) {
-        return new MovieViewModelImpl(movieAPI);
+    MovieViewModel providesMovieViewModel(Provider<MovieAPI> api) {
+        return new MovieViewModelImpl(api);
+    }
+
+    @Provides
+    SearchViewModel providesSearchViewModel(SearchAPI movieAPI) {
+        return new SearchViewModelImpl(movieAPI);
     }
 
     @Provides

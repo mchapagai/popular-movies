@@ -24,10 +24,10 @@ data class PersonResponse(
         return "${DateTimeUtils.getNameOfMonth(birthday)} | $placeOfBirth"
     }
 
-    val formattedBirthday: String?
-        get() = if (!birthday.isNullOrEmpty()) {
+    fun formattedBirthday(): String? {
+        return if (birthday.isNotEmpty()) {
             DateTimeUtils.getYearOnly(birthday)
-        } else {
-            null
-        }
+        } else ""
+    }
+
 }

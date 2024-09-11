@@ -35,6 +35,7 @@ import com.mchapagai.core.response.movies.MovieCrewResponse;
 import com.mchapagai.core.response.movies.MovieDetailsResponse;
 import com.mchapagai.movies.utils.LibraryUtils;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
+import com.mchapagai.movies.view_model.MovieViewModel;
 import com.mchapagai.movies.views.ItemOffsetDecoration;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.CreditsAdapter;
@@ -43,7 +44,7 @@ import com.mchapagai.movies.adapter.ReviewsAdapter;
 import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseActivity;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.view_model.SearchViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MovieDetailsActivity extends BaseActivity {
@@ -68,26 +68,21 @@ public class MovieDetailsActivity extends BaseActivity {
     TextView detailsRatings;
     TextView detailsOverView;
     RecyclerView movieGenreRecyclerView;
-    RecyclerView movieCreditsrecyclerView;
     View videoDivider;
-    TextView videosTitle;
-    RecyclerView movieVideoRecyclerView;
-    TextView videosErrorText;
-    ImageView detailsEmptyVideo;
     ConstraintLayout videoLayout;
-    View reviewsDivider;
-    TextView detailReviewHeader;
-    RecyclerView reviewsRecyclerView;
     FloatingActionButton favoriteActionButton;
+    RecyclerView movieVideoRecyclerView;
+    ImageView detailsEmptyVideo;
+    TextView videosErrorText;
 
     private int movieId;
-    private VideosAdapter videosAdapter;
     private final List<VideoResponse> videoItems = new ArrayList<>();
     private List<GenresResponse> genreItems = new ArrayList<>();
-    private List<MovieCastResponse> castCredits = new ArrayList<>();
-    private List<MovieCrewResponse> crewCredits = new ArrayList<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+
+    @Inject
+    SearchViewModel searchViewModel;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -109,26 +104,17 @@ public class MovieDetailsActivity extends BaseActivity {
         detailsRatings = findViewById(R.id.ratings);
         detailsOverView = findViewById(R.id.details_over_view);
         movieGenreRecyclerView = findViewById(R.id.movie_genre_recycler_view);
-        movieCreditsrecyclerView = findViewById(R.id.movie_creditsrecycler_view);
         videoDivider = findViewById(R.id.video_divider);
-        videosTitle = findViewById(R.id.videos_title);
-        movieVideoRecyclerView = findViewById(R.id.movie_video_recycler_view);
         videosErrorText = findViewById(R.id.videos_error_text);
         detailsEmptyVideo = findViewById(R.id.details_empty_video);
         videoLayout = findViewById(R.id.video_layout);
-        reviewsDivider = findViewById(R.id.reviews_divider);
-        detailReviewHeader = findViewById(R.id.detail_review_header);
-        reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
         favoriteActionButton = findViewById(R.id.details_favorite);
-
+        movieVideoRecyclerView = findViewById(R.id.movie_video_recycler_view);
         // Bottom slide animation
         Slide slide = new Slide(Gravity.BOTTOM);
         getWindow().setEnterTransition(slide);
         postponeEnterTransition();
 
-//        initViews();
-        populateMovieTrailer();
-        populateMovieReviews();
         loadMoreMovies();
     }
 
@@ -192,7 +178,7 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void loadMoreMovies() {
-        compositeDisposable.add(movieViewModel.getMovieDetails(movieId)
+        compositeDisposable.add(movieViewModel.fetchMovieDetailsByMovieId(movieId)
                 .subscribe(this::movieDetailsResponseItems,
                         throwable -> MaterialDialogUtils.showDialog(this,
                                 getResources().getString(R.string.service_error_title),
@@ -216,35 +202,25 @@ public class MovieDetailsActivity extends BaseActivity {
         movieGenreRecyclerView.setAdapter(new GenresAdapter(genreItems));
     }
 
-    private void populateMovieTrailer() {
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
-                false);
-        movieVideoRecyclerView.addItemDecoration(
-                new ItemOffsetDecoration(this, R.dimen.margin_4dp));
-        movieVideoRecyclerView.setLayoutManager(manager);
-        movieVideoRecyclerView.setHasFixedSize(true);
-        movieVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        videosAdapter = new VideosAdapter(this, videoItems);
-        videosAdapter.setOnItemClick((view, position) -> {
-            VideoResponse video = videosAdapter.getItem(position);
-            if (video != null && video.isYoutubeVideo()) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));
-                startActivity(intent);
-            }
-        });
-        movieVideoRecyclerView.setAdapter(videosAdapter);
+
+
+    private void loadMovieCredit() {
+        compositeDisposable.add(
+                movieViewModel.getMovieCreditDetailsByCreditId(movieId)
+                        .subscribe(
+                                response -> creditResponseItems(response)
+                        )
+        );
     }
 
     private void creditResponseItems(MovieCreditResponse response) {
+        RecyclerView movieCreditsrecyclerView = findViewById(R.id.movie_creditsrecycler_view);
         movieCreditsrecyclerView.setItemAnimator(new DefaultItemAnimator());
         movieCreditsrecyclerView
                 .setLayoutManager(
                         new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        castCredits = response.getCast();
-        crewCredits = response.getCrew();
-        final CreditsAdapter adapter = new CreditsAdapter(combinedCreditsResponse());
+        final CreditsAdapter adapter = new CreditsAdapter(combinedCreditsResponse(response));
         movieCreditsrecyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(combinedCreditsResponse -> {
@@ -255,9 +231,9 @@ public class MovieDetailsActivity extends BaseActivity {
         });
     }
 
-    private ArrayList<MovieCombinedCreditModel> combinedCreditsResponse() {
+    private ArrayList<MovieCombinedCreditModel> combinedCreditsResponse(MovieCreditResponse response) {
         ArrayList<MovieCombinedCreditModel> combinedCreditsResponseList = new ArrayList<>();
-        for (MovieCastResponse castCredit : castCredits) {
+        for (MovieCastResponse castCredit : response.getCast()) {
             MovieCombinedCreditModel combinedCreditsResponse = new MovieCombinedCreditModel(
                     castCredit.getId(),
                     Objects.requireNonNull(castCredit.getName()),
@@ -267,7 +243,7 @@ public class MovieDetailsActivity extends BaseActivity {
             combinedCreditsResponseList.add(combinedCreditsResponse);
         }
 
-        for (MovieCrewResponse crewCredit : crewCredits) {
+        for (MovieCrewResponse crewCredit : response.getCrew()) {
             MovieCombinedCreditModel combinedCreditsResponse = new MovieCombinedCreditModel(
                     crewCredit.getId(),
                     Objects.requireNonNull(crewCredit.getName()),
@@ -278,39 +254,6 @@ public class MovieDetailsActivity extends BaseActivity {
         }
 
         return combinedCreditsResponseList;
-    }
-
-    private void populateMovieReviews() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        reviewsRecyclerView.setHasFixedSize(true);
-        reviewsRecyclerView.setLayoutManager(layoutManager);
-        reviewsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    private void loadMovieCredit() {
-
-        Observable<MovieCreditResponse> movieCreditObservable = movieViewModel.getMovieCreditDetails(
-                movieId);
-        Observable<VideoListResponse> movieVideoObservable = movieViewModel.getMovieVideosbyId(
-                movieId);
-
-        compositeDisposable.add(
-                Observable.merge(movieCreditObservable, movieVideoObservable).subscribe(
-                        response -> {
-
-                            if (response instanceof MovieCreditResponse) {
-                                creditResponseItems((MovieCreditResponse) response);
-                            } else {
-                                VideoListResponse videoResponse = (VideoListResponse) response;
-                                if (videoResponse.getVideoList().isEmpty()
-                                        || videoResponse.getVideoList().size() == 0) {
-                                    showVideoError();
-                                } else {
-                                    hideVideoError();
-                                    videosAdapter.setMovieVideos(videoResponse.getVideoList());
-                                }
-                            }
-                        }));
     }
 
     private void loadMovieReviews() {
@@ -325,6 +268,15 @@ public class MovieDetailsActivity extends BaseActivity {
     }
 
     private void reviewsResponseItems(ReviewListResponse response) {
+        RecyclerView reviewsRecyclerView = findViewById(R.id.reviews_recycler_view);
+        View reviewsDivider = findViewById(R.id.reviews_divider);
+        TextView detailReviewHeader = findViewById(R.id.detail_review_header);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        reviewsRecyclerView.setHasFixedSize(true);
+        reviewsRecyclerView.setLayoutManager(layoutManager);
+        reviewsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         List<ReviewResponse> reviewItems = response.getReviewList();
         if (reviewItems.isEmpty()) {
             reviewsRecyclerView.setVisibility(View.GONE);
@@ -338,7 +290,24 @@ public class MovieDetailsActivity extends BaseActivity {
         reviewsRecyclerView.setAdapter(new ReviewsAdapter(reviewItems));
     }
 
+    private void loadMovieTrailer() {
+        compositeDisposable.add(
+                movieViewModel.getMovieVideosById(movieId)
+                        .subscribe(
+                                response -> {
+                                    if (response.getVideoList().isEmpty()) {
+                                        showVideoError();
+                                    } else {
+                                        hideVideoError();
+                                        populateMovieTrailer(response);
+                                    }
+                                }
+                        )
+        );
+    }
+
     private void showVideoError() {
+        TextView videosTitle = findViewById(R.id.videos_title);
         detailsEmptyVideo.setVisibility(View.VISIBLE);
         videosErrorText.setVisibility(View.VISIBLE);
         movieVideoRecyclerView.setVisibility(View.GONE);
@@ -349,6 +318,28 @@ public class MovieDetailsActivity extends BaseActivity {
         detailsEmptyVideo.setVisibility(View.GONE);
         videosErrorText.setVisibility(View.GONE);
         movieVideoRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void populateMovieTrailer(VideoListResponse response) {
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
+                false);
+        movieVideoRecyclerView.addItemDecoration(
+                new ItemOffsetDecoration(this, R.dimen.margin_4dp));
+        movieVideoRecyclerView.setLayoutManager(manager);
+        movieVideoRecyclerView.setHasFixedSize(true);
+        movieVideoRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        VideosAdapter videosAdapter = new VideosAdapter(this, videoItems);
+        videosAdapter.setOnItemClick((view, position) -> {
+            VideoResponse video = videosAdapter.getItem(position);
+            if (video != null && video.isYoutubeVideo()) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));
+                startActivity(intent);
+            }
+        });
+        movieVideoRecyclerView.setAdapter(videosAdapter);
+        videosAdapter.setMovieVideos(response.getVideoList());
     }
 
     @Override
@@ -372,6 +363,7 @@ public class MovieDetailsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadMovieTrailer();
         loadMovieCredit();
         loadMovieReviews();
         loadMoreMovies();

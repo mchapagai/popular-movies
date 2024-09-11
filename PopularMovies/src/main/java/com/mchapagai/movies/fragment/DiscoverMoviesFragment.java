@@ -34,6 +34,7 @@ import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.Sort;
 import com.mchapagai.movies.view_model.MovieViewModel;
+import com.mchapagai.movies.view_model.SearchViewModel;
 import com.mchapagai.movies.views.PageLoader;
 import com.mchapagai.movies.widget.EndlessScrollListener;
 
@@ -69,10 +70,11 @@ public class DiscoverMoviesFragment extends BaseFragment {
     private boolean isLoading = false;
     private boolean isMenuSortChanged = true;
     private int pageNumber = 1;
-
     RecyclerView recyclerView;
-
     PageLoader pageLoader;
+
+    @Inject
+    SearchViewModel searchViewModel;
 
     @Inject
     MovieViewModel movieViewModel;
@@ -210,7 +212,7 @@ public class DiscoverMoviesFragment extends BaseFragment {
 
 
     private Observable<List<MovieResponse>> searchResponse(String query) {
-        return movieViewModel.searchMovies(query)
+        return searchViewModel.searchMovies(query)
                 .flatMapIterable(movieResponse -> movieResponse.getMovies()).distinct(
                         movies -> movies.getTitle()).toList().toObservable();
     }
@@ -299,16 +301,12 @@ public class DiscoverMoviesFragment extends BaseFragment {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case R.id.menu_sort_popularity:
-                onSortChanged(Sort.MOST_POPULAR);
-                break;
-            case R.id.menu_sort_vote_count:
-                onSortChanged(Sort.MOST_RATED);
-                break;
-            case R.id.menu_sort_vote_average:
-                onSortChanged(Sort.TOP_RATED);
-                break;
+        if (item.getItemId() == R.id.menu_sort_popularity) {
+            onSortChanged(Sort.MOST_POPULAR);
+        } else if (item.getItemId() == R.id.menu_sort_vote_count) {
+            onSortChanged(Sort.MOST_RATED);
+        } else if (item.getItemId() == R.id.menu_sort_vote_average) {
+            onSortChanged(Sort.TOP_RATED);
         }
         item.setChecked(!item.isChecked());
 

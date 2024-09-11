@@ -91,7 +91,7 @@ fun PersonDetailsContent(
                     .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = response?.formattedBirthday ?: "", textAlign = TextAlign.Center)
+                Text(text = response?.formattedBirthday() ?: "", textAlign = TextAlign.Center)
                 VerticalDivider()
                 if (response != null) {
                     Text(text = response.placeOfBirth, textAlign = TextAlign.Center)

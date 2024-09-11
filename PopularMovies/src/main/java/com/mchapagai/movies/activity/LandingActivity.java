@@ -21,19 +21,13 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
 public class LandingActivity extends AppCompatActivity {
 
-    @BindView(R.id.landing_popular_movies)
     MaterialTextView launchPopularMovies;
-    @BindView(R.id.landing_popular_shows)
     MaterialTextView launchPopularShows;
-    @BindView(R.id.landing_about_page_layout)
     ConstraintLayout launchInfoScreen;
-    @BindView(R.id.landing_user_profile)
     MaterialCircleImageView launchProfileScreen;
 
     @Inject
@@ -44,7 +38,10 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AndroidInjection.inject(this);
         setContentView(R.layout.landing_activity_layout_container);
-        ButterKnife.bind(this);
+        launchProfileScreen = findViewById(R.id.landing_user_profile);
+        launchInfoScreen = findViewById(R.id.landing_about_page_layout);
+        launchPopularShows = findViewById(R.id.landing_popular_shows);
+        launchPopularMovies = findViewById(R.id.landing_popular_movies);
 
         launchPopularMovies.setOnClickListener(
                 view -> startActivity(new Intent(view.getContext(), DiscoverMoviesActivity.class)));

@@ -21,7 +21,7 @@ fun GridItem(movie: MovieResponse, onMovieClick: (Int) -> Unit) {
         modifier = Modifier
             .padding(2.dp)
             .clickable {
-                onMovieClick(movie.id)
+                onMovieClick(movie.movieId)
             }
     ) {
         AsyncImage(
