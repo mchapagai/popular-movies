@@ -6,9 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 interface PeopleAPI {
-    fun getPersonDetailsById(personId: Int
-    ): Single<PersonResponse>
+    fun getPersonDetailsById(personId: Int): Single<PersonResponse>
 
-    fun getPersonCombinedDetailsById(personId: Int
-    ): Observable<CombinedPersonResponse>
+    fun getPersonCombinedDetailsById(personId: Int): Observable<CombinedPersonResponse>
 }

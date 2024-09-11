@@ -1,38 +1,39 @@
 package com.mchapagai.movies.view_model.impl;
 
+import com.mchapagai.core.api.ShowAPI;
 import com.mchapagai.core.response.common.ReviewListResponse;
-import com.mchapagai.movies.api.ShowsAPI;
-import com.mchapagai.movies.model.binding.OnTheAirResponse;
-import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
-import com.mchapagai.core.utils.RxUtils;
+import com.mchapagai.core.response.shows.ShowListResponse;
+import com.mchapagai.core.response.shows.ShowsDetailsResponse;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 public class ShowsViewModelImpl implements ShowsViewModel {
 
-    private final ShowsAPI showsAPI;
+    private final Provider<ShowAPI> showsAPI;
 
     @Inject
-    public ShowsViewModelImpl(ShowsAPI showsAPI) {
+    public ShowsViewModelImpl(Provider<ShowAPI> showsAPI) {
         this.showsAPI = showsAPI;
     }
 
     @Override
-    public Observable<OnTheAirResponse> discoverOnTheAirShows() {
-        return showsAPI.discoverOnTheAirShows().compose(RxUtils.INSTANCE.applyObservableSchedulers());
+    public Flowable<ShowListResponse> discoverShows(int page, String sortBy) {
+        return showsAPI.get().discoverShows(page, sortBy);
     }
 
     @Override
-    public Observable<ShowsDetailsResponse> discoverShowsDetailsAppendVideos(int tvId) {
-        return showsAPI.discoverShowsDetailsAppendVideos(tvId).compose(RxUtils.INSTANCE.applyObservableSchedulers());
+    public Observable<ShowsDetailsResponse> fetchShowDetailsById(int showId) {
+        return showsAPI.get().fetchShowDetailsById(showId);
     }
 
     @Override
-    public Observable<ReviewListResponse> getReviewsById(final int movieId) {
-        return showsAPI.getReviewsById(movieId).compose(RxUtils.INSTANCE.applyObservableSchedulers());
+    public Observable<ReviewListResponse> fetchShowReviewsById(final int showId) {
+        return showsAPI.get().fetchShowReviewsById(showId);
     }
 
 }

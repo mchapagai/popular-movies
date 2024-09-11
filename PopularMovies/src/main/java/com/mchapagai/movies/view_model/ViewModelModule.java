@@ -1,12 +1,14 @@
 package com.mchapagai.movies.view_model;
 
 import com.mchapagai.core.api.MovieAPI;
+import com.mchapagai.core.api.PeopleAPI;
+import com.mchapagai.core.api.ShowAPI;
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.api.SearchAPI;
-import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.api.impl.APIModule;
 import com.mchapagai.movies.view_model.impl.LoginViewModelImpl;
 import com.mchapagai.movies.view_model.impl.MovieViewModelImpl;
+import com.mchapagai.movies.view_model.impl.PeopleViewModelImpl;
 import com.mchapagai.movies.view_model.impl.SearchViewModelImpl;
 import com.mchapagai.movies.view_model.impl.ShowsViewModelImpl;
 
@@ -26,18 +28,23 @@ public class ViewModelModule {
     }
 
     @Provides
-    SearchViewModel providesSearchViewModel(SearchAPI movieAPI) {
-        return new SearchViewModelImpl(movieAPI);
+    PeopleViewModel providesPeopleViewModel(Provider<PeopleAPI> api) {
+        return new PeopleViewModelImpl(api);
+    }
+
+    @Provides
+    ShowsViewModel providesShowsViewModel(Provider<ShowAPI> showsAPI) {
+        return new ShowsViewModelImpl(showsAPI);
+    }
+
+    @Provides
+    SearchViewModel providesSearchViewModel(SearchAPI searchAPI) {
+        return new SearchViewModelImpl(searchAPI);
     }
 
     @Provides
     LoginViewModel providesLoginViewModel(LoginAPI loginAPI) {
         return new LoginViewModelImpl(loginAPI);
-    }
-
-    @Provides
-    ShowsViewModel providesTvViewModel(ShowsAPI showsAPI) {
-        return new ShowsViewModelImpl(showsAPI);
     }
 
 }

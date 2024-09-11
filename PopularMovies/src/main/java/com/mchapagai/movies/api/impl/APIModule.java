@@ -2,16 +2,18 @@ package com.mchapagai.movies.api.impl;
 
 import com.mchapagai.core.api.MovieAPI;
 import com.mchapagai.core.api.MoviesAPIImpl;
+import com.mchapagai.core.api.PeopleAPI;
+import com.mchapagai.core.api.PeopleAPIImpl;
+import com.mchapagai.core.api.ShowAPI;
+import com.mchapagai.core.api.ShowAPIImpl;
 import com.mchapagai.core.service.MovieService;
+import com.mchapagai.core.service.PeopleService;
+import com.mchapagai.core.service.ShowService;
 import com.mchapagai.movies.api.LoginAPI;
 import com.mchapagai.movies.api.SearchAPI;
-import com.mchapagai.movies.api.ShowsAPI;
 import com.mchapagai.movies.service.LoginService;
 import com.mchapagai.movies.service.MovieSearchService;
 import com.mchapagai.movies.service.ServiceModule;
-import com.mchapagai.movies.service.ShowsService;
-import com.mchapagai.movies.view_model.MovieViewModel;
-import com.mchapagai.movies.view_model.impl.MovieViewModelImpl;
 
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -32,6 +34,12 @@ public class APIModule {
 
     @Provides
     @Singleton
+    PeopleAPI providesPeopleAPI(PeopleService service) {
+        return new PeopleAPIImpl(service);
+    }
+
+    @Provides
+    @Singleton
     SearchAPI providesSearchAPI(Provider<MovieSearchService> service) {
         return new SearchAPIImpl(service);
     }
@@ -44,7 +52,7 @@ public class APIModule {
 
     @Singleton
     @Provides
-    ShowsAPI providesTvAPI(Provider<ShowsService> service) {
-        return new ShowsAPIImpl(service);
+    ShowAPI providesShowAPI(ShowService service) {
+        return new ShowAPIImpl(service);
     }
 }

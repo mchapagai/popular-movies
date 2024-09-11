@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.ShowDetailsAdapter;
 import com.mchapagai.movies.common.BaseActivity;
@@ -39,7 +40,7 @@ public class ShowDetailsActivity extends BaseActivity {
     ImageView showDetailsBackdrop;
     FloatingActionButton showsFavorite;
     Toolbar showsToolbar;
-    private OnTheAir onTheAir;
+    private ShowResponse onTheAir;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
@@ -119,26 +120,26 @@ public class ShowDetailsActivity extends BaseActivity {
 
     private void loadShowDetails() {
         MaterialTextView showsInfo = findViewById(R.id.shows_info);
-        compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
+        compositeDisposable.add(showsViewModel.fetchShowDetailsById(onTheAir.getId())
                 .subscribe(
                         showsDetailsResponse -> {
 
                             if (showsDetailsResponse != null) {
-                                String info = getString(R.string.concat_strings_placeholder_shows,
-                                        showsDetailsResponse.getNumberOfSeasons(),
-                                        showsDetailsResponse.getNumberOfEpisodes(),
-                                        showsDetailsResponse.getPopularity(),
-                                        DateTimeUtils.getNameOfMonth(
-                                                showsDetailsResponse.getFirstAirDate()),
-                                        showsDetailsResponse.getVoteAverage(),
-                                        DateTimeUtils.getNameOfMonth(
-                                                showsDetailsResponse.getLastAirDate()),
-                                        showsDetailsResponse.getStatus());
+//                                String info = getString(R.string.concat_strings_placeholder_shows,
+//                                        showsDetailsResponse.numberOfSeasons,
+//                                        showsDetailsResponse.numberOfEpisodes,
+//                                        showsDetailsResponse.popularity,
+//                                        DateTimeUtils.getNameOfMonth(
+//                                                showsDetailsResponse.firstAirDate),
+//                                        showsDetailsResponse.voteAverage,
+//                                        DateTimeUtils.getNameOfMonth(
+//                                                showsDetailsResponse.lastAirDate),
+//                                        showsDetailsResponse.status);
                                 // Make sure setSelected is specified for marqueee to work
                                 showsInfo.setSelected(true);
                                 showsInfo.setTextColor(
                                         getResources().getColor(R.color.darkThemePrimary));
-                                showsInfo.setText(info);
+                                showsInfo.setText(showsDetailsResponse.getName());
                             } else {
                                 showsInfo.setVisibility(View.GONE);
                             }

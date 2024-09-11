@@ -1,17 +1,18 @@
 package com.mchapagai.movies.view_model;
 
 import com.mchapagai.core.response.common.ReviewListResponse;
-import com.mchapagai.movies.model.binding.OnTheAirResponse;
-import com.mchapagai.movies.model.binding.ShowsDetailsResponse;
+import com.mchapagai.core.response.shows.ShowListResponse;
+import com.mchapagai.core.response.shows.ShowsDetailsResponse;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 public interface ShowsViewModel {
 
-    Observable<OnTheAirResponse> discoverOnTheAirShows();
+    Flowable<ShowListResponse> discoverShows(int page, String sortBy);
 
-    Observable<ShowsDetailsResponse> discoverShowsDetailsAppendVideos(int tvId);
+    Observable<ShowsDetailsResponse> fetchShowDetailsById(int showId);
 
-    Observable<ReviewListResponse> getReviewsById(int movieId);
+    Observable<ReviewListResponse> fetchShowReviewsById(int showId);
 
 }

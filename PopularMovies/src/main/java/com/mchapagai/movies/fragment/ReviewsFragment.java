@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mchapagai.core.response.common.ReviewListResponse;
 import com.mchapagai.core.response.common.ReviewResponse;
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.ReviewsAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,10 +35,10 @@ public class ReviewsFragment extends BaseFragment {
     @Inject
     ShowsViewModel showsViewModel;
 
-    private OnTheAir onTheAir;
+    private ShowResponse onTheAir;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public static ReviewsFragment newInstance(OnTheAir onTheAir) {
+    public static ReviewsFragment newInstance(ShowResponse onTheAir) {
         if (onTheAir == null) {
             throw new IllegalArgumentException("The Movies Data can not be null");
         }
@@ -68,7 +68,7 @@ public class ReviewsFragment extends BaseFragment {
     }
 
     private void loadMovieReviews() {
-        compositeDisposable.add(showsViewModel.getReviewsById(onTheAir.getId())
+        compositeDisposable.add(showsViewModel.fetchShowReviewsById(onTheAir.getId())
                 .subscribe(
                         response -> reviewsResponseItems(response),
                         throwable -> MaterialDialogUtils.showDialog(getActivity(),

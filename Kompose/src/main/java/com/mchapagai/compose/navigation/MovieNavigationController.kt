@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.mchapagai.compose.about.AboutScreen
 import com.mchapagai.compose.movies.MovieDetailsScreen
 import com.mchapagai.compose.movies.SearchScreen
 import com.mchapagai.compose.navigation.Routes.CREDIT_ID_ARGUMENT
@@ -37,6 +38,9 @@ fun MovieNavigationController() {
                 },
                 onClickSearch = {
                     navController.navigate(Routes.SEARCH_SCREEN)
+                },
+                onClickInfo = {
+                    navController.navigate(Routes.ABOUT_SCREEN)
                 }
             )
         }
@@ -79,10 +83,12 @@ fun MovieNavigationController() {
             )
         }
 
-        composable(Routes.ABOUT_SCREEN) { AboutScreen() }
+        composable(Routes.ABOUT_SCREEN) {
+            AboutScreen(
+                onBackPress = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
-}
-
-@Composable
-fun AboutScreen() {
 }

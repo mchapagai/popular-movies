@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.fragment.InfoFragment;
 import com.mchapagai.movies.fragment.ReviewsFragment;
 import com.mchapagai.movies.fragment.TrailerFragment;
@@ -13,9 +14,9 @@ public class ShowDetailsAdapter extends FragmentStatePagerAdapter {
 
     private final int PAGE_COUNT = 3;
     private String tablayoutTitles[] = new String[]{"Overview", "Videos", "Reviews"};
-    private OnTheAir onTheAir;
+    private ShowResponse onTheAir;
 
-    public ShowDetailsAdapter(final FragmentManager fm, OnTheAir onTheAir) {
+    public ShowDetailsAdapter(final FragmentManager fm, ShowResponse onTheAir) {
         super(fm);
         this.onTheAir = onTheAir;
     }

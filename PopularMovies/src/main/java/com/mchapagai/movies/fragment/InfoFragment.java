@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
@@ -26,9 +27,9 @@ public class InfoFragment extends BaseFragment {
 
     MaterialTextView showsReleaseDate;
 
-    private OnTheAir onTheAir;
+    private ShowResponse onTheAir;
 
-    public static InfoFragment newInstance(OnTheAir onTheAir) {
+    public static InfoFragment newInstance(ShowResponse onTheAir) {
         if (onTheAir == null) {
             throw new IllegalArgumentException("The Movies Data can not be null");
         }

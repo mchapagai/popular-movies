@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.shows.ShowListResponse;
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.activity.ShowDetailsActivity;
 import com.mchapagai.movies.adapter.ShowsGridAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.OnTheAir;
-import com.mchapagai.movies.model.binding.OnTheAirResponse;
 import com.mchapagai.movies.utils.MaterialDialogUtils;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 import com.mchapagai.movies.views.PageLoader;
@@ -62,8 +62,8 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
         return view;
     }
 
-    private void showsResponseItems(OnTheAirResponse response) {
-        final List<OnTheAir> ontheAirItems = response.getOnTheAir();
+    private void showsResponseItems(ShowListResponse response) {
+        final List<ShowResponse> ontheAirItems = response.getShows();
         ShowsGridAdapter tvGridAdapter = new ShowsGridAdapter(ontheAirItems);
         tvGridAdapter.setOnShowClickListener((shows, position) -> {
             Intent intent = new Intent(getActivity(), ShowDetailsActivity.class);
@@ -75,7 +75,7 @@ public class DiscoverOnTheAirFragment extends BaseFragment {
 
     private void loadMovies() {
         pageLoader.setVisibility(View.VISIBLE);
-        compositeDisposable.add(showsViewModel.discoverOnTheAirShows()
+        compositeDisposable.add(showsViewModel.discoverShows(1, "popularity.desc")
                 .doFinally(() -> pageLoader.setVisibility(View.GONE))
                 .subscribe(
                         response -> showsResponseItems(response),

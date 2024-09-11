@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mchapagai.core.response.common.VideoResponse;
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.views.ItemOffsetDecoration;
 import com.mchapagai.movies.views.MaterialTextView;
 import com.mchapagai.movies.R;
@@ -42,7 +43,7 @@ public class TrailerFragment extends BaseFragment {
 
     TextView showsVideosTitle;
 
-    private OnTheAir onTheAir;
+    private ShowResponse onTheAir;
     private VideosAdapter videosAdapter;
     private final List<VideoResponse> videoItems = new ArrayList<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -50,7 +51,7 @@ public class TrailerFragment extends BaseFragment {
     @Inject
     ShowsViewModel showsViewModel;
 
-    public static TrailerFragment newInstance(OnTheAir onTheAir) {
+    public static TrailerFragment newInstance(ShowResponse onTheAir) {
         if (onTheAir == null) {
             throw new IllegalArgumentException("The Movies Data can not be null");
         }
@@ -85,7 +86,7 @@ public class TrailerFragment extends BaseFragment {
 
     private void loadVideos() {
 
-        compositeDisposable.add(showsViewModel.discoverShowsDetailsAppendVideos(onTheAir.getId())
+        compositeDisposable.add(showsViewModel.fetchShowDetailsById(onTheAir.getId())
                 .subscribe(
                         showsDetailsResponse -> {
                             if (showsDetailsResponse.getVideos().getVideoList().isEmpty()) {

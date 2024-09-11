@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
 import com.mchapagai.movies.model.OnTheAir;
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.ViewHolder> {
 
-    private List<OnTheAir> onTheAirItems;
+    private List<ShowResponse> onTheAirItems;
     private OnShowClickListener onShowClickListener;
 
-    public ShowsGridAdapter(List<OnTheAir> onTheAirItems) {
+    public ShowsGridAdapter(List<ShowResponse> onTheAirItems) {
         this.onTheAirItems = onTheAirItems;
     }
 
@@ -44,7 +45,7 @@ public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final OnTheAir shows = onTheAirItems.get(position);
+        final ShowResponse shows = onTheAirItems.get(position);
 
         String posterUrl = Constants.SECURE_BASE_URL + shows.getPosterPath();
         Picasso.get().load(posterUrl)
@@ -70,7 +71,7 @@ public class ShowsGridAdapter extends RecyclerView.Adapter<ShowsGridAdapter.View
     }
 
     public interface OnShowClickListener {
-        void onItemClick(OnTheAir onTheAir, int position);
+        void onItemClick(ShowResponse onTheAir, int position);
     }
 
 }
