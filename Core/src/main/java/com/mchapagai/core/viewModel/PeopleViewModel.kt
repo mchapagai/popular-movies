@@ -1,14 +1,12 @@
 package com.mchapagai.core.viewModel
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.mchapagai.core.api.PeopleAPI
 import com.mchapagai.core.api.PeopleAPIImpl
 import com.mchapagai.core.common.RetrofitClient
-import com.mchapagai.core.response.people.CombinedPersonResponse
+import com.mchapagai.core.model.PeopleCombinedCreditModel
 import com.mchapagai.core.response.people.PersonResponse
 import com.mchapagai.core.service.PeopleService
 import io.reactivex.disposables.CompositeDisposable
@@ -25,43 +23,54 @@ class PeopleViewModel : ViewModel() {
     private val _person = mutableStateOf<PersonResponse?>(null)
     val personDetails: MutableState<PersonResponse?> get() = _person
 
-    var combinedPersonDetails by mutableStateOf<CombinedPersonResponse?>(null)
-        private set
+    private val _combinedPersonDetails =
+        mutableStateOf<List<PeopleCombinedCreditModel>>(emptyList())
+    val combinedPersonDetails: MutableState<List<PeopleCombinedCreditModel>>
+        get() = _combinedPersonDetails
 
-    var isLoading by mutableStateOf(false)
-        private set
+    private val _isLoading = mutableStateOf(false)
+    val isLoading: MutableState<Boolean> get() = _isLoading
 
     fun fetchPersonDetails(personId: Int) {
-        isLoading = true
+        _isLoading.value = true
         compositeDisposable.add(
             peopleAPI.getPersonDetailsById(personId)
                 .subscribe(
                     { response ->
                         _person.value = response
-                        isLoading = false
+                        _isLoading.value = false
                     },
                     { error ->
                         // Handle error
                         _person.value = null
-                        isLoading = false
+                        _isLoading.value = false
                     }
                 )
         )
     }
 
     fun fetchPersonCombinedDetails(personId: Int) {
-        isLoading = true
+        _isLoading.value = true
         compositeDisposable.add(
             peopleAPI.getPersonCombinedDetailsById(personId)
+                .map { response ->
+                    PeopleCombinedCreditModel(
+                    ).personCombinedResponse(
+                        response.cast.filter {
+                            it.posterPath != null
+                        }, response.crew.filter {
+                            it.posterPath != null
+                        }
+                    )
+                }
                 .subscribe(
-                    { response ->
-                        combinedPersonDetails = response
-                        isLoading = false
+                    { credits ->
+                        _combinedPersonDetails.value = credits
+                        _isLoading.value = false
                     },
                     { error ->
-                        // Handle error
-                        combinedPersonDetails = null
-                        isLoading = false
+                        _combinedPersonDetails.value = emptyList()
+                        _isLoading.value = false
                     }
                 )
         )

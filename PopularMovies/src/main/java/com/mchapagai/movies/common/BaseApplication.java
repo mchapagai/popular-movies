@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 
 import com.mchapagai.movies.BuildConfig;
 import com.mchapagai.movies.injection.DaggerAppComponent;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import javax.inject.Inject;
@@ -54,9 +53,6 @@ public class BaseApplication extends Application implements HasActivityInjector,
 
             LeakLoggerService.setupLeakCanary(this);
         }
-//        refWatcher = LeakCanary.install(this);
-//        LeakCanary.install(this);
-
         DaggerAppComponent.builder().build().inject(this);
     }
 

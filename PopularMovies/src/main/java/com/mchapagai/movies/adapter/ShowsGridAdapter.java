@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.widget.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 

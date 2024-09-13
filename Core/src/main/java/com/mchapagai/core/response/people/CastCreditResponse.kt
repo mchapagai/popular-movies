@@ -5,27 +5,24 @@ import com.mchapagai.core.common.Constants
 import com.mchapagai.core.utils.DateTimeUtils
 
 data class CastCreditResponse(
-    @SerializedName("first_air_date") val firstAirDate: String,
-    @SerializedName("overview") val overview: String,
-    @SerializedName("original_language") val originalLanguage: String,
-    @SerializedName("episode_count") val episodeCount: Int,
-    @SerializedName("poster_path") val posterPath: String = "",
-    @SerializedName("origin_country") val originCountry: List<String>,
-    @SerializedName("backdrop_path") val backdropPath: String,
-    @SerializedName("character") val character: String,
-    @SerializedName("media_type") val mediaType: String,
-    @SerializedName("credit_id") val creditId: String,
-    @SerializedName("original_name") val originalName: String,
-    @SerializedName("popularity") val popularity: Double,
-    @SerializedName("vote_average") val voteAverage: Double,
-    @SerializedName("name") val name: String,
-    @SerializedName("id") val id: Int,
-    @SerializedName("vote_count") val voteCount: Int,
-    @SerializedName("original_title") val originalTitle: String,
-    @SerializedName("video") val isVideo: Boolean,
-    @SerializedName("title") val title: String,
-    @SerializedName("release_date") val releaseDate: String?,
-    @SerializedName("adult") val isAdult: Boolean
+    @SerializedName("adult") var adult: Boolean? = null,
+    @SerializedName("backdrop_path") var backdropPath: String? = null,
+    @SerializedName("genre_ids") var genreIds: ArrayList<Int> = arrayListOf(),
+    @SerializedName("id") var id: Int? = null,
+    @SerializedName("original_language") var originalLanguage: String? = null,
+    @SerializedName("original_title") var originalTitle: String? = null,
+    @SerializedName("overview") var overview: String? = null,
+    @SerializedName("popularity") var popularity: Double? = null,
+    @SerializedName("poster_path") var posterPath: String? = null,
+    @SerializedName("release_date") var releaseDate: String? = null,
+    @SerializedName("title") var title: String? = null,
+    @SerializedName("video") var video: Boolean? = null,
+    @SerializedName("vote_average") var voteAverage: Double? = null,
+    @SerializedName("vote_count") var voteCount: Int? = null,
+    @SerializedName("character") var character: String? = null,
+    @SerializedName("credit_id") var creditId: String? = null,
+    @SerializedName("order") var order: Int? = null,
+    @SerializedName("media_type") var mediaType: String? = null
 ) {
 
     fun getProfilePath(): String {

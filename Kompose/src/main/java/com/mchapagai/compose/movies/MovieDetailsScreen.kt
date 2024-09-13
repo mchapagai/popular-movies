@@ -79,7 +79,7 @@ fun MovieDetailsScreen(
     val videos by remember { derivedStateOf { viewModel.videoList } }
     val reviews by remember { derivedStateOf { viewModel.reviewList } }
 
-    LaunchedEffect(key1 = movieId) {
+    LaunchedEffect(movieId) {
         viewModel.fetchMovieDetails(movieId = movieId)
         viewModel.fetchMovieCreditDetailsByCreditId(movieId = movieId)
         viewModel.fetchMovieVideos(movieId = movieId)

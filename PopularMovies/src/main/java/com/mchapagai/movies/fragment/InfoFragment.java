@@ -12,7 +12,6 @@ import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.R;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.utils.DateTimeUtils;
 import com.mchapagai.movies.views.MaterialTextView;
 

@@ -1,5 +1,6 @@
 package com.mchapagai.movies.adapter;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -8,7 +9,6 @@ import com.mchapagai.core.response.shows.ShowResponse;
 import com.mchapagai.movies.fragment.InfoFragment;
 import com.mchapagai.movies.fragment.ReviewsFragment;
 import com.mchapagai.movies.fragment.TrailerFragment;
-import com.mchapagai.movies.model.OnTheAir;
 
 public class ShowDetailsAdapter extends FragmentStatePagerAdapter {
 
@@ -32,21 +32,15 @@ public class ShowDetailsAdapter extends FragmentStatePagerAdapter {
     /**
      * Return the Fragment associated with a specified position.
      */
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = InfoFragment.newInstance(onTheAir);
-                break;
-            case 1:
-                fragment = TrailerFragment.newInstance(onTheAir);
-                break;
-            case 2:
-                fragment = ReviewsFragment.newInstance(onTheAir);
-                break;
-        }
-        return fragment;
+        return switch (position) {
+            case 0 -> InfoFragment.newInstance(onTheAir);
+            case 1 -> TrailerFragment.newInstance(onTheAir);
+            case 2 -> ReviewsFragment.newInstance(onTheAir);
+            default -> null;
+        };
     }
 
     /**

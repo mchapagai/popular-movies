@@ -23,7 +23,6 @@ import com.mchapagai.movies.R;
 import com.mchapagai.movies.adapter.VideosAdapter;
 import com.mchapagai.movies.common.BaseFragment;
 import com.mchapagai.movies.common.Constants;
-import com.mchapagai.movies.model.OnTheAir;
 import com.mchapagai.movies.view_model.ShowsViewModel;
 
 import java.util.ArrayList;

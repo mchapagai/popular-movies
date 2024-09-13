@@ -26,19 +26,6 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class ProfileActivity extends BaseActivity {
 
-//    @BindView(R.id.circle_image_view)
-//    MaterialCircleImageView circleImageView;
-//    @BindView(R.id.collapsing_toolbar_layout)
-//    CollapsingToolbarLayout collapsingToolbar;
-//    @BindView(R.id.profile_name)
-//    MaterialTextView profileName;
-//    @BindView(R.id.profile_movie_nav)
-//    LinearLayout profileMovieLaunch;
-//    @BindView(R.id.profile_show_nav)
-//    LinearLayout profileShowLaunch;
-//    @BindView(R.id.button_signout)
-//    MaterialButton signoutButton;
-
     @Inject
     LoginViewModel loginViewModel;
 

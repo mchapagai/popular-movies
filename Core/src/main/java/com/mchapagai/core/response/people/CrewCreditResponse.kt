@@ -4,25 +4,26 @@ import com.google.gson.annotations.SerializedName
 import com.mchapagai.core.utils.DateTimeUtils
 
 data class CrewCreditResponse(
-    @SerializedName("overview") val overview: String,
-    @SerializedName("original_language") val originalLanguage: String,
-    @SerializedName("original_title") val originalTitle: String,
-    @SerializedName("video") val isVideo: Boolean,
-    @SerializedName("title") val title: String,
-    @SerializedName("poster_path") val posterPath: String,
-    @SerializedName("backdrop_path") val backdropPath: String,
-    @SerializedName("media_type") val mediaType: String,
-    @SerializedName("release_date") val releaseDate: String,
-    @SerializedName("credit_id") val creditId: String,
-    @SerializedName("vote_average") val voteAverage: Double,
-    @SerializedName("popularity") val popularity: Double,
-    @SerializedName("id") val id: Int,
-    @SerializedName("department") val department: String,
-    @SerializedName("job") val job: String,
-    @SerializedName("adult") val isAdult: Boolean,
-    @SerializedName("vote_count") val voteCount: Int
+    @SerializedName("adult") var adult: Boolean? = null,
+    @SerializedName("backdrop_path") var backdropPath: String? = null,
+    @SerializedName("genre_ids") var genreIds: ArrayList<Int> = arrayListOf(),
+    @SerializedName("id") var id: Int? = null,
+    @SerializedName("original_language") var originalLanguage: String? = null,
+    @SerializedName("original_title") var originalTitle: String? = null,
+    @SerializedName("overview") var overview: String? = null,
+    @SerializedName("popularity") var popularity: Double? = null,
+    @SerializedName("poster_path") var posterPath: String? = null,
+    @SerializedName("release_date") var releaseDate: String? = null,
+    @SerializedName("title") var title: String? = null,
+    @SerializedName("video") var video: Boolean? = null,
+    @SerializedName("vote_average") var voteAverage: Double? = null,
+    @SerializedName("vote_count") var voteCount: Int? = null,
+    @SerializedName("credit_id") var creditId: String? = null,
+    @SerializedName("department") var department: String? = null,
+    @SerializedName("job") var job: String? = null,
+    @SerializedName("media_type") var mediaType: String? = null
 ) {
     fun releaseDateYearOnly(): String {
-        return DateTimeUtils.getYearOnly(releaseDate)
+        return DateTimeUtils.getYearOnly(releaseDate ?: "")
     }
 }
